@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="title_activity_registrarse">RegistrarseActivity</string>
+
+    <!-- Login -->
+    <string name="hint_usario">Usuario</string>
+    <string name="hint_contra">Contraseña</string>
+    <string name="boton_login">Login</string>
+    <string name="boton_registrarse">Registrarse</string>
+    <string name="checkbox_recordame">Recordame</string>
+    <string name="error_login">Usuario/Contraseña incorrectos</string>
 </resources>
