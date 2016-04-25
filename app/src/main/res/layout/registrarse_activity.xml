@@ -9,47 +9,34 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.lucila.myapplication.RegistrarseActivity"
     android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/registrarse_subtitulo"
-            />
-    </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        style="@style/panelContenedor">
 
         <EditText
             android:id="@+id/user_textfield_registrarse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_usario"
+            android:hint="@string/hint_usario_registrase"
             android:imeOptions="actionNext"
             />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        style="@style/panelContenedor">
 
         <EditText
             android:id="@+id/contra_textfield_registrarse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_contra"
+            android:hint="@string/hint_contra_registrarse"
             android:focusable="true"
             android:imeOptions="actionNext"
             />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        style="@style/panelContenedor">
 
         <EditText
             android:id="@+id/repetir_contra_textfield_registrarse"
@@ -62,8 +49,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        style="@style/panelContenedor">
 
         <EditText
             android:id="@+id/telefono_textfield_registrarse"
@@ -76,8 +62,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        style="@style/panelContenedor">
 
         <EditText
             android:id="@+id/deportes_textfield_registrarse"
@@ -90,8 +75,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/panelContenedor"
         android:orientation="horizontal">
 
         <EditText
@@ -111,9 +95,17 @@
             android:onClick="obtenerUbicacion"
             />
     </LinearLayout>
-
     <LinearLayout
-        android:layout_width="match_parent"
+        style="@style/panelContenedor">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="* Indica información requerida"/>
+    </LinearLayout>
+    <LinearLayout
+        style="@style/panelContenedor"
         android:layout_height="match_parent"
         android:gravity="bottom|right">
 
