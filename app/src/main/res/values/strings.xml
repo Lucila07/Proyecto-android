@@ -1,12 +1,21 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Empresa</string>
     <string name="title_activity_registrarse">RegistrarseActivity</string>
 
-    <!-- Login -->
+    <!-- Pantalla Login -->
     <string name="hint_usario">Usuario</string>
     <string name="hint_contra">Contraseña</string>
     <string name="boton_login">Login</string>
     <string name="boton_registrarse">Registrarse</string>
     <string name="checkbox_recordame">Recordame</string>
     <string name="error_login">Usuario/Contraseña incorrectos</string>
+
+    <!-- Pantalla Registrarse -->
+    <string name="registrarse_subtitulo">Registrarse</string>
+    <string name="hint_repetir_contra">Repetir Contraseña</string>
+    <string name="hint_telefono">Teléfono</string>
+    <string name="label_deportes_registrarse">Deportes</string>
+    <string name="hint_ubicacion">Ubicación</string>
+    <string name="boton_registrar">Registrarme</string>
+    <string name="boton_cancelar">Cancelar</string>
 </resources>

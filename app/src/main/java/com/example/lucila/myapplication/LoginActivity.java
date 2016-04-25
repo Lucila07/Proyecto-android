@@ -1,5 +1,6 @@
 package com.example.lucila.myapplication;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -51,6 +52,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public void registrarse(View view) {
         //TODO iniciar la activadad de registrarse
+        Intent registrarse= new Intent(this,RegistrarseActivity.class);
+        startActivity(registrarse);
     }
 
     //Métodos privados
