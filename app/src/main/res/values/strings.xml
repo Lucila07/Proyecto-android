@@ -17,5 +17,6 @@
     <string name="label_deportes_registrarse">Deportes</string>
     <string name="hint_ubicacion">Ubicación</string>
     <string name="boton_registrar">Registrarme</string>
+
     <string name="boton_cancelar">Cancelar</string>
 </resources>
