@@ -3,117 +3,191 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.lucila.myapplication.RegistrarseActivity"
     android:orientation="vertical">
 
-    <LinearLayout
-        style="@style/panelContenedor">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/user_textfield_registrarse"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_usario_registrase"
-            android:imeOptions="actionNext"
-            />
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin">
 
-    <LinearLayout
-        style="@style/panelContenedor">
+            <LinearLayout
+                style="@style/panelContenedor"
+                android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/contra_textfield_registrarse"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_contra_registrarse"
-            android:focusable="true"
-            android:imeOptions="actionNext"
-            />
-    </LinearLayout>
+                <EditText
+                    android:id="@+id/email_textfield_registrarse"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_email_registrase"
+                    android:inputType="textEmailAddress"
+                    android:imeOptions="actionNext"
+                    />
 
-    <LinearLayout
-        style="@style/panelContenedor">
+                <TextView
+                    android:id="@+id/error_email_textfield_registrarse"
+                    style="@style/textoErrorDenso"
+                    android:paddingLeft="4dp"
+                    />
+            </LinearLayout>
 
-        <EditText
-            android:id="@+id/repetir_contra_textfield_registrarse"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_repetir_contra"
-            android:focusable="true"
-            android:imeOptions="actionNext"
-            />
-    </LinearLayout>
+            <LinearLayout
+                style="@style/panelContenedor"
+                android:orientation="vertical">
 
-    <LinearLayout
-        style="@style/panelContenedor">
+                <EditText
+                    android:id="@+id/user_textfield_registrarse"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_usario_registrase"
+                    android:focusable="true"
+                    android:inputType="textNoSuggestions"
+                    android:imeOptions="actionNext"
+                    />
 
-        <EditText
-            android:id="@+id/telefono_textfield_registrarse"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_telefono"
-            android:focusable="true"
-            android:imeOptions="actionNext"
-            />
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/error_usuario_textfield_registrarse"
+                    style="@style/textoErrorDenso"
+                    android:paddingLeft="4dp"
+                />
+            </LinearLayout>
 
-    <LinearLayout
-        style="@style/panelContenedor">
+            <LinearLayout
+                style="@style/panelContenedor"
+                android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/deportes_textfield_registrarse"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/label_deportes_registrarse"
-            android:focusable="true"
-            android:imeOptions="actionNext"
-            />
-    </LinearLayout>
+                <EditText
+                    android:id="@+id/contra_textfield_registrarse"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_contra_registrarse"
+                    android:focusable="true"
+                    android:inputType="textPassword"
+                    android:imeOptions="actionNext"
+                    />
 
-    <LinearLayout
-        style="@style/panelContenedor"
-        android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/error_contra_textfield_registrarse"
+                    style="@style/textoErrorDenso"
+                    android:paddingLeft="4dp"
+                    />
+            </LinearLayout>
 
-        <EditText
-            android:id="@+id/ubicacion_textfield_registrarse"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_ubicacion"
-            android:layout_weight="1"
-            android:focusable="true"
-            android:imeOptions="actionDone"
-            />
+            <LinearLayout
+                style="@style/panelContenedor"
+                android:orientation="vertical">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ubicación"
-            android:onClick="obtenerUbicacion"
-            />
-    </LinearLayout>
-    <LinearLayout
-        style="@style/panelContenedor">
+                <EditText
+                    android:id="@+id/repetir_contra_textfield_registrarse"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_repetir_contra"
+                    android:focusable="true"
+                    android:inputType="textPassword"
+                    android:imeOptions="actionNext"
+                    />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:text="* Indica información requerida"/>
-    </LinearLayout>
-    <LinearLayout
-        style="@style/panelContenedor"
-        android:layout_height="match_parent"
-        android:gravity="bottom|right">
+                <TextView
+                    android:id="@+id/error_repetir_contra_textfield_registrarse"
+                    style="@style/textoErrorDenso"
+                    android:paddingLeft="4dp"
+                    />
+            </LinearLayout>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/boton_registrar"
-            android:onClick="registrarse"
-            />
-    </LinearLayout>
+            <LinearLayout
+                style="@style/panelContenedor"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/telefono_textfield_registrarse"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_telefono"
+                    android:focusable="true"
+                    android:inputType="phone"
+                    android:imeOptions="actionNext"
+                    />
+
+                <TextView
+                    android:id="@+id/error_telefono_textfield_registrarse"
+                    style="@style/textoErrorDenso"
+                    android:paddingLeft="4dp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/panelContenedor"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/deportes_textfield_registrarse"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/label_deportes_registrarse"
+                    android:focusable="true"
+                    android:imeOptions="actionNext"
+                    />
+
+                <TextView
+                    android:id="@+id/error_deportes_textfield_registrarse"
+                    style="@style/textoErrorDenso"
+                    android:paddingLeft="4dp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/panelContenedor"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/ubicacion_textfield_registrarse"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_ubicacion"
+                    android:layout_weight="1"
+                    android:focusable="true"
+                    android:imeOptions="actionDone"
+                    />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ubicación"
+                    android:onClick="obtenerUbicacion"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="* Indica información requerida"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="right">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/boton_registrar"
+                    android:onClick="registrarse"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

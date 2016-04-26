@@ -11,13 +11,21 @@
     <string name="error_login">Usuario/Contraseña incorrectos</string>
 
     <!-- Pantalla Registrarse -->
-    <string name="hint_usario_registrase">Usuario *</string>
-    <string name="hint_contra_registrarse">Contraseña *</string>
-    <string name="hint_repetir_contra">Repetir Contraseña *</string>
+    <string name="hint_email_registrase">E-mail*</string>
+    <string name="hint_usario_registrase">Usuario*</string>
+    <string name="hint_contra_registrarse">Contraseña*</string>
+    <string name="hint_repetir_contra">Repetir Contraseña*</string>
     <string name="hint_telefono">Teléfono</string>
     <string name="label_deportes_registrarse">Deportes</string>
     <string name="hint_ubicacion">Ubicación</string>
     <string name="boton_registrar">Registrarme</string>
+    <!-- Errores pantalla Registrarse -->
+    <string name="error_email">El E-mail debe ser válido</string>
+    <string name="error_email_repetido">El E-mail ya está registrado</string>
+    <string name="error_repetir_contra">Las contraseñas deben coincidir</string>
+    <string name="error_contra">La contraseña debe de tener más de 4 caracteres</string>
+    <string name="error_usuario">Nombre de usuario no debe ser vacío</string>
+
 
     <string name="boton_cancelar">Cancelar</string>
 </resources>
