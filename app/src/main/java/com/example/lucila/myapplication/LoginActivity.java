@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
     //Métodos privados
     private boolean validar(String usuario, String contra) {
         //TODO validación con el server
-        return false;
+        return true;
     }
 
     private boolean yaLogueado() {
