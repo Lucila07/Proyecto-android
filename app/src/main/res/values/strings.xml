@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Empresa</string>
     <string name="title_activity_registrarse">Registrarse</string>
+    <string name="title_activity_menuppal">Menu Principal</string>
 
     <!-- Pantalla Login -->
     <string name="hint_usario">Usuario</string>
@@ -26,9 +27,14 @@
     <string name="error_contra">La contraseña debe de tener más de 4 caracteres</string>
     <string name="error_usuario">Nombre de usuario no debe ser vacío</string>
 
+    <!-- Pantalla menú principal -->
+    <string name="textview_restantes">Ofertas Restantes:</string>
+    <string name="boton_crear_oferta">Crear Oferta</string>
+    <string name="boton_ver_ofertas">Ver Creadas</string>
+    <string name="boton_comprar_ofertas">Comprar Ofertas</string>
+    <string name="boton_establecer_ubicacion">Establecer Ubicación</string>
+    <string name="boton_denunciar_usuario">Denunciar Usuario</string>
 
     <string name="boton_cancelar">Cancelar</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

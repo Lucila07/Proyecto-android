@@ -11,18 +11,30 @@
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".RegistrarseActivity"
             android:label="@string/title_activity_registrarse"
-            android:parentActivityName="com.example.lucila.myapplication.LoginActivity" >
-                <!-- The meta-data element is needed for versions lower than 4.1 -->
-                <meta-data
-                    android:name="android.support.PARENT_ACTIVITY"
-                    android:value="com.example.lucila.myapplication.LoginActivity" />
+            android:parentActivityName=".LoginActivity">
+
+            <!-- The meta-data element is needed for versions lower than 4.1 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".LoginActivity" />
+        </activity>
+
+        <activity
+            android:name=".MenuPrincipalActivity"
+            android:label="@string/title_activity_menuppal"
+            android:parentActivityName=".LoginActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".LoginActivity"
+                />
         </activity>
     </application>
 

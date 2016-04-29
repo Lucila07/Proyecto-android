@@ -46,6 +46,8 @@ public class LoginActivity extends AppCompatActivity {
             else { //El user se loguea correctamente
                 msjError.setVisibility(EditText.INVISIBLE);
                 //TODO iniciar la actividad de menu principal
+                Intent menuPPal= new Intent(this, MenuPrincipalActivity.class);
+                startActivity(menuPPal);
             }
 
     }
