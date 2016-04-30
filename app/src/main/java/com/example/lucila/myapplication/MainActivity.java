@@ -13,6 +13,10 @@ import android.support.v4.view.ViewPager;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.lucila.myapplication.Fragmentos.CrearPartidoFragment;
+import com.example.lucila.myapplication.Fragmentos.FragmentPartidos;
+import com.example.lucila.myapplication.Fragmentos.OfertasFragment;
+
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
@@ -22,10 +26,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //toolbar-------------
+        toolbar = (Toolbar) findViewById(R.id.toolbar); //encontramos la instancia de la toolbar
+        setSupportActionBar(toolbar);   //la setamos a la actividad
+        getSupportActionBar().setTitle("Deportes");
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false); //el boton de back
+        //--------------------
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
@@ -43,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager.setAdapter(adapter);
     }
+
+
+
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
