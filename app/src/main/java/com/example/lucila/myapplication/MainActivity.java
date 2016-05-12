@@ -3,6 +3,7 @@ package com.example.lucila.myapplication;
 import android.support.design.widget.TabLayout;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+  //  FragmentPagerAdapter
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
@@ -62,9 +63,9 @@ public class MainActivity extends AppCompatActivity {
             super(manager);
         }
 
-        @Override
+
         public Fragment getItem(int position) {
-            return mFragmentList.get(position);
+            return  mFragmentList.get(position);
         }
 
         @Override

@@ -12,8 +12,17 @@ import java.util.Date;
     private String deporte;
     private Date fecha;
     private Long hora;
-    private int codigo;
+    private Long codigo;
     private String estado;
+    private int idFoto;
+
+    public int getIdFoto() {
+        return idFoto;
+    }
+
+    public void setIdFoto(int idFoto) {
+        this.idFoto = idFoto;
+    }
 
     public String getUbicacion() {
         return ubicacion;
@@ -55,11 +64,11 @@ import java.util.Date;
 
     }
 
-    public int getCodigo() {
+    public Long getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(Long codigo) {
         this.codigo = codigo;
     }
 
