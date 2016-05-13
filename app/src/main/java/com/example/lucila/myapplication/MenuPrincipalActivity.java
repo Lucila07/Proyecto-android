@@ -18,7 +18,7 @@ public class MenuPrincipalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu_principal);
 
         mapBotonClase= new HashMap<Integer, Class>(7);
-        mapBotonClase.put(R.id.boton_crear_oferta, LoginActivity.class);
+        mapBotonClase.put(R.id.boton_crear_oferta, CrearOfertasActivity.class);
         mapBotonClase.put(R.id.boton_comprar_ofertas, LoginActivity.class);
         mapBotonClase.put(R.id.boton_denunciar_usuario, LoginActivity.class);
         mapBotonClase.put(R.id.boton_establecer_ubicacion, LoginActivity.class);
