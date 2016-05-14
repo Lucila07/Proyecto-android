@@ -11,10 +11,10 @@
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".RegistrarseActivity"
             android:label="@string/title_activity_registrarse"
@@ -25,16 +25,20 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
         </activity>
-
         <activity
             android:name=".MenuPrincipalActivity"
             android:label="@string/title_activity_menuppal"
             android:parentActivityName=".LoginActivity">
-
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".LoginActivity"
-                />
+                android:value=".LoginActivity" />
+        </activity>
+        <activity android:name=".CrearOfertasActivity"
+            android:label="@string/title.crear.oferta"
+            android:parentActivityName=".LoginActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".LoginActivity" />
         </activity>
     </application>
 
