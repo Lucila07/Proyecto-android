@@ -9,12 +9,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.lucila.myapplication.CrearOfertasActivity">
 
-    <fragment class="com.example.lucila.myapplication.CrearOfertasFragment"
+    <fragment
+        class="com.example.lucila.myapplication.CrearOfertasFragment"
         android:id="@+id/fragment_crear_oferta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:layout="@layout/fragment_crear_ofertas">
-
     </fragment>
 
 </RelativeLayout>

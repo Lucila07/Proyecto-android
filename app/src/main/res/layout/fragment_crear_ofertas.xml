@@ -32,6 +32,7 @@
                 style="@style/panelContenedor">
 
                 <EditText
+                    android:id="@+id/textView_hora"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/textview.hora"
@@ -41,10 +42,12 @@
             <LinearLayout
                 style="@style/panelContenedor">
                 
-                <EditText
+                <AutoCompleteTextView
+                    android:id="@+id/autocomplete_deporte"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/textview.deporte"
+                    android:completionThreshold="1"
                     />
             </LinearLayout>
             
@@ -82,6 +85,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="fecha"/>
+
+                <Button
+                    android:id="@+id/boton_hora"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="hora"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
