@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.example.lucila.beans.Oferta;
 
+import java.sql.Time;
 import java.util.Calendar;
 
 /**
@@ -15,7 +16,8 @@ import java.util.Calendar;
 public class CrearOfertasActivity
         extends AppCompatActivity
         implements CrearOfertasFragment.OnCrearOfertaListener,
-                   TimePickerFragment.OnFechaElegidaListener {
+                   TimePickerFragment.OnHoraElegidaListener,
+                   DatePickerFragment.OnFechaElegidaListener {
 
     private Oferta ofertaACrear;
     private Calendar fecha;
@@ -33,14 +35,26 @@ public class CrearOfertasActivity
     }
 
     @Override
-    public void mostrarDialogo() {
-        DialogFragment fecha= new TimePickerFragment();
-        fecha.show(getSupportFragmentManager(),"timePicker");
+    public void mostrarDialogoHora() {
+        DialogFragment hora= new TimePickerFragment();
+        hora.show(getSupportFragmentManager(),"timePicker");
     }
 
     @Override
-    public void onFechaElegida(String fecha, int hora, int min) {
-        CrearOfertasFragment f= (CrearOfertasFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_crear_oferta);
-        f.setFecha(fecha);
+    public void mostrarDialogoFecha() {
+        DialogFragment fecha= new DatePickerFragment();
+        fecha.show(getSupportFragmentManager(),"datePicker");
+    }
+
+    @Override
+    public void onHoraElegida(String stringHora, int hora, int min) {
+        CrearOfertasFragment fragmentCO= (CrearOfertasFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_crear_oferta);
+        fragmentCO.setHora(stringHora);
+    }
+
+    @Override
+    public void onFechaElegida(String stringFecha, int dia, int mes, int anio) {
+        CrearOfertasFragment fragmentCO= (CrearOfertasFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_crear_oferta);
+        fragmentCO.setFecha(stringFecha);
     }
 }

@@ -6,12 +6,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.lucila.beans.Oferta;
-
-import org.w3c.dom.Text;
 
 
 /**
@@ -26,7 +26,11 @@ public class CrearOfertasFragment extends Fragment implements View.OnClickListen
 
     private OnCrearOfertaListener mListener;
 
-    private EditText fecha;
+    private EditText editTextFecha, editTextHora;
+
+    //Usado por el adapter del AutoCompleteTextField
+    //Para sugerir deportes cargados
+    private String[] deportes;
 
     public CrearOfertasFragment() {
         // Required empty public constructor
@@ -38,9 +42,10 @@ public class CrearOfertasFragment extends Fragment implements View.OnClickListen
      *
      * @return A new instance of fragment CrearOfertasFragment.
      */
-    public static CrearOfertasFragment newInstance() {
+    public static CrearOfertasFragment newInstance(String[] deportes) {
         CrearOfertasFragment fragment = new CrearOfertasFragment();
         Bundle args = new Bundle();
+        args.putSerializable("listaDeportes", deportes);
         fragment.setArguments(args);
         return fragment;
     }
@@ -48,6 +53,11 @@ public class CrearOfertasFragment extends Fragment implements View.OnClickListen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(savedInstanceState != null)
+            deportes= (String[]) savedInstanceState.get("listaDeportes");
+        else
+            deportes= new String[0];
     }
 
     @Override
@@ -55,13 +65,27 @@ public class CrearOfertasFragment extends Fragment implements View.OnClickListen
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View fragmentLayout= inflater.inflate(R.layout.fragment_crear_ofertas, container, false);
+
+        //Agrego el listener al botón para crear la oferta
         Button botonCrear= (Button) fragmentLayout.findViewById(R.id.boton_crear_ofertas_fragment);
         botonCrear.setOnClickListener(this);
 
+        //Es temporal hasta poder poner el listener al text view de fecha
         botonCrear = (Button) fragmentLayout.findViewById(R.id.boton_fecha);
         botonCrear.setOnClickListener(this);
 
-        fecha = (EditText) fragmentLayout.findViewById(R.id.textView_fecha);
+        botonCrear = (Button) fragmentLayout.findViewById(R.id.boton_hora);
+        botonCrear.setOnClickListener(this);
+
+        //Mantengo el edit text de la fecha y la hora
+        editTextFecha = (EditText) fragmentLayout.findViewById(R.id.textView_fecha);
+        editTextHora = (EditText) fragmentLayout.findViewById(R.id.textView_hora);
+
+        //Anexo las sugerencias al TextView
+        AutoCompleteTextView textViewDeporte= (AutoCompleteTextView) fragmentLayout.findViewById(R.id.autocomplete_deporte);
+        ArrayAdapter<String> adapter= new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, this.deportes);
+        textViewDeporte.setAdapter(adapter);
+        //textViewDeporte.setDropDownHeight(3);
         return fragmentLayout;
     }
 
@@ -72,7 +96,9 @@ public class CrearOfertasFragment extends Fragment implements View.OnClickListen
                 mListener.onCrearOferta(of);
             }
             else {
-                mListener.mostrarDialogo();
+                if (view.getId() == R.id.boton_fecha) {
+                    mListener.mostrarDialogoFecha();
+                } else mListener.mostrarDialogoHora();
             }
         }
     }
@@ -95,11 +121,14 @@ public class CrearOfertasFragment extends Fragment implements View.OnClickListen
     }
 
     public void setFecha(String fecha) {
-        this.fecha.setText(fecha);
+        this.editTextFecha.setText(fecha);
     }
+
+    public void setHora(String hora) { this.editTextHora.setText(hora); }
 
     public interface OnCrearOfertaListener {
         void onCrearOferta(Oferta oferta);
-        void mostrarDialogo();
+        void mostrarDialogoHora();
+        void mostrarDialogoFecha();
     }
 }
