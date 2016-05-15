@@ -1,5 +1,6 @@
 package com.example.lucila.myapplication.Datos;
 import com.example.lucila.myapplication.Entidades.Oferta;
+import com.example.lucila.myapplication.Entidades.Usuario;
 import com.example.lucila.myapplication.R;
 
 import java.sql.Date;
@@ -11,7 +12,8 @@ import java.util.Random;
  * Created by tino on 30/04/2016.
  * clase con datos de testing
  */
-public class OfertasLista {
+public class OfertasLista   {
+   static List<Oferta> items;
 
     public static final String[] deportes = {
           "Futbol","Voley","Ultimate","Basquet"
@@ -20,7 +22,7 @@ public class OfertasLista {
 
     public static List<Oferta> randomList(int cantidad) {
         Random random = new Random();
-        List<Oferta> items = new ArrayList<>();
+         items = new ArrayList<>();
 
         // Restricción de tamaño
        int numDep = random.nextInt(4);
@@ -34,6 +36,7 @@ public class OfertasLista {
             oferta.setFecha(fecha);
             oferta.setUbicacion(ubicacion);
             setFoto(oferta);
+            oferta.setEstado("disponible");
             Long codigo= new Long(random.nextLong());
             oferta.setCodigo(codigo);
             items.add(oferta);
@@ -60,5 +63,23 @@ public class OfertasLista {
         }
 
     }
+  public static boolean   reservarOferta(Oferta of,Usuario user){
+     of.setEstado("reservada");
+      return true;
+  }
 
+   public static Oferta  getOferta(Long codigo){
+
+       for(int i=0;i<items.size();i++)
+           if(items.get(i).getCodigo().equals(codigo))
+               return  items.get(i);
+     return null;
+   }
+
+    public static Usuario getUsuarioLogueado(){
+
+        Usuario user= new Usuario("Agustin","Koll");
+        user.setTelefono(454467);
+        return user;
+    }
 }

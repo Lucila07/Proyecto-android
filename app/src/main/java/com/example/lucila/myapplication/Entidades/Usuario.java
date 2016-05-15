@@ -86,7 +86,10 @@ public class Usuario {
         this.idUsuario = idUsuario;
     }
 
+    public  List<Oferta> getOfertasReservadas(){
 
+        return ofertasReservadas;
+    }
 
 
 }
