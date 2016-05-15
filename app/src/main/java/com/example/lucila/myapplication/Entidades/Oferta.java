@@ -9,7 +9,7 @@ import java.util.Date;
 
  public class Oferta {
 
-    private String deporte;
+    private Deporte deporte;
     private Date fecha;
     private Long hora;
     private Long codigo;
@@ -34,15 +34,15 @@ import java.util.Date;
 
     private String ubicacion;
 
-    public Oferta(String deporte) {
+    public Oferta(Deporte deporte) {
         this.deporte = deporte;
     }
 
-    public String getDeporte() {
+    public Deporte getDeporte() {
         return deporte;
     }
 
-    public void setDeporte(String deporte) {
+    public void setDeporte(Deporte deporte) {
         this.deporte = deporte;
     }
 

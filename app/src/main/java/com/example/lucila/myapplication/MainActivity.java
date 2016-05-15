@@ -10,10 +10,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.lucila.myapplication.Datos.OfertasLista;
+import com.example.lucila.myapplication.Datos.ServicioOfertasUsuario;
+import com.example.lucila.myapplication.Entidades.Deporte;
+import com.example.lucila.myapplication.Entidades.Oferta;
 import com.example.lucila.myapplication.Fragmentos.CrearPartidoFragment;
 import com.example.lucila.myapplication.Fragmentos.FragmentPartidos;
 import com.example.lucila.myapplication.Fragmentos.OfertasFragment;
@@ -22,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private ServicioOfertasUsuario servicioOfertasUsuario;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,17 +50,24 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+
+
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        adapter.addFragment(new OfertasFragment(), "Ofertas");
+        OfertasFragment fragmentoOfertas= new OfertasFragment();
+       /* ServicioOfertasUsuario servicio= new OfertasLista();
+        fragmentoOfertas.setServicioOfertas(servicio);*/
+        adapter.addFragment(fragmentoOfertas, "Ofertas");
+
         adapter.addFragment(new FragmentPartidos(), "Partidos");
         adapter.addFragment(new CrearPartidoFragment(),"Crear Partido");
 
         viewPager.setAdapter(adapter);
     }
+
 
 
   //  FragmentPagerAdapter
@@ -83,5 +100,7 @@ public class MainActivity extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
+
+
 }
 

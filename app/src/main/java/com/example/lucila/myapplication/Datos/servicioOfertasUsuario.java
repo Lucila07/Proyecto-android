@@ -38,6 +38,25 @@ public interface ServicioOfertasUsuario {
 
     /**
      * retorna una oferta que contenga el codigo
+     * @param  codigo del deporte
      * */
     public Oferta getOferta(Long codigo);
+
+    /**
+     * retorna la lista de deportes disponibles en el sistema
+     * */
+    public List<Deporte> getDeportes();
+
+    /**
+     * retorna la cantidad de deportes que hay creados en el sistemas
+     * */
+    public  int cantidadDeportes();
+
+
+    /**
+     * retorna el deporte asociado al nombre
+     * @para nombre : nombre del deporte
+     * */
+    public  Deporte getDeporte(String nombre);
+
 }

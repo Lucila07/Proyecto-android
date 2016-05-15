@@ -1,23 +1,18 @@
 package com.example.lucila.myapplication;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.NavUtils;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import  com.example.lucila.myapplication.Datos.*;
 import com.example.lucila.myapplication.Entidades.Oferta;
 import com.example.lucila.myapplication.Entidades.Usuario;
+
 
 public class ReservaOfertaActivity extends AppCompatActivity {
     private TextView textview_codigo;
@@ -26,7 +21,9 @@ public class ReservaOfertaActivity extends AppCompatActivity {
     private  Button botonReservar;
     private Oferta oferta;
     private Usuario usuario;
-    private ServicioOfertasUsuario servicioOfertas;
+    private ServicioOfertasUsuario servicioOfertasUsuario=new OfertasLista();// deberia ser inyectado
+    private ServicioUsuarios servicioUsuario= new ServicioUsuarioLista(); //deberia ser inyectado
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,20 +32,35 @@ public class ReservaOfertaActivity extends AppCompatActivity {
         setToolbar();
         Intent intent=getIntent();
         id_oferta=intent.getExtras().getLong("id_oferta");
+        //debug
+       // TextView fecha= (TextView)findViewById(R.id.reserva_fecha);
+       // fecha.setText(id_oferta.toString());
+        //
 
+        oferta= servicioOfertasUsuario.getOferta(id_oferta);
+
+        if(oferta!=null){
+            establecerTextos(oferta);
+
+        }
+        else{
+
+            Toast.makeText(ReservaOfertaActivity.this, "Error al obtener la oferta de la bd", Toast.LENGTH_LONG).show();
+        }
 
         botonReservar=(Button)findViewById(R.id.boton_reservar);
         botonReservar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                oferta = OfertasLista.getOferta(id_oferta); //servicioOfertas.getOferta(id_oferta);
+
                 if (oferta == null) {
                     Toast.makeText(ReservaOfertaActivity.this, "Error al obtener la oferta de la bd", Toast.LENGTH_LONG).show();
 
                 }
                 else
                 {
-                    usuario = OfertasLista.getUsuarioLogueado();//TODO generar los usuarios
+                    usuario = servicioUsuario.getUsuarioLogueado();//TODO generar los usuarios
+
 
                     if (usuario == null)
                     {
@@ -73,9 +85,9 @@ public class ReservaOfertaActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
+
+
     public void setToolbar(){
         //toolbar-------------
         toolbar = (Toolbar) findViewById(R.id.toolbar_reserva); //encontramos la instancia de la toolbar
@@ -103,7 +115,7 @@ public class ReservaOfertaActivity extends AppCompatActivity {
                 .setMessage("Seguro que deseas rervar esta oferta?")
                 .setPositiveButton("SI", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                      if ( OfertasLista.reservarOferta(oferta,usuario )) {//TODO: servicioOfertas.reservarOferta(Oferta oferta , Usuario user)
+                      if ( servicioOfertasUsuario.reservarOferta(oferta,usuario )) {
                           Toast.makeText(ReservaOfertaActivity.this, "Reserva hecha con exito. Sus datos seran enviados al establecimiento", Toast.LENGTH_LONG).show();
                       }
                         else {
@@ -123,5 +135,17 @@ public class ReservaOfertaActivity extends AppCompatActivity {
 
     }
 
+private void establecerTextos(Oferta oferta){
 
+    TextView fecha= (TextView)findViewById(R.id.reserva_fecha);
+    TextView ubicacion= (TextView)findViewById(R.id.reserva_ubicacion);
+    TextView hora= (TextView)findViewById(R.id.reserva_hora);
+    TextView deporte= (TextView)findViewById(R.id.reserva_deporte);
+
+    fecha.setText(oferta.getFecha().toString());
+    ubicacion.setText(oferta.getUbicacion());
+    hora.setText(oferta.getHora().toString());
+    deporte.setText(oferta.getDeporte().getNombre());
+
+}
 }

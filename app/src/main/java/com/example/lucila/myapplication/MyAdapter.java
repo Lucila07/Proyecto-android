@@ -138,7 +138,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>   impl
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.text_deporte.setText(lista_ofertas.get(position).getDeporte());
+        holder.text_deporte.setText(lista_ofertas.get(position).getDeporte().getNombre());
         holder.text_ubicacion.setText(lista_ofertas.get(position).getUbicacion());
         holder.text_hora.setText(lista_ofertas.get(position).getHora().toString());
         holder.text_fecha.setText(lista_ofertas.get(position).getFecha().toString());
