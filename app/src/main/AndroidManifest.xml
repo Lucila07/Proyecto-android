@@ -35,10 +35,10 @@
         </activity>
         <activity android:name=".CrearOfertasActivity"
             android:label="@string/title.crear.oferta"
-            android:parentActivityName=".LoginActivity">
+            android:parentActivityName=".MenuPrincipalActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".LoginActivity" />
+                android:value=".MenuPrincipalActivity" />
         </activity>
     </application>
 

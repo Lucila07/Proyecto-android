@@ -49,12 +49,12 @@ public class CrearOfertasActivity
     @Override
     public void onHoraElegida(String stringHora, int hora, int min) {
         CrearOfertasFragment fragmentCO= (CrearOfertasFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_crear_oferta);
-        fragmentCO.setHora(stringHora);
+        fragmentCO.setHora(stringHora, hora, min);
     }
 
     @Override
     public void onFechaElegida(String stringFecha, int dia, int mes, int anio) {
         CrearOfertasFragment fragmentCO= (CrearOfertasFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_crear_oferta);
-        fragmentCO.setFecha(stringFecha);
+        fragmentCO.setFecha(stringFecha, dia, mes, anio);
     }
 }

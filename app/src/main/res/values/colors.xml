@@ -8,4 +8,8 @@
     <color name="colorAccentLight">#b3e5fc</color>
 
     <color name="colorErrorText">#f44336</color>
+
+    <color name="negro">#000000</color>
+    <color name="blanco">#ffffff</color>
+    <color name="grisHint">#808080</color>
 </resources>
