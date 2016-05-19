@@ -9,7 +9,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/editText_ubicacion"
+            android:id="@+id/edit_text_ubicacion_fragment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="4"

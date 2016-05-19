@@ -25,7 +25,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class EstablecerUbicacionActivity
         extends AppCompatActivity
-        implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback {
+        implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback,
+        EstablecerUbicacionFragment.OnFragmentInteractionListener {
 
     //Codigo usado para distiguir en el pedido de permisos
     public static final int PERMISO_UBICACION= 1;
@@ -85,7 +86,7 @@ public class EstablecerUbicacionActivity
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-
+        Toast.makeText(this, "onContecionFailed", Toast.LENGTH_SHORT);
     }
 
     @Override
@@ -98,17 +99,16 @@ public class EstablecerUbicacionActivity
                     obtenerUbicacion();
                 }
                 else {
-                    //TODO Permisos - mirar mas adelante
+                    Toast.makeText(this,"Algo falló",Toast.LENGTH_SHORT);
                 }
             }
         }
     }
 
-
     /**
      * Se llama cuando se toca el boton gps en la actividad
      */
-    public void calcularUbicacion() {
+    public void onObtenerUbicacionListener() {
         //Permiso peligroso: ahora android pregunta al usuario dentro de la aplicación.
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
             //Si es la primera vez que se usa se le pregunta con un dialogo y se esperar el resultado en el listener
@@ -122,10 +122,13 @@ public class EstablecerUbicacionActivity
     @SuppressWarnings("MissingPermission")
     private void obtenerUbicacion() {
         if(clienteGoogle.isConnected()) {
-            if(ultimaLocacionConocida != null) {
-                ultimaLocacionConocida = LocationServices.FusedLocationApi.getLastLocation(clienteGoogle);
-                ObtenerDireccionService.startService(this, new AddressResultReceiver(new Handler()), ultimaLocacionConocida);
+            if(ultimaLocacionConocida == null) {
+                ultimaLocacionConocida= LocationServices.FusedLocationApi.getLastLocation(clienteGoogle);
+                ultimaLocacionConocida= new Location("Bahia Blanca");
+                ultimaLocacionConocida.setLatitude(-39);
+                ultimaLocacionConocida.setLongitude(-62);
             }
+            ObtenerDireccionService.startService(this, new AddressResultReceiver(new Handler()), ultimaLocacionConocida);
         }
         else {
             Toast.makeText(this, "Conexión no establecida", Toast.LENGTH_SHORT).show();
@@ -152,6 +155,7 @@ public class EstablecerUbicacionActivity
 
     @SuppressLint("ParcelCreator")
     public class AddressResultReceiver extends ResultReceiver {
+        //Constructor
         public AddressResultReceiver(Handler handler) {
             super(handler);
         }

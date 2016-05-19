@@ -37,6 +37,7 @@ public class ObtenerDireccionService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        mReceiver= intent.getParcelableExtra("receiver");
         //Crea un geodecodificador con el locale por defecto
         Geocoder deco= new Geocoder(this, Locale.getDefault());
         //Obtengo la posicion geografica que me manda la actividad
@@ -52,7 +53,7 @@ public class ObtenerDireccionService extends IntentService {
 
         if(direcciones == null || direcciones.size() == 0) {
             //Falló la geolocacion
-            //delvolverResultado(1, mensajeError);
+            devolverResultado(1, "Fallo");
         }
         else {
             Address address = direcciones.get(0);
@@ -60,10 +61,10 @@ public class ObtenerDireccionService extends IntentService {
             for(int i = 0; i < address.getMaxAddressLineIndex(); i++) {
                 addressFragments.add(address.getAddressLine(i));
             }
-            devolverResultado(0,
-                             TextUtils.join(System.getProperty("line.separator"),
-                             addressFragments));
-
+            //Direccion
+            //devolverResultado(0,TextUtils.join(System.getProperty("line.separator"), addressFragments));
+            //Ciudad
+            devolverResultado(0,address.getLocality());
         }
     }
     private void devolverResultado(int resultCode, String message) {

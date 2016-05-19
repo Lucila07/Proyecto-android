@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class EstablecerUbicacionFragment extends Fragment  implements View.OnClickListener {
+public class EstablecerUbicacionFragment extends Fragment implements View.OnClickListener {
 
     private OnFragmentInteractionListener mListener;
 
@@ -31,19 +31,21 @@ public class EstablecerUbicacionFragment extends Fragment  implements View.OnCli
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View toR= inflater.inflate(R.layout.fragment_establecer_ubicacion, container, false);
 
         Button boton= (Button) toR.findViewById(R.id.boton_establecerUbicacion);
         boton.setOnClickListener(this);
 
-        direccion= (EditText) toR.findViewById(R.id.editText_ubicacion);
+        direccion= (EditText) toR.findViewById(R.id.edit_text_ubicacion_fragment);
         return toR;
     }
 
