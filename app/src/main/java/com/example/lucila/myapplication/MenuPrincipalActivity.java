@@ -21,7 +21,7 @@ public class MenuPrincipalActivity extends AppCompatActivity {
         mapBotonClase.put(R.id.boton_crear_oferta, CrearOfertasActivity.class);
         mapBotonClase.put(R.id.boton_comprar_ofertas, LoginActivity.class);
         mapBotonClase.put(R.id.boton_denunciar_usuario, LoginActivity.class);
-        mapBotonClase.put(R.id.boton_establecer_ubicacion, LoginActivity.class);
+        mapBotonClase.put(R.id.boton_establecer_ubicacion, EstablecerUbicacionActivity.class);
         mapBotonClase.put(R.id.boton_ver_creadas, LoginActivity.class);
 
         //TODO ver el tema del TextView con la cantidad de pack restantes

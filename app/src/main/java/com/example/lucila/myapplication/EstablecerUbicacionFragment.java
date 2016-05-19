@@ -40,7 +40,8 @@ public class EstablecerUbicacionFragment extends Fragment  implements View.OnCli
                              Bundle savedInstanceState) {
         View toR= inflater.inflate(R.layout.fragment_establecer_ubicacion, container, false);
 
-        ((Button)toR.findViewById(R.id.boton_establecerUbicacion)).setOnClickListener(this);
+        Button boton= (Button) toR.findViewById(R.id.boton_establecerUbicacion);
+        boton.setOnClickListener(this);
 
         direccion= (EditText) toR.findViewById(R.id.editText_ubicacion);
         return toR;

@@ -56,11 +56,23 @@
             android:name=".CrearOfertasActivity"
             android:label="@string/title.crear.oferta"
             android:parentActivityName=".MenuPrincipalActivity">
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MenuPrincipalActivity" />
+                android:value=".MenuPrincipalActivity"
+                />
         </activity>
-        <activity android:name=".EstablecerUbicacionActivity" />
+
+        <activity
+            android:name=".EstablecerUbicacionActivity"
+            android:label="@string/title.establecer.ubicacion"
+            android:parentActivityName=".MenuPrincipalActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuPrincipalActivity"
+                />
+        </activity>
 
         <service
             android:name=".servicios.ObtenerDireccionService"
