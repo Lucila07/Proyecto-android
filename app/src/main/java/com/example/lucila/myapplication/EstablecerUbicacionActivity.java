@@ -15,11 +15,17 @@ import com.example.lucila.myapplication.servicios.ObtenerDireccionService;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 
 public class EstablecerUbicacionActivity
         extends AppCompatActivity
-        implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+        implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback {
 
     //Codigo usado para distiguir en el pedido de permisos
     public static final int PERMISO_UBICACION= 1;
@@ -27,9 +33,16 @@ public class EstablecerUbicacionActivity
     //API para el mapa de google
     private GoogleApiClient clienteGoogle;
 
+    //Locacion
     private Location ultimaLocacionConocida;
 
+    //Fragmentos
     private EstablecerUbicacionFragment fragmentoUbicacion;
+    private SupportMapFragment fragmentoMapa;
+
+    //Instancia del mapa de google
+    private GoogleMap mapa;
+    private Marker marcas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +50,9 @@ public class EstablecerUbicacionActivity
         setContentView(R.layout.activity_establecer_ubicacion);
 
         fragmentoUbicacion= (EstablecerUbicacionFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_estab_ubicacion);
+        fragmentoMapa= (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        fragmentoMapa.getMapAsync(this);
+
         if (clienteGoogle == null) {
             clienteGoogle = new GoogleApiClient.Builder(this)
                     .addConnectionCallbacks(this)
@@ -119,6 +135,20 @@ public class EstablecerUbicacionActivity
         fragmentoUbicacion.setDireccion(direccion);
     }
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        if(ultimaLocacionConocida != null) {
+            double longitud;
+            double latitud;
+            longitud= ultimaLocacionConocida.getLongitude();
+            latitud= ultimaLocacionConocida.getLatitude();
+            marcas= googleMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(latitud,longitud))
+                                    .title("Ubicación"));
+        }
+        mapa= googleMap;
+    }
+
     @SuppressLint("ParcelCreator")
     public class AddressResultReceiver extends ResultReceiver {
         public AddressResultReceiver(Handler handler) {
@@ -129,6 +159,16 @@ public class EstablecerUbicacionActivity
         protected void onReceiveResult(int resultCode, Bundle resultData) {
             String direccion = resultData.getString("resultado");
             setearDireccion(direccion);
+            double longitud= ultimaLocacionConocida.getLongitude();
+            double latitud= ultimaLocacionConocida.getLatitude();
+            if(marcas != null) {
+                marcas.setPosition(new LatLng(latitud, longitud));
+            }
+            else if (mapa != null) {
+                    marcas = mapa.addMarker(new MarkerOptions()
+                            .position(new LatLng(latitud, longitud))
+                            .title("Ubicación"));
+                }
         }
     }
 }
