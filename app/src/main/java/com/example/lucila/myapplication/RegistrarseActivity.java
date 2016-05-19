@@ -60,10 +60,6 @@ public class RegistrarseActivity extends AppCompatActivity {
         //TODO intent implícito al gps para obtener la ubicacion
     }
 
-    public void cancelar() {
-        resetearCampos();
-    }
-
     public void registrarse(View view) {
         boolean paso= validacionEntrada();
         if(paso) {

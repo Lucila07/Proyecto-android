@@ -8,90 +8,143 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.lucila.myapplication.CrearOfertasFragment">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="top|center">
+    <LinearLayout
+        style="@style/panelContenedor"
+        android:orientation="vertical"
+        android:focusableInTouchMode="true">
+
+        <LinearLayout
+            android:id="@+id/panel_fecha"
+            style="@style/panelContenedor"
+            android:paddingTop="8dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:paddingBottom="12dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/error_fecha_crearOferta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/textoErrorDenso"/>
+
+            <TextView
+                android:id="@+id/textView_fecha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:hint="@string/textview.fecha"
+                />
+
+            <View
+                android:focusable="true"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:paddingLeft="4dp"
+                android:background="@color/grisHint"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/panel_hora"
+            style="@style/panelContenedor"
+            android:paddingTop="8dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:paddingBottom="12dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/error_hora_crearOferta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/textoErrorDenso"/>
+
+            <TextView
+                android:id="@+id/textView_hora"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:hint="@string/textview.hora"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:paddingLeft="4dp"
+                android:background="@color/grisHint"
+                />
+        </LinearLayout>
 
         <LinearLayout
             style="@style/panelContenedor"
             android:orientation="vertical">
 
-            <LinearLayout
-                style="@style/panelContenedor">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/textoErrorDenso"
+                />
 
-                <EditText
-                    android:id="@+id/textView_fecha"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/textview.fecha"
-                    />
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/panelContenedor">
-
-                <EditText
-                    android:id="@+id/textView_hora"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/textview.hora"
-                    />
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/panelContenedor">
-                
-                <AutoCompleteTextView
-                    android:id="@+id/autocomplete_deporte"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/textview.deporte"
-                    android:completionThreshold="1"
-                    />
-            </LinearLayout>
-            
-            <LinearLayout 
-                style="@style/panelContenedor">
-                
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/textview.precioFinal"
-                    />
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/panelContenedor">
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/textview.precioHabitual"
-                    />
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/panelContenedor"
-                android:gravity="center">
-
-                <Button
-                    android:id="@+id/boton_crear_ofertas_fragment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/boton.crear"/>
-
-                <Button
-                    android:id="@+id/boton_fecha"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="fecha"/>
-
-                <Button
-                    android:id="@+id/boton_hora"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="hora"/>
-            </LinearLayout>
+            <AutoCompleteTextView
+                android:id="@+id/autocomplete_deporte"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/textview.deporte"
+                android:completionThreshold="1"
+                />
         </LinearLayout>
-    </ScrollView>
+
+        <LinearLayout
+            style="@style/panelContenedor"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/error_precioFinal_crearOferta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/textoErrorDenso"
+                />
+
+            <EditText
+                android:id="@+id/edittext_precioFinal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/textview.precioFinal"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/panelContenedor"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/error_precioHab_crearOferta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/textoErrorDenso"
+                />
+
+            <EditText
+                android:id="@+id/edittext_precioHabitual"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/textview.precioHabitual"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/panelContenedor"
+            android:gravity="center|right">
+
+            <Button
+                android:id="@+id/boton_crear_ofertas_fragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/boton.crear"
+                android:textColor="@color/blanco"
+                android:backgroundTint="@color/colorAccent"
+                />
+        </LinearLayout>
+    </LinearLayout>
 </FrameLayout>

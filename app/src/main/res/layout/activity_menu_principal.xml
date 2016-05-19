@@ -41,43 +41,33 @@
             android:paddingTop="50dp">
 
             <Button
+                style="@style/botonMenuPrincipal"
                 android:id="@+id/boton_crear_oferta"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
                 android:text="@string/boton_crear_oferta"
-                android:onClick="click"
                 />
 
             <Button
+                style="@style/botonMenuPrincipal"
                 android:id="@+id/boton_ver_creadas"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
                 android:text="@string/boton_ver_ofertas"
-                android:onClick="click"
                 />
 
             <Button
+                style="@style/botonMenuPrincipal"
                 android:id="@+id/boton_comprar_ofertas"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
                 android:text="@string/boton_comprar_ofertas"
-                android:onClick="click"
                 />
 
             <Button
+                style="@style/botonMenuPrincipal"
                 android:id="@+id/boton_establecer_ubicacion"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
                 android:text="@string/boton_establecer_ubicacion"
-                android:onClick="click"
                 />
 
             <Button
+                style="@style/botonMenuPrincipal"
                 android:id="@+id/boton_denunciar_usuario"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
                 android:text="@string/boton_denunciar_usuario"
-                android:onClick="click"
                 />
         </LinearLayout>
     </ScrollView>
