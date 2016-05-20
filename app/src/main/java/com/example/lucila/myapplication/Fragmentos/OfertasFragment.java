@@ -37,7 +37,7 @@ public class OfertasFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private   List<Oferta>ofertas;
 
-    private  ServicioOfertasUsuario servicioOfertasUsuario;
+    private  servicioOfertasUsuario servicioOfertasUsuario;
 
     public OfertasFragment() {
         // Required empty public constructor
@@ -47,7 +47,7 @@ public class OfertasFragment extends Fragment {
      * inyecta la dependencia del servicio de ofertas.
      * @parametro  ServicioOfertasUsuario de ofertas
      * **/
-    public  void setServicioOfertas(ServicioOfertasUsuario s){
+    public  void setServicioOfertas(servicioOfertasUsuario s){
         this.servicioOfertasUsuario=s;
 
     }

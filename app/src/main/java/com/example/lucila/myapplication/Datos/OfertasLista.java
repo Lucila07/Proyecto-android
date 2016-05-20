@@ -13,7 +13,7 @@ import java.util.Random;
  * Created by tino on 30/04/2016.
  * clase con datos de testing
  */
-public class OfertasLista implements ServicioOfertasUsuario  {
+public class OfertasLista implements servicioOfertasUsuario{
    private List<Oferta> items;
     private    String[] deportes = {
             "Futbol","Voley","Ultimate","Basquet"
@@ -39,6 +39,7 @@ public class OfertasLista implements ServicioOfertasUsuario  {
        int numDep = random.nextInt(4);
         for(int i=0;i<deportes.length;i++){
             Deporte dep= new Deporte(deportes[i]);
+
             listaDeportes.add(dep);
         }
 
@@ -51,7 +52,7 @@ public class OfertasLista implements ServicioOfertasUsuario  {
             oferta.setHora(hora);
             oferta.setFecha(fecha);
             oferta.setUbicacion(ubicacion);
-            setFoto(oferta);
+
             oferta.setEstado("disponible");
             Long codigo= new Long(random.nextLong()%1000);
             oferta.setCodigo(codigo);
@@ -61,24 +62,7 @@ public class OfertasLista implements ServicioOfertasUsuario  {
         return items;
     }
 
-    private  void setFoto(Oferta of){
 
-        switch (of.getDeporte().getNombre()){
-            case "Futbol":
-                of.setIdFoto(R.drawable.futbol);
-                break;
-            case "Ultimate":
-                of.setIdFoto(R.drawable.ultimate);
-                break;
-            case "Voley":
-                of.setIdFoto(R.drawable.voley);
-                break;
-            case "Basquet":
-                of.setIdFoto(R.drawable.basquet);
-                break;
-        }
-
-    }
   public  boolean   reservarOferta(Oferta of,Usuario user){
      of.setEstado("reservada");
       return true;
@@ -120,6 +104,11 @@ public class OfertasLista implements ServicioOfertasUsuario  {
                 ofertas.add(items.get(i));
 
         return ofertas;
+    }
+
+    @Override
+    public Oferta getOfertaCodigo(Long codigo) {
+        return null;
     }
 
 

@@ -14,14 +14,41 @@ import java.util.Date;
     private Long hora;
     private Long codigo;
     private String estado;
-    private int idFoto;
+    private int idUserCreador;
+    private int idUserComprador;
+    private int precioHabitual;
+    private int precioOferta;
 
-    public int getIdFoto() {
-        return idFoto;
+    public int getIdUserCreador() {
+        return idUserCreador;
     }
 
-    public void setIdFoto(int idFoto) {
-        this.idFoto = idFoto;
+    public void setIdUserCreador(int idUserCreador) {
+        this.idUserCreador = idUserCreador;
+    }
+
+    public int getIdUserComprador() {
+        return idUserComprador;
+    }
+
+    public void setIdUserComprador(int idUserComprador) {
+        this.idUserComprador = idUserComprador;
+    }
+
+    public int getPrecioHabitual() {
+        return precioHabitual;
+    }
+
+    public void setPrecioHabitual(int precioHabitual) {
+        this.precioHabitual = precioHabitual;
+    }
+
+    public int getPrecioOferta() {
+        return precioOferta;
+    }
+
+    public void setPrecioOferta(int precioOferta) {
+        this.precioOferta = precioOferta;
     }
 
     public String getUbicacion() {
