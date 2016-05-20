@@ -1,13 +1,11 @@
 package com.example.lucila.myapplication;
 
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.lucila.beans.Oferta;
+import com.example.lucila.myapplication.beans.Oferta;
 
-import java.sql.Time;
 import java.util.Calendar;
 
 /**

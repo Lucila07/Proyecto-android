@@ -1,4 +1,4 @@
-package com.example.lucila.beans;
+package com.example.lucila.myapplication.beans;
 
 import java.io.Serializable;
 import java.util.Calendar;

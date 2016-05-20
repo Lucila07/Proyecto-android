@@ -12,9 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.lucila.beans.Oferta;
-
-import org.w3c.dom.Text;
+import com.example.lucila.myapplication.beans.Oferta;
 
 import java.util.Calendar;
 import java.util.regex.Pattern;
