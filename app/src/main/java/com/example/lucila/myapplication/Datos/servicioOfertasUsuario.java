@@ -10,7 +10,7 @@ import java.util.List;
  * Created by tino on 15/05/2016.
  * este servicio es el encargado de administrar las ofertas
  */
-public interface ServicioOfertasUsuario {
+public interface servicioOfertasUsuario {
 
 
     /**
@@ -40,7 +40,7 @@ public interface ServicioOfertasUsuario {
      * retorna una oferta que contenga el codigo
      * @param  codigo del deporte
      * */
-    public Oferta getOferta(Long codigo);
+    public Oferta getOfertaCodigo(Long codigo);
 
     /**
      * retorna la lista de deportes disponibles en el sistema
