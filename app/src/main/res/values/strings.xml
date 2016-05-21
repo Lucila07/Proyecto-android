@@ -4,6 +4,7 @@
     <string name="title_activity_menuppal">Menu Principal</string>
     <string name="title.crear.oferta">Crear Oferta</string>
     <string name="title.establecer.ubicacion">Establecer Ubicación</string>
+    <string name="title.lista.ofertas">Ofertas Creadas</string>
 
     <!-- Pantalla Login -->
     <string name="hint_usario">Usuario</string>

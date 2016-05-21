@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.example.lucila.myapplication.beans.Oferta;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * A fragment representing a list of Items.
@@ -27,9 +28,10 @@ public class OfertasFragment extends Fragment {
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static OfertasFragment newInstance(int columnCount) {
+    public static OfertasFragment newInstance(Oferta[] ofertas) {
         OfertasFragment fragment = new OfertasFragment();
         Bundle args = new Bundle();
+        args.putSerializable("ofertas", ofertas);
         fragment.setArguments(args);
         return fragment;
     }
@@ -41,7 +43,8 @@ public class OfertasFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if(getArguments() != null) {
-            ofertas= (ArrayList<Oferta>) getArguments().get("ofertas");
+            Oferta[] aux= (Oferta[]) getArguments().get("ofertas");
+            ofertas= new ArrayList<Oferta>(Arrays.asList(aux));
         }
     }
 

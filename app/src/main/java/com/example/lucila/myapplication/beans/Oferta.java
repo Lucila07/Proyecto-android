@@ -8,19 +8,27 @@ import java.util.Calendar;
  */
 public final class Oferta implements Serializable {
 
-    private Calendar fecha;
+    public String idOf,idEstab, idComprador,idDeporte, precioHabitual, precioFinal, estado, fecha, hora;
+    /*
+    private String fecha;
     private String deporte;
     private float precioFinal, precioHabitual;
-
+*/
     public Oferta() {}
 
-    public Oferta(Calendar fecha, String deporte, float precioFinal, float precioHabitual) {
-        this.fecha = fecha;
-        this.deporte = deporte;
-        this.precioFinal = precioFinal;
-        this.precioHabitual = precioHabitual;
+    public Oferta(String idOf, String idEstab, String idComprador, String idDeporte, String precioHabitual, String precioFinal, String fecha, String hora) {
+/*
+        this.fecha= fecha;
+        this.deporte = idDeporte;
+        this.precioFinal = Float.parseFloat(precioFinal);
+        this.precioHabitual = Float.parseFloat(precioHabitual);*/
     }
 
+    public static Oferta newInstance() {
+        Oferta toR= new Oferta();
+        return toR;
+    }
+/*
     public Calendar getFecha() {
         return fecha;
     }
@@ -36,4 +44,5 @@ public final class Oferta implements Serializable {
     public float getPrecioHabitual() {
         return precioHabitual;
     }
+    */
 }

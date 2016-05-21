@@ -117,10 +117,7 @@ public class CrearOfertasFragment
         if (mListener != null) {
             if(view.getId() == R.id.boton_crear_ofertas_fragment) {
                 if(validacionEntrada()) {
-                    Oferta oferta = new Oferta(fechaCalendario,
-                            "hola",
-                            precioFinalLeido,
-                            precioHabLeido);
+                    Oferta oferta = new Oferta();
                     resetErrores();
                     mListener.onCrearOferta(oferta);
                 }

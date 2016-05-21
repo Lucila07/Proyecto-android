@@ -37,13 +37,13 @@ public class MyOfertaRecyclerViewAdapter extends RecyclerView.Adapter<MyOfertaRe
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Oferta oferta= mValues.get(position);
-        Calendar fecha= oferta.getFecha();
-        holder.mItem = oferta;
-        holder.mFecha.setText(fecha.get(Calendar.DATE));
-        holder.mHora.setText(fecha.get(Calendar.HOUR));
+        //Calendar fecha= oferta.getFecha();
+        holder.mItem= oferta;
+        holder.mFecha.setText(oferta.fecha);
+        holder.mHora.setText(oferta.hora);
         //TODO estado
-        holder.mEstado.setText("Valido");
-        holder.mDeporte.setText(oferta.getDeporte());
+        holder.mEstado.setText(oferta.estado);
+        holder.mDeporte.setText(oferta.idDeporte);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
