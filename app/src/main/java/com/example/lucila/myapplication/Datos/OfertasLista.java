@@ -13,7 +13,7 @@ import java.util.Random;
  * Created by tino on 30/04/2016.
  * clase con datos de testing
  */
-public class OfertasLista implements servicioOfertasUsuario{
+public class OfertasLista implements ServicioOfertasUsuario{
    private List<Oferta> items;
     private    String[] deportes = {
             "Futbol","Voley","Ultimate","Basquet"
@@ -45,9 +45,9 @@ public class OfertasLista implements servicioOfertasUsuario{
 
         while (items.size() < cantidad) {
             Deporte d= new Deporte(deportes[random.nextInt(4)]);
-            Oferta oferta=new Oferta(d);
-            Date fecha= new Date(2015/5/3);
-            Long hora= new Long(15);
+            Oferta oferta=new Oferta();
+            String fecha= new String("2015/5/3");
+            String hora= new String("15");
             String ubicacion= new String("Bahia");
             oferta.setHora(hora);
             oferta.setFecha(fecha);
@@ -99,20 +99,21 @@ public class OfertasLista implements servicioOfertasUsuario{
 
     public List<Oferta> getOfertasDeporte(Deporte d){
         List<Oferta> ofertas= new ArrayList<Oferta>();
-        for(int i=0;i<items.size();i++)
-            if(items.get(i).getDeporte().getNombre().equals(d.getNombre()))
+        for(int i=0;i<items.size();i++) {
+          /*  if(items.get(i).getDeporte().getNombre().equals(d.getNombre()))
                 ofertas.add(items.get(i));
-
+*/
+        }
         return ofertas;
     }
 
-    @Override
+
     public Oferta getOfertaCodigo(Long codigo) {
         return null;
     }
 
 
-    @Override
+
     public List<Oferta> getOfertasUbicacion(String ubicacion) {
         return null;
     }

@@ -10,7 +10,7 @@ import java.util.List;
  * Created by tino on 15/05/2016.
  * este servicio es el encargado de administrar las ofertas
  */
-public interface servicioOfertasUsuario {
+public interface ServicioOfertasUsuario {
 
 
     /**

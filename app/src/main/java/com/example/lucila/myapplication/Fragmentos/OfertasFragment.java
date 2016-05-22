@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
+
 public class OfertasFragment extends Fragment {
 
     private ListView lista;
@@ -37,7 +39,7 @@ public class OfertasFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private   List<Oferta>ofertas;
 
-    private  servicioOfertasUsuario servicioOfertasUsuario;
+    private  ServicioOfertasUsuario servicioOfertasUsuario;
 
     public OfertasFragment() {
         // Required empty public constructor
@@ -47,7 +49,7 @@ public class OfertasFragment extends Fragment {
      * inyecta la dependencia del servicio de ofertas.
      * @parametro  ServicioOfertasUsuario de ofertas
      * **/
-    public  void setServicioOfertas(servicioOfertasUsuario s){
+    public  void setServicioOfertas(ServicioOfertasUsuario s){
         this.servicioOfertasUsuario=s;
 
     }
@@ -64,10 +66,10 @@ public class OfertasFragment extends Fragment {
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        servicioOfertasUsuario=new OfertasLista();// horribleee
+        servicioOfertasUsuario=new ServicioOfertasHttp(getActivity());// horribleee
         ofertas=servicioOfertasUsuario.getOfertas();
         crearRecycler(ofertas);
-        crearSpinner();
+      //  crearSpinner(); //debug se sca
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -117,6 +119,8 @@ public class OfertasFragment extends Fragment {
         super.onSaveInstanceState(outState);
 
     }
+
+
 
     /**
      * crear el desplegable con los distintos deportes para que el usuario pueda filtrar por deporte

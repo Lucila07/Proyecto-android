@@ -8,30 +8,38 @@ import java.util.Date;
  * */
 
  public class Oferta {
-
-    private Deporte deporte;
-    private Date fecha;
-    private Long hora;
     private Long codigo;
+    private int deporte;
     private String estado;
-    private int idUserCreador;
-    private int idUserComprador;
+    private String fecha;
+
+    private String hora;
+    private long idUserComprador;
+
+    private long idUserCreador;
+
     private int precioHabitual;
     private int precioOferta;
 
-    public int getIdUserCreador() {
+  //  private String ubicacion;
+
+    public Oferta() {
+
+    }
+
+    public long getIdUserCreador() {
         return idUserCreador;
     }
 
-    public void setIdUserCreador(int idUserCreador) {
+    public void setIdUserCreador(long idUserCreador) {
         this.idUserCreador = idUserCreador;
     }
 
-    public int getIdUserComprador() {
+    public long getIdUserComprador() {
         return idUserComprador;
     }
 
-    public void setIdUserComprador(int idUserComprador) {
+    public void setIdUserComprador(long idUserComprador) {
         this.idUserComprador = idUserComprador;
     }
 
@@ -51,41 +59,31 @@ import java.util.Date;
         this.precioOferta = precioOferta;
     }
 
-    public String getUbicacion() {
-        return ubicacion;
-    }
 
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
-    }
 
-    private String ubicacion;
 
-    public Oferta(Deporte deporte) {
-        this.deporte = deporte;
-    }
 
-    public Deporte getDeporte() {
+    public int getDeporte() {
         return deporte;
     }
 
-    public void setDeporte(Deporte deporte) {
+    public void setDeporte(int deporte) {
         this.deporte = deporte;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
-    public Long getHora() {
+    public String getHora() {
         return hora;
     }
 
-    public void setHora(Long hora) {
+    public void setHora(String hora) {
         this.hora = hora;
 
 
@@ -106,4 +104,15 @@ import java.util.Date;
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+
+
+    public String getUbicacion() {
+        return "bahia blanca";
+    }
+
+    public void setUbicacion(String ubicacion) {
+       // this.ubicacion = ubicacion;
+    }
+
 }

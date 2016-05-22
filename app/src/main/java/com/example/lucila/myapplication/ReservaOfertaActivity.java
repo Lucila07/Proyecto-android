@@ -37,7 +37,7 @@ public class ReservaOfertaActivity extends AppCompatActivity {
        // fecha.setText(id_oferta.toString());
         //
 
-        oferta= servicioOfertasUsuario.getOferta(id_oferta);
+        oferta= servicioOfertasUsuario.getOfertaCodigo(id_oferta);
 
         if(oferta!=null){
             establecerTextos(oferta);
@@ -145,7 +145,7 @@ private void establecerTextos(Oferta oferta){
     fecha.setText(oferta.getFecha().toString());
     ubicacion.setText(oferta.getUbicacion());
     hora.setText(oferta.getHora().toString());
-    deporte.setText(oferta.getDeporte().getNombre());
+   // deporte.setText(oferta.getDeporte().getNombre());
 
 }
 }
