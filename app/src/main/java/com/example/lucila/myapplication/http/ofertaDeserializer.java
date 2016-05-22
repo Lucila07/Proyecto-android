@@ -1,5 +1,9 @@
 package com.example.lucila.myapplication.http;
 
+import android.util.Log;
+
+import com.example.lucila.myapplication.Datos.MapeoIdDeporte;
+import com.example.lucila.myapplication.Entidades.Deporte;
 import com.example.lucila.myapplication.Entidades.Oferta;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -14,7 +18,12 @@ import java.util.Date;
  * Created by tino on 22/05/2016.
  */
 public class ofertaDeserializer  implements JsonDeserializer<Oferta> {
+ private  MapeoIdDeporte mapeo;
 
+    public  ofertaDeserializer(MapeoIdDeporte m){
+
+        mapeo=m;
+    }
     @Override
     public Oferta deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException
     {
@@ -22,7 +31,7 @@ public class ofertaDeserializer  implements JsonDeserializer<Oferta> {
         long idUserComprador=-1;
         long  codigo  = jsonObject.get("codigo").getAsLong();
 
-         int deporte = jsonObject.get("deporte").getAsInt();
+         int deporteId = jsonObject.get("deporte").getAsInt();
          String estado = jsonObject.get("estado").getAsString();
          String fecha =jsonObject.get("fecha").getAsString();
          String hora =jsonObject.get("hora").getAsString();
@@ -35,7 +44,11 @@ public class ofertaDeserializer  implements JsonDeserializer<Oferta> {
 
         Oferta oferta= new Oferta();
         oferta.setCodigo(codigo);
-        oferta.setDeporte(deporte);
+        //obtenemos el deporte del mapeo a partir del id
+        Deporte deporte=mapeo.getDeporte(deporteId);
+
+        oferta.setDeporte(deporte); //establecemos el deporte como objeto y no como id
+
         oferta.setEstado(estado);
         oferta.setFecha(fecha);
         oferta.setHora(hora);

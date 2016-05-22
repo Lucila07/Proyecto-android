@@ -57,6 +57,6 @@ public interface ServicioOfertasUsuario {
      * retorna el deporte asociado al nombre
      * @para nombre : nombre del deporte
      * */
-    public  Deporte getDeporte(String nombre);
+    public  Deporte getDeporte(String id);
 
 }

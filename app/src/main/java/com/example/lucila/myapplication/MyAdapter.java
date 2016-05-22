@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.lucila.myapplication.Entidades.Deporte;
 import com.example.lucila.myapplication.Entidades.Oferta;
 
 
@@ -78,13 +79,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>   impl
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
-      //  holder.text_deporte.setText(lista_ofertas.get(position).getDeporte().getNombre());
-        holder.text_ubicacion.setText(lista_ofertas.get(position).getUbicacion());
-        holder.text_hora.setText(lista_ofertas.get(position).getHora().toString());
-        holder.text_fecha.setText(lista_ofertas.get(position).getFecha().toString());
-     //   holder.imagenOferta.setImageResource(lista_ofertas.get(position).getDeporte().getIdFoto());
+        Oferta oferta= lista_ofertas.get(position);
+        holder.text_deporte.setText(oferta.getDeporte().getNombre());
+        holder.text_ubicacion.setText(oferta.getUbicacion());
+        holder.text_hora.setText(oferta.getHora().toString());
+        holder.text_fecha.setText(oferta.getFecha().toString());
+
+       setImagenOferta(holder,oferta.getDeporte());
         holder.id_oferta.setText(lista_ofertas.get(position).getCodigo().toString());
     }
 
@@ -122,4 +123,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>   impl
         if(listener != null)
             listener.onClick(view);
     }
-}
+
+    public void setImagenOferta(ViewHolder holder,Deporte deporte ){
+
+        int recurso=0;
+        switch (deporte.getNombre()){
+            case "futbol":
+              recurso=R.drawable.futbol;
+                break;
+            case "voley":
+                recurso=R.drawable.voley;
+                break;
+            case "basquet":
+                recurso=R.drawable.basquet;
+                break;
+        }
+        holder.imagenOferta.setImageResource(recurso);
+
+    }
+   }

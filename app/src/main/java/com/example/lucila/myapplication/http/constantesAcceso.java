@@ -23,6 +23,7 @@ public class ConstantesAcceso {
        private static String GET_OFERTA_UBICACION = IP + PUERTO_HOST + "webServiceAndroid2/respuestasUsuario.php?funcion=getOfertasUbicacion&ubicacion=";
        private static  String GET_OFERTA_DEPORTE = IP + PUERTO_HOST + "webServiceAndroid2/respuestasUsuario.php?funcion=getOfertasDeporte&deporte=";
        private  static String RESERVAR_OFERTA = IP + PUERTO_HOST + "webServiceAndroid2/respuestasUsuario.php?funcion=funcion=reservarOferta&codigo=";//123&idUser=1";
+    private static String GET_DERPORTES = IP + PUERTO_HOST + "/webServiceAndroid2/respuestasUsuario.php?funcion=getDeportes";
 
        public static   String getURL(String get,String param1){
 
@@ -35,6 +36,8 @@ public class ConstantesAcceso {
                                return GET_OFERTA_UBICACION+param1;
                        case "get_oferta_deporte":
                                return GET_OFERTA_DEPORTE+param1;
+                   case "get_deportes":
+                       return  GET_DERPORTES;
 
                }
                return new String();
