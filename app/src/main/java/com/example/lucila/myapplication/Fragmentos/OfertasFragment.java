@@ -45,16 +45,6 @@ public class OfertasFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * inyecta la dependencia del servicio de ofertas.
-     * @parametro  ServicioOfertasUsuario de ofertas
-     * **/
-    public  void setServicioOfertas(ServicioOfertasUsuario s){
-        this.servicioOfertasUsuario=s;
-
-    }
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,10 +56,15 @@ public class OfertasFragment extends Fragment {
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        servicioOfertasUsuario=new ServicioOfertasHttp(getActivity());// horribleee
+        servicioOfertasUsuario=new ServicioOfertasHttp(getActivity(),this);// horribleee
+
+
+    }
+
+    public void callBackInterfaz(){
         ofertas=servicioOfertasUsuario.getOfertas();
         crearRecycler(ofertas);
-      //  crearSpinner(); //debug se sca
+        crearSpinner();
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -132,7 +127,7 @@ public class OfertasFragment extends Fragment {
         ArrayList<String> deportes=new ArrayList<String>();
         List<Deporte>deportesLista =servicioOfertasUsuario.getDeportes();
         deportes.add("todos");
-        for (int i=1;i<deportesLista.size();i++)
+        for (int i=0;i<deportesLista.size();i++)
             deportes.add(deportesLista.get(i).getNombre());
 
 

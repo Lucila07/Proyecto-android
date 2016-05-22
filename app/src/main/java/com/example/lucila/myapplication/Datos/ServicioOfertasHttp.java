@@ -1,16 +1,21 @@
 package com.example.lucila.myapplication.Datos;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.support.v7.util.AsyncListUtil;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.RequestFuture;
 import com.example.lucila.myapplication.Entidades.Deporte;
 import com.example.lucila.myapplication.Entidades.Oferta;
 import com.example.lucila.myapplication.Entidades.Usuario;
+import com.example.lucila.myapplication.Fragmentos.OfertasFragment;
 import com.example.lucila.myapplication.http.ConstantesAcceso;
 import com.example.lucila.myapplication.http.VolleySingleton;
 import com.example.lucila.myapplication.http.deporteDeserializer;
@@ -22,6 +27,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 //jason  para las consultas al web service
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,10 +47,12 @@ public class ServicioOfertasHttp implements ServicioOfertasUsuario {
     private List<Deporte>deportes;
 
     private MapeoIdDeporte mapeo;
+
+    private  OfertasFragment fragmentoOferta;
     /**
      * primero se deben obtener los deportes, para luego hacer el mapeo de id deporte a deporte en las ofertas
      * */
-    public  ServicioOfertasHttp(Activity activity)
+    public  ServicioOfertasHttp(Activity activity, OfertasFragment fragment)
     {
         this.activity=activity;
 
@@ -51,10 +60,9 @@ public class ServicioOfertasHttp implements ServicioOfertasUsuario {
         ofertas= new ArrayList<Oferta>();
         deportes= new ArrayList<Deporte>();
         //obetenemos los deportes del servidor y los guardamos en la lista deportes
+        //luego de eso pide las ofertas.
         realizarPeticionDeportes("get_deportes");
-        //obtenermos las ofertas del servidor y las guardamos en la lista ofertas
-        realizarPeticionOfertas("get_ofertas", null);
-
+        fragmentoOferta=fragment;
 
     }
     @Override
@@ -87,7 +95,8 @@ public class ServicioOfertasHttp implements ServicioOfertasUsuario {
     public List<Deporte> getDeportes()
     {
 
-       return deportes;
+        return deportes;
+
     }
 
     @Override
@@ -124,9 +133,9 @@ public class ServicioOfertasHttp implements ServicioOfertasUsuario {
                                     @Override
                                     public void onResponse(JSONObject response) {
                                         // Procesar la respuesta Json
-                                       String respuesta=response.toString();
+                                        String respuesta=response.toString();
 
-                                      procesarRespuestaOfertas(response);
+                                        procesarRespuestaOfertas(response);
                                     }
                                 },
                                 new Response.ErrorListener() {
@@ -142,13 +151,13 @@ public class ServicioOfertasHttp implements ServicioOfertasUsuario {
     }
 
     /**
-     * Interpreta los resultados de la respuesta y así
+     * Interpreta los resultados de la respuesta para las ofertasy así
      * realizar las operaciones correspondientes
      *
      * @param response Objeto Json con la respuesta
      */
     private  void procesarRespuestaOfertas(JSONObject response) {
-
+        Oferta[] ofertaArray=null;
         try {
 
             // Obtener atributo "estado"
@@ -163,7 +172,7 @@ public class ServicioOfertasHttp implements ServicioOfertasUsuario {
                     GsonBuilder gBuilder = new GsonBuilder();
                     gBuilder.registerTypeAdapter(Oferta.class,new ofertaDeserializer(mapeo));
                     gson = gBuilder.create();
-                    Oferta[] ofertaArray= gson.fromJson(cadenaRecibida, Oferta[].class);
+                     ofertaArray= gson.fromJson(cadenaRecibida, Oferta[].class);
 
                     for(int i=0;i<ofertaArray.length;i++){
 
@@ -184,7 +193,7 @@ public class ServicioOfertasHttp implements ServicioOfertasUsuario {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
+        fragmentoOferta.callBackInterfaz();
 
     }
 
@@ -232,6 +241,7 @@ public class ServicioOfertasHttp implements ServicioOfertasUsuario {
  */
 private  void  procesarRespuestaDeportes(JSONObject response) {
     Deporte[]deportesArray= null;
+
     try {
 
 
@@ -250,7 +260,6 @@ private  void  procesarRespuestaDeportes(JSONObject response) {
                 gson = gBuilder.create();
                 deportesArray= gson.fromJson(cadenaRecibida, Deporte[].class);
 
-
                 break;
             case "2": // FALLIDO
                 String mensaje2 = response.getString("mensaje");
@@ -262,19 +271,23 @@ private  void  procesarRespuestaDeportes(JSONObject response) {
                 break;
         }
 
-    } catch (JSONException e) {
+    }
+    catch (JSONException e) {
         e.printStackTrace();
     }
 
     for ( int i=0;i<deportesArray.length;i++)
-          {
-            Deporte d=  deportesArray[i];
-            deportes.add(d);
-            mapeo.insert(d.getIdDeporte(),d);  //establecemos el mapeo
-
-          }
-
+    {
+        deportes.add( deportesArray[i]);
+        mapeo.insert(deportesArray[i].getIdDeporte(),deportesArray[i]);  //establecemos el mapeo
 
     }
+
+    realizarPeticionOfertas("get_ofertas", null);
+
+    }
+
+
+
 }
 

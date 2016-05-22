@@ -30,6 +30,7 @@ public class ConstantesAcceso {
                switch (get){
                        case "get_ofertas":
                                return GET_OFERTAS;
+
                        case "get_oferta_codigo":
                                return GET_OFERTA_CODIGO+param1;
                        case "get_oferta_ubicacion":
