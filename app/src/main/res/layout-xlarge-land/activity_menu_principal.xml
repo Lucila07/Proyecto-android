@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Panel botones -->
+    <LinearLayout
+        android:id="@+id/panel_botones_menu_principal"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.25"
+        android:orientation="vertical"
+        android:background="#333333">
+
+    </LinearLayout>
+
+    <!-- Panel info -->
+    <LinearLayout
+        android:id="@+id/panel_info_menu_principal"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.75"
+        android:orientation="vertical">
+
+
+    </LinearLayout>
+
+</LinearLayout>

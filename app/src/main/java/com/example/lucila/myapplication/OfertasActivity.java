@@ -1,8 +1,5 @@
 package com.example.lucila.myapplication;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -18,14 +15,12 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.lucila.myapplication.beans.Oferta;
 import com.example.lucila.myapplication.beans.VolleySingleton;
 import com.example.lucila.myapplication.constantes.Constantes;
-import com.google.android.gms.maps.SupportMapFragment;
+import com.example.lucila.myapplication.fragmentos.OfertasFragment;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Arrays;
 
 public class OfertasActivity extends AppCompatActivity implements OfertasFragment.OnListFragmentInteractionListener {
 

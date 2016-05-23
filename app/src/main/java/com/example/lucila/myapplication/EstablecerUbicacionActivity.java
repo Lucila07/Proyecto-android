@@ -5,20 +5,26 @@ import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.os.ResultReceiver;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.lucila.myapplication.fragmentos.EstablecerUbicacionFragment;
 import com.example.lucila.myapplication.servicios.ObtenerDireccionService;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -26,9 +32,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class EstablecerUbicacionActivity
         extends AppCompatActivity
         implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback,
-        EstablecerUbicacionFragment.OnFragmentInteractionListener {
+        EstablecerUbicacionFragment.OnEstablecerUbicacionListener {
 
-    //Codigo usado para distiguir en el pedido de permisos
+    //Codigo usado para determinar la respuesta del usuario sobre los permisos de ubicacion
     public static final int PERMISO_UBICACION= 1;
 
     //API para el mapa de google
@@ -39,11 +45,12 @@ public class EstablecerUbicacionActivity
 
     //Fragmentos
     private EstablecerUbicacionFragment fragmentoUbicacion;
-    private SupportMapFragment fragmentoMapa;
 
     //Instancia del mapa de google
     private GoogleMap mapa;
     private Marker marcas;
+    //Asumo que no tengo permiso
+    private boolean permiso= false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +59,26 @@ public class EstablecerUbicacionActivity
         setContentView(R.layout.activity_establecer_ubicacion);
 
         fragmentoUbicacion= (EstablecerUbicacionFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_estab_ubicacion);
-        fragmentoMapa= (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment fragmentoMapa = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         fragmentoMapa.getMapAsync(this);
 
+        //Permiso peligroso: ahora android pregunta al usuario dentro de la aplicación.
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+            //Si es la primera vez que se usa, se le pregunta con un dialogo y se esperar el resultado.
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISO_UBICACION);
+        else {
+            permiso= true;
+        }
+        if(savedInstanceState != null) {
+            //Si guarde info
+            ultimaLocacionConocida= savedInstanceState.getParcelable("locacion");
+            if(ultimaLocacionConocida == null) {
+                //Si por alguna razón se almaceno mal
+                ultimaLocacionConocida= new Location("Bahñia Blanca");
+                ultimaLocacionConocida.setLongitude(-39);
+                ultimaLocacionConocida.setLatitude(-62);
+            }
+        }
         if (clienteGoogle == null) {
             clienteGoogle = new GoogleApiClient.Builder(this)
                     .addConnectionCallbacks(this)
@@ -65,8 +89,15 @@ public class EstablecerUbicacionActivity
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable("locacion", ultimaLocacionConocida);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     protected void onStart() {
-        clienteGoogle.connect();
+        if(permiso)
+            clienteGoogle.connect();
         super.onStart();
     }
 
@@ -77,61 +108,30 @@ public class EstablecerUbicacionActivity
     }
 
     @Override
-    public void onConnected(Bundle bundle) {
-    }
+    public void onConnected(Bundle bundle) {}
 
     @Override
-    public void onConnectionSuspended(int i) {
-    }
+    public void onConnectionSuspended(int i) {}
 
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-        Toast.makeText(this, "onContecionFailed", Toast.LENGTH_SHORT);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        //Usa el requestCode pasado en el requestPermision()
-        switch (requestCode) {
-            case PERMISO_UBICACION: {
-                //Si el usuario acepto
-                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    obtenerUbicacion();
-                }
-                else {
-                    Toast.makeText(this,"Algo falló",Toast.LENGTH_SHORT);
-                }
-            }
-        }
-    }
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {}
 
     /**
      * Se llama cuando se toca el boton gps en la actividad
      */
     public void onObtenerUbicacionListener() {
-        //Permiso peligroso: ahora android pregunta al usuario dentro de la aplicación.
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-            //Si es la primera vez que se usa se le pregunta con un dialogo y se esperar el resultado en el listener
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISO_UBICACION);
-        else
-            //Si ya tengo el permiso, obtengo la ubicacion
             obtenerUbicacion();
     }
 
-    //Si llego aca es porque ya cheque los permisos
     @SuppressWarnings("MissingPermission")
     private void obtenerUbicacion() {
         if(clienteGoogle.isConnected()) {
-            if(ultimaLocacionConocida == null) {
+            if(ultimaLocacionConocida == null)
                 ultimaLocacionConocida= LocationServices.FusedLocationApi.getLastLocation(clienteGoogle);
-                ultimaLocacionConocida= new Location("Bahia Blanca");
-                ultimaLocacionConocida.setLatitude(-39);
-                ultimaLocacionConocida.setLongitude(-62);
-            }
             ObtenerDireccionService.startService(this, new AddressResultReceiver(new Handler()), ultimaLocacionConocida);
         }
         else {
-            Toast.makeText(this, "Conexión no establecida", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Sin servicio GPS", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -141,16 +141,19 @@ public class EstablecerUbicacionActivity
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        double longitud= -39;
+        double latitud= -62;
         if(ultimaLocacionConocida != null) {
-            double longitud;
-            double latitud;
             longitud= ultimaLocacionConocida.getLongitude();
             latitud= ultimaLocacionConocida.getLatitude();
             marcas= googleMap.addMarker(new MarkerOptions()
                                     .position(new LatLng(latitud,longitud))
-                                    .title("Ubicación"));
+                                    .title(ultimaLocacionConocida.getProvider()));
         }
         mapa= googleMap;
+        LatLng locacion= new LatLng(longitud,latitud);
+        CameraUpdate camara= CameraUpdateFactory.newCameraPosition(CameraPosition.fromLatLngZoom(locacion, 7));
+        googleMap.moveCamera(camara);
     }
 
     @SuppressLint("ParcelCreator")

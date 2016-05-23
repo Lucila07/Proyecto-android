@@ -1,4 +1,4 @@
-package com.example.lucila.myapplication;
+package com.example.lucila.myapplication.fragmentos;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.lucila.myapplication.R;
 import com.example.lucila.myapplication.beans.Oferta;
 
 import java.util.Calendar;

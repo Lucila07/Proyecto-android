@@ -5,6 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.lucila.myapplication.beans.Oferta;
+import com.example.lucila.myapplication.fragmentos.CrearOfertasFragment;
+import com.example.lucila.myapplication.fragmentos.DatePickerFragment;
+import com.example.lucila.myapplication.fragmentos.TimePickerFragment;
 
 import java.util.Calendar;
 

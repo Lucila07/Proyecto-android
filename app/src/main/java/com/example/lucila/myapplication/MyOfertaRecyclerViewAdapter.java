@@ -6,10 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.lucila.myapplication.OfertasFragment.OnListFragmentInteractionListener;
+import com.example.lucila.myapplication.fragmentos.OfertasFragment.OnListFragmentInteractionListener;
 import com.example.lucila.myapplication.beans.Oferta;
 
-import java.util.Calendar;
 import java.util.List;
 
 /**
