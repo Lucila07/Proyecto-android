@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:baselineAligned="false">
+
+
+    >
+    <!-- App Bar -->
+          <android.support.v7.widget.Toolbar
+
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:id="@+id/toolbar_perfil"
+
+            />
+
+
+        <ImageView
+            android:layout_width="219dp"
+            android:layout_height="117dp"
+            android:src="@drawable/perfil"
+            android:layout_marginTop="20dp"
+            android:id="@+id/imageView"
+
+            android:layout_below="@+id/tv_NavTitle"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.53" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/nombreUsuario"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#000000"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_weight="0.02" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            >
+
+            <TextView
+                android:layout_width="109dp"
+                android:layout_height="wrap_content"
+                android:text="Localidad: "
+                android:textSize="22dp"
+                android:layout_weight="0.02"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="20dp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/nombreLocalidad"
+                android:textSize="22dp"
+                android:layout_weight="0.02"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="109dp"
+                android:layout_height="wrap_content"
+                android:text="Teléfono: "
+                android:layout_marginLeft="40dp"
+                android:textSize="22dp"
+                android:layout_weight="0.02"
+                android:layout_marginTop="20dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/nroTel"
+                android:textSize="22dp"
+                android:layout_weight="0.02"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="109dp"
+                android:layout_height="wrap_content"
+                android:text="Reservas: "
+                android:layout_marginLeft="40dp"
+                android:textSize="22dp"
+                android:layout_weight="0.02"
+                android:layout_marginTop="20dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/nroRes"
+                android:textSize="22dp"
+                android:layout_weight="0.02"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/nroDenuncias"
+                android:textSize="22dp"
+                android:layout_weight="0.02"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                />
+        </LinearLayout>
+
+</LinearLayout>
+
+
+
