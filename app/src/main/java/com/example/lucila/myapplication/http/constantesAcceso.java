@@ -17,7 +17,7 @@ public class ConstantesAcceso {
          * Dirección IP
          */
 
-        private static final String IP = "http://192.168.0.101:";
+        private static final String IP = "http://192.168.1.106:";
         /**
          * URLs del Web Service
          */

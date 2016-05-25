@@ -117,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:text="Reservar"
                 android:id="@+id/boton_reservar"
-                android:background="@color/colorAccent"
+                android:backgroundTint="@color/colorAccent"
                 android:textSize="25dp"
                 android:textColor="#FFFFFF"
                 android:layout_gravity="center|bottom"

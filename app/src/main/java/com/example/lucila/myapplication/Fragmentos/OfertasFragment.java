@@ -1,6 +1,7 @@
 package com.example.lucila.myapplication.Fragmentos;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +44,8 @@ public class OfertasFragment extends Fragment implements ServicioOfertasHttp.Cal
     private   List<Oferta>ofertas;
     private  Spinner spinner;
     private  ServicioOfertasHttp servicioOfertasUsuario;
-
+    private Activity activity;
+    private  List<Deporte>deportesLista;
     public OfertasFragment() {
         // Required empty public constructor
     }
@@ -98,13 +101,36 @@ public class OfertasFragment extends Fragment implements ServicioOfertasHttp.Cal
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-       // contexto=getContext();
+        servicioOfertasUsuario= ServicioOfertasHttp.getInstanciaServicio(this,activity);
+
+
+        if (savedInstanceState==null)
+        {
+            Log.d(contexto.getClass().getSimpleName(), "hago requerimiento ");
+            servicioOfertasUsuario.realizarPeticion();
+        }
+        else{
+            Log.d(contexto.getClass().getSimpleName(), " ya habia ofertas");
+
+            ofertas= savedInstanceState.getParcelableArrayList("ofertas");
+
+            deportesLista=savedInstanceState.getParcelableArrayList("deportes");
+            crearRecycler(ofertas);
+            crearSpinner();
+
+        }
     }
+
 
     @Override
     public void dibujarListaOfertas(){
-        servicioOfertasUsuario=ServicioOfertasHttp.getInstanciaServicio(this,getActivity());
+    if (servicioOfertasUsuario==null)
+    {
+        servicioOfertasUsuario = ServicioOfertasHttp.getInstanciaServicio(this, getActivity());
+    }
+
         ofertas=servicioOfertasUsuario.getOfertas();
+        deportesLista =servicioOfertasUsuario.getDeportes();
         crearRecycler(ofertas);
         crearSpinner();
     }
@@ -116,20 +142,21 @@ public class OfertasFragment extends Fragment implements ServicioOfertasHttp.Cal
         mRecyclerView = (RecyclerView)rootView.findViewById(R.id.recycler_view);
         spinner = (Spinner)rootView.findViewById(R.id.deportes_spinner);
         contexto=getContext();
+        activity=getActivity();
 
-        servicioOfertasUsuario= ServicioOfertasHttp.getInstanciaServicio(this,getActivity());// horribleee
-        servicioOfertasUsuario.realizarPeticion();
         return rootView;
     }
 
+    @Override
+    public void onPause(){
+       super.onPause();
+       Log.d(contexto.getClass().getSimpleName(), " en pausa ");
 
+    }
 
     private void crearRecycler( List<Oferta>ofertas){
 
-
-
-
-        // use this setting to improve performance if you know that changes
+  // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
 
@@ -146,7 +173,7 @@ public class OfertasFragment extends Fragment implements ServicioOfertasHttp.Cal
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ReservaOfertaActivity.class);
 
-
+               //Intent intent = new Intent( ReservaOfertaActivity.class);
                 TextView textCodigo=(TextView) v.findViewById(R.id.oferta_id);
                 long codigoOferta=Long.parseLong(textCodigo.getText().toString());
                 Oferta oferta= servicioOfertasUsuario.getOfertaCodigo(codigoOferta);
@@ -159,11 +186,27 @@ public class OfertasFragment extends Fragment implements ServicioOfertasHttp.Cal
         mRecyclerView.setAdapter(mAdapter);
     }
 
+
     public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+       super.onSaveInstanceState(outState);
+
+        outState.putParcelableArrayList("ofertas",(ArrayList<Oferta>) ofertas);
+        outState.putParcelableArrayList("deportes",(ArrayList<Deporte>)deportesLista);
+        Log.d(contexto.getClass().getSimpleName(), " onsaveinstance ");
     }
 
 
+  /*   public  void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode ==123 ) {
+            // Make sure the request was successful
+            if (resultCode == 1) {
+
+                // Do something with the contact here (bigger example below)
+            }
+        }
+    }
+*/
 
     /**
      * crear el desplegable con los distintos deportes para que el usuario pueda filtrar por deporte
@@ -173,7 +216,7 @@ public class OfertasFragment extends Fragment implements ServicioOfertasHttp.Cal
       //  Spinner spinner = (Spinner) getActivity().findViewById(R.id.deportes_spinner);
 
         ArrayList<String> deportes=new ArrayList<String>();
-        List<Deporte>deportesLista =servicioOfertasUsuario.getDeportes();
+
         deportes.add("todos");
         for (int i=0;i<deportesLista.size();i++)
             deportes.add(deportesLista.get(i).getNombre());

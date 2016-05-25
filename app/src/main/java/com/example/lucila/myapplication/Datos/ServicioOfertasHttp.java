@@ -13,8 +13,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.lucila.myapplication.Entidades.Deporte;
 import com.example.lucila.myapplication.Entidades.Oferta;
 import com.example.lucila.myapplication.Entidades.Usuario;
-import com.example.lucila.myapplication.Fragmentos.OfertasFragment;
-import com.example.lucila.myapplication.ReservaOfertaActivity;
 import com.example.lucila.myapplication.http.ConstantesAcceso;
 import com.example.lucila.myapplication.http.VolleySingleton;
 import com.example.lucila.myapplication.http.deporteDeserializer;
@@ -63,9 +61,9 @@ public class ServicioOfertasHttp implements Parcelable{
 
        if(singletonInstance==null){
            singletonInstance=new ServicioOfertasHttp();
-           callback=c;
-           activity=a;
-    }
+       }
+       singletonInstance.callback=c;
+       singletonInstance.activity=a;
        return singletonInstance;
    }
 
@@ -257,7 +255,7 @@ public class ServicioOfertasHttp implements Parcelable{
                     gBuilder.registerTypeAdapter(Oferta.class,new ofertaDeserializer(mapeo));
                     gson = gBuilder.create();
                      ofertaArray= gson.fromJson(cadenaRecibida, Oferta[].class);
-
+                    ofertas=new ArrayList<Oferta>();
                     for(int i=0;i<ofertaArray.length;i++){
 
                         ofertas.add(ofertaArray[i]);
@@ -359,7 +357,7 @@ private static void  procesarRespuestaDeportes(JSONObject response) {
     catch (JSONException e) {
         e.printStackTrace();
     }
-
+    deportes=new ArrayList<Deporte>();
     for ( int i=0;i<deportesArray.length;i++)
     {
         deportes.add( deportesArray[i]);
