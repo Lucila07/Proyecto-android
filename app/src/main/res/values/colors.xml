@@ -6,7 +6,6 @@
     <color name="windowBackground">#FFFFFF</color>
     <color name="navigationBarColor">#000000</color>
     <color name="colorAccent">#03A9F4</color>
-	<!---agreguee-->
 	<color name="statusBarColor">#4169E1</color>
     <color name="toolBarColor">#8BC34A</color>
 </resources>

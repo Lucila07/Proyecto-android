@@ -9,8 +9,9 @@ public class ServicioUsuarioLista implements  ServicioUsuarios {
 
     public Usuario getUsuarioLogueado(){
 
-        Usuario user= new Usuario("Agustin","Koll");
+        Usuario user= new Usuario("agustin","Koll");
         user.setTelefono(454467);
+        user.setIdUsuario(123);
         return user;
     }
 }

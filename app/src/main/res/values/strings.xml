@@ -3,8 +3,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-	<!--Agregue -->
-	    <string name="app_name">Deportes</string>
+    <!--Agregue -->
+    <string name="app_name">Deportes</string>
     <string name="action_settings">Settings</string>
 
     <string-array name="navDrawerItems">
@@ -12,8 +12,8 @@
         <item>Fin de partido </item>
         <item>Reservas hechas </item>
         <item>Preferencias</item>
-     <!--  <item>Gallery</item>
-        <item>Connect</item> -->
+        <!--  <item>Gallery</item>
+           <item>Connect</item> -->
     </string-array>
 
     <string-array name="navDrawerIcons">
@@ -24,7 +24,7 @@
         <item>@drawable/preferencias</item>
 
     </string-array>
-	
-	
-	
+
+
+
 </resources>

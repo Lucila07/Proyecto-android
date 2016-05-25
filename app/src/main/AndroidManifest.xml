@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.lucila.myapplication" >
-
+    <uses-permission android:name="android.permission.ACCESS_CUARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -44,6 +45,13 @@
                 android:value="com.example.lucila.myapplication.MainActivity" />
             >
         </activity>
+        <!-- Permiso usado para obtener la ubicación del usuario -->
+
+
+        <service
+            android:name=".servicios.ObtenerDireccionService"
+            android:exported="false" />
+
     </application>
 
 </manifest>

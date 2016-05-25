@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.lucila.myapplication.Datos.OfertasLista;
-import com.example.lucila.myapplication.Datos.servicioOfertasUsuario;
+import com.example.lucila.myapplication.Datos.ServicioOfertasUsuario;
 import com.example.lucila.myapplication.Entidades.Deporte;
 import com.example.lucila.myapplication.Entidades.Oferta;
 import com.example.lucila.myapplication.Fragmentos.CrearPartidoFragment;
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private servicioOfertasUsuario servicioOfertasUsuario;
+    private ServicioOfertasUsuario servicioOfertasUsuario;
 
     //lu-------------
     DrawerLayout drawerLayout;
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
          */
 
         recyclerViewAdapter = new RecyclerViewAdapter(navTitles,navIcons,this);
-         recyclerView.setAdapter(recyclerViewAdapter);
+        recyclerView.setAdapter(recyclerViewAdapter);
 
         /**
          *It is must to set a Layout Manager For Recycler View
@@ -109,14 +109,14 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false); //el boton de back
 
-       toolbar = (Toolbar) findViewById(R.id.toolBar);
-       setSupportActionBar(toolbar);
-       getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar = (Toolbar) findViewById(R.id.toolBar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
     void setupDrawerToggle(){
         //icono
-       drawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.app_name,R.string.app_name);
+        drawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.app_name,R.string.app_name);
         //This is necessary to change the icon of the Drawer Toggle upon state change.
         this.drawerToggle.syncState();
     }
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-  //  FragmentPagerAdapter
+    //  FragmentPagerAdapter
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();

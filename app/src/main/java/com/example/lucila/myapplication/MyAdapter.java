@@ -83,7 +83,7 @@ public class MyAdapter extends ArrayAdapter<String> {
 }
 */
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>   implements View.OnClickListener{
-   // private String[] mDataset;
+    // private String[] mDataset;
     private List<Oferta>lista_ofertas;
     public Context contexto;
     private View.OnClickListener listener;

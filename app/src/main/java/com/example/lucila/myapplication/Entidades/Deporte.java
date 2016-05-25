@@ -5,14 +5,19 @@ package com.example.lucila.myapplication.Entidades;
  */
 public class Deporte {
 
+
     private String nombre;
     private int idFoto;
-    private int idDeporte;
+    private long idDeporte;
+    //private int idFoto;
+
+
 
     public Deporte(String nombre){
         this.nombre=nombre;
 
     }
+
     public int getIdFoto() {
         return idFoto;
     }
@@ -20,6 +25,24 @@ public class Deporte {
     public void setIdFoto(int idFoto) {
         this.idFoto = idFoto;
     }
+
+    public long getIdDeporte() {
+        return idDeporte;
+    }
+
+    public void setIdDeporte(long idDeporte) {
+        this.idDeporte = idDeporte;
+    }
+
+    /*  public int getIdFoto() {
+            return idFoto;
+        }
+
+        public void setIdFoto(int idFoto) {
+            this.idFoto = idFoto;
+        }
+        */
+
     public String getNombre() {
         return nombre;
     }
