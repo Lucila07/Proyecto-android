@@ -14,4 +14,9 @@ public class ServicioUsuarioLista implements  ServicioUsuarios {
         user.setIdUsuario(123);
         return user;
     }
+
+    @Override
+    public boolean validarUsuario(String email, String pass) {
+        return false;
+    }
 }
