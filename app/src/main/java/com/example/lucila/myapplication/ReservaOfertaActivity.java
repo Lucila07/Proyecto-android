@@ -17,29 +17,28 @@ import com.example.lucila.myapplication.Entidades.Oferta;
 import com.example.lucila.myapplication.Entidades.Usuario;
 
 
-public class ReservaOfertaActivity extends AppCompatActivity  implements ServicioOfertasHttp.CallBack {
-    private TextView textview_codigo;
-    private  Long id_oferta;
+public class ReservaOfertaActivity extends AppCompatActivity  implements ServicioOfertasHttp.CallBack,ServicioUsuariosHttp.AccesoUsuarios {
+
+
+
     private  Toolbar toolbar;
     private  Button botonReservar;
     private Oferta oferta;
     private Usuario usuario;
     private ServicioOfertasHttp servicioOfertas;
-    private ServicioUsuarios servicioUsuario= new ServicioUsuarioLista(); //deberia ser inyectado
-    private ReservaOfertaActivity actividad;
+    private ServicioUsuarios servicioUsuario= ServicioUsuariosHttp.getInstance(this,this); //deberia ser inyectado
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        actividad=this;
+
         setContentView(R.layout.reserva_oferta);
         setToolbar();
         Intent intent=getIntent();
-        id_oferta=intent.getExtras().getLong("id_oferta");
-       // servicioOfertas=intent.getExtras().getParcelable("ServicioHttp");
+
+        usuario = servicioUsuario.getUsuarioLogueado();
         servicioOfertas= ServicioOfertasHttp.getInstanciaServicio(this,this);
-        servicioUsuario= new ServicioUsuarioLista();
-        //oferta= servicioOfertas.getOfertaCodigo(id_oferta);
-        oferta= (Oferta)intent.getExtras().getParcelable("oferta");
+    oferta= (Oferta)intent.getExtras().getParcelable("oferta");
 
         if(oferta!=null){
             establecerTextos(oferta);
@@ -61,7 +60,7 @@ public class ReservaOfertaActivity extends AppCompatActivity  implements Servici
                 }
                 else
                 {
-                    usuario = servicioUsuario.getUsuarioLogueado();//TODO generar los usuarios
+
 
 
                     if (usuario == null)
@@ -71,7 +70,7 @@ public class ReservaOfertaActivity extends AppCompatActivity  implements Servici
                     }
                     else
                     {
-                        if (usuario.getTelefono() == 0) {
+                        if (usuario.getTelefono()==null) {
 
                             Toast.makeText(ReservaOfertaActivity.this, "Antes de realizar una reserva de ingresar el telefono", Toast.LENGTH_LONG).show();
                         }
@@ -175,8 +174,8 @@ private void establecerTextos(Oferta oferta){
 
     @Override
     public  void reservaExito(){
-        oferta.setEstado("reservada");
-        oferta.setIdUserComprador(servicioUsuario.getUsuarioLogueado().getIdUsuario());
+        oferta.setEstado("reservada"); //en memoria no en bd, en bd ya esta en este punto
+        oferta.setIdUserComprador(servicioUsuario.getUsuarioLogueado().getIdUsuario());//en memoria
         generarDialogoOk(this);
 
     }
@@ -194,5 +193,15 @@ private void establecerTextos(Oferta oferta){
 
     }
 
+
+    @Override
+    public void cargarMain() {
+
+    }
+
+    @Override
+    public void cargarTelefono() {
+
+    }
 
 }

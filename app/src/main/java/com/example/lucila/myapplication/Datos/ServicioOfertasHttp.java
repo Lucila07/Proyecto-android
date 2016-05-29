@@ -154,10 +154,13 @@ public class ServicioOfertasHttp implements Parcelable{
     public static List<Oferta> getOfertasDeporte(Deporte deporte) {
          List<Oferta> salida= new ArrayList<Oferta>();
             for(int i=0;i<ofertas.size();i++) {
-                if(ofertas.get(i).getDeporte().getNombre().equals(deporte.getNombre()))
-                    salida.add(ofertas.get(i));
+                Oferta ofAux=ofertas.get(i);
+                if(ofAux.getDeporte()!=null) {
+                    if (ofAux.getDeporte().getNombre().equals(deporte.getNombre()))
+                        salida.add(ofertas.get(i));
 
-            }
+                }
+                }
         return salida;
     }
 
@@ -372,9 +375,10 @@ private static void  procesarRespuestaDeportes(JSONObject response) {
     /**
      * realiza la peticion de la reserva, tiene que recibir que oferta y que usuario
      * */
-    private static void realizarPeticionReserva(final Oferta oferta, long idUser){
+    private static void realizarPeticionReserva(final Oferta oferta, String idUser){
         long idOferta=oferta.getCodigo();
-        String url = ConstantesAcceso.getURLRerserva(idOferta+"",idUser+"");
+        String url = ConstantesAcceso.getURLRerserva(idOferta+"",idUser);
+        Log.d("reserva oferta ","url "+url);
         VolleySingleton.getInstance(activity).addToRequestQueue(
                 new JsonObjectRequest(
                         Request.Method.GET,

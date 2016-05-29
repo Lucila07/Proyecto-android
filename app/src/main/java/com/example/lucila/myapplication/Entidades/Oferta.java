@@ -18,7 +18,7 @@ import java.util.Date;
     private String fecha;
 
     private String hora;
-    private long idUserComprador;
+    private String  idUserComprador;
 
     private long idUserCreador;
 
@@ -44,7 +44,7 @@ import java.util.Date;
         dest.writeString(fecha);
         dest.writeString(estado);
         dest.writeString(hora);
-        dest.writeLong(idUserComprador);
+        dest.writeString(idUserComprador);
         dest.writeLong(idUserCreador);
         dest.writeInt(precioHabitual);
         dest.writeInt(precioOferta);
@@ -68,7 +68,7 @@ import java.util.Date;
         this.fecha= (String)in.readString();
         this.estado=(String)in.readString();
         this.hora=(String)in.readString();
-        this.idUserComprador=(int)in.readInt();
+        this.idUserComprador=(String) in.readString();
         this.idUserCreador=(int)in.readInt();
         this.precioHabitual=(int)in.readInt();
         this.precioOferta=(int)in.readInt();
@@ -84,11 +84,11 @@ import java.util.Date;
         this.idUserCreador = idUserCreador;
     }
 
-    public long getIdUserComprador() {
+    public String getIdUserComprador() {
         return idUserComprador;
     }
 
-    public void setIdUserComprador(long idUserComprador) {
+    public void setIdUserComprador(String idUserComprador) {
         this.idUserComprador = idUserComprador;
     }
 

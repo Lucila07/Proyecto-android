@@ -11,25 +11,21 @@ import java.util.List;
 public class Usuario {
 
     private String ubicacion;
-    private String nombre;
-    private String apellido;
+    private String nombreApellido;
+
     private String email;
-    private int telefono;
+    private String telefono;
     private int faltas;
-    private int idUsuario; //id para la bd
+    private String idUsuario; //id para la bd
     private List<Oferta>ofertasReservadas;
 
-    public Usuario(String nombre, String apellido) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        ofertasReservadas= new ArrayList<>();
-    }
 
     public Usuario(String email){
 
         this.email=email;
         ofertasReservadas= new ArrayList<>();
     }
+
     public String getUbicacion() {
         return ubicacion;
     }
@@ -38,20 +34,12 @@ public class Usuario {
         this.ubicacion = ubicacion;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombreApellido() {
+        return nombreApellido;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setNombreApellido(String nombre) {
+        this.nombreApellido = nombre;
     }
 
     public String getEmail() {
@@ -62,11 +50,11 @@ public class Usuario {
         this.email = email;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
@@ -78,11 +66,11 @@ public class Usuario {
         this.faltas = faltas;
     }
 
-    public int getIdUsuario() {
+    public String getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(int idUsuario) {
+    public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
     }
 

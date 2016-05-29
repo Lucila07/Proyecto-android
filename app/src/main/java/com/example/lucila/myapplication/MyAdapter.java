@@ -80,12 +80,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>   impl
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Oferta oferta= lista_ofertas.get(position);
-       holder.text_deporte.setText(oferta.getDeporte().getNombre());
+        if(oferta.getDeporte()!=null){
+            setImagenOferta(holder,oferta.getDeporte());
+            holder.text_deporte.setText(oferta.getDeporte().getNombre());
+        }
+         else  holder.text_deporte.setText("deporte no establecido");
+
         holder.text_ubicacion.setText(oferta.getUbicacion());
         holder.text_hora.setText(oferta.getHora().toString());
         holder.text_fecha.setText(oferta.getFecha().toString());
 
-       setImagenOferta(holder,oferta.getDeporte());
+
         holder.id_oferta.setText(lista_ofertas.get(position).getCodigo().toString());
     }
 
