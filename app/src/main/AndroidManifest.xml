@@ -15,13 +15,15 @@
 		 android:value="@integer/google_play_services_version" />     
 	 <meta-data                                                       
 		 android:name="com.google.android.geo.API_KEY"                
-		 android:value="AIzaSyD9cQDDEPFhykyVWZidbzA2MDQVKMCW6HY" />   
-                                                                  
-        <activity android:name=".MainActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+		 android:value="AIzaSyD9cQDDEPFhykyVWZidbzA2MDQVKMCW6HY" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+        <activity android:name=".NuevoUsuario"></activity>
+        <activity android:name=".MainActivity">
+            <intent-filter>
+
+                <!-- action android:name="android.intent.action.BIENVENIDO" / -->
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
@@ -44,7 +46,7 @@
                 android:value="com.example.lucila.myapplication.MainActivity" />
             >
         </activity>
-        <activity android:name=".http.ReservasActivity" >
+        <activity android:name=".http.ReservasActivity"
             android:parentActivityName=".MainActivity" >
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
@@ -54,7 +56,15 @@
             >
         </activity>
         <!-- Permiso usado para obtener la ubicación del usuario -->
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
     </application>
 

@@ -59,7 +59,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
             MainActivity mainActivity = (MainActivity)context;
-            mainActivity.getDrawerLayout().closeDrawers();
+          //  mainActivity.getDrawerLayout().closeDrawers();//------ esto es lo q no me andaba!!
+
            // i= new Intent(context, PerfilActivity.class);
            // context.startActivity(i)
 

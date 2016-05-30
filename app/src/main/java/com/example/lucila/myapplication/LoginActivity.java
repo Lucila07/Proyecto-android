@@ -166,7 +166,7 @@ public class LoginActivity extends AppCompatActivity implements ServicioUsuarios
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
             // Toast.makeText(LoginActivity.this," "+acct.getEmail()+" "+acct.getId()+" "+ acct.getDisplayName()+" " , Toast.LENGTH_LONG).show();
-            Toast.makeText(LoginActivity.this, " Bienvenido " + acct.getEmail(), Toast.LENGTH_LONG).show();
+           // Toast.makeText(LoginActivity.this, " Bienvenido " + acct.getEmail(), Toast.LENGTH_LONG).show();
 
             usuario = new Usuario(acct.getEmail());
             usuario.setIdUsuario(acct.getId());
@@ -191,7 +191,7 @@ public class LoginActivity extends AppCompatActivity implements ServicioUsuarios
     @Override
     public void cargarMain() {
 
-        Toast.makeText(LoginActivity.this, "telefono " + servicioUsuarios.getUsuarioLogueado().getTelefono(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(LoginActivity.this, " Bienvenido " + usuario.getNombreApellido(), Toast.LENGTH_LONG).show();
         Intent intent = new Intent();
         intent.setClass(LoginActivity.this, MainActivity.class);
         startActivity(intent);
@@ -209,7 +209,7 @@ public class LoginActivity extends AppCompatActivity implements ServicioUsuarios
         intent.putExtra("id", usuario.getIdUsuario());
         intent.putExtra("mail", usuario.getEmail());
         intent.putExtra("nombre", usuario.getNombreApellido());
-
+        Toast.makeText(LoginActivity.this, " Gracias por descargar nuestra APP " + usuario.getNombreApellido(), Toast.LENGTH_LONG).show();
         startActivity(intent);
 
     }
