@@ -17,18 +17,20 @@ public class ConstantesAcceso {
          * Dirección IP
          */
 
-        private static final String IP = "http://192.168.0.101:";
+        private static final String IP = "http://192.168.1.106:";
         /**
          * URLs del Web Service
          */
         private static String GET_OFERTAS = IP + PUERTO_HOST + "/webServiceAndroid2/respuestasUsuario.php?funcion=getOfertas";
-        private static String GET_OFERTA_CODIGO = IP + PUERTO_HOST + "/webServiceAndroid2/respuestasUsuario.php?funcion=getOfertaCodigo&codigo=";
+       private static String GET_OFERTA_CODIGO = IP + PUERTO_HOST + "/webServiceAndroid2/respuestasUsuario.php?funcion=getOfertaCodigo&codigo=";
        private static String GET_OFERTA_UBICACION = IP + PUERTO_HOST + "/webServiceAndroid2/respuestasUsuario.php?funcion=getOfertasUbicacion&ubicacion=";
        private static  String GET_OFERTA_DEPORTE = IP + PUERTO_HOST + "/webServiceAndroid2/respuestasUsuario.php?funcion=getOfertasDeporte&deporte=";
-       private  static String RESERVAR_OFERTA = IP + PUERTO_HOST + "/webServiceAndroid2/respuestasUsuario.php?funcion=funcion=reservarOferta&codigo=";//123&idUser=1";
-    private static String GET_DERPORTES = IP + PUERTO_HOST + "/webServiceAndroid2/respuestasUsuario.php?funcion=getDeportes";
+       private  static String RESERVAR_OFERTA = IP + PUERTO_HOST + "/webServiceAndroid2/respuestasUsuario.php?funcion=reservarOferta&codigo=";//123&idUser=1";
+       private static String GET_DERPORTES = IP + PUERTO_HOST + "/webServiceAndroid2/respuestasUsuario.php?funcion=getDeportes";
+       private static String VERIFICAR_USUARIO=IP+PUERTO_HOST+"/webServiceAndroid2/respuestasUsuario.php?funcion=verificarUsuario&idUser=";
+    private static String GUARDAR_USUARIO=IP+PUERTO_HOST+"/webServiceAndroid2/respuestasUsuario.php?funcion=guardarUsuario";
 
-       public static   String getURL(String get,String param1){
+    public static   String getURL(String get,String param1){
 
                switch (get){
                        case "get_ofertas":
@@ -42,6 +44,10 @@ public class ConstantesAcceso {
                                return GET_OFERTA_DEPORTE+param1;
                    case "get_deportes":
                        return  GET_DERPORTES;
+                   case "verificar_usuario":
+                       return VERIFICAR_USUARIO+param1;
+                   case "guardar_usuario":
+                       return GUARDAR_USUARIO;
 
                }
                return new String();
@@ -49,7 +55,7 @@ public class ConstantesAcceso {
 
     public static String getURLRerserva(String codigo, String usuario ){
 
-        return RESERVAR_OFERTA+codigo+"&"+usuario;
+        return RESERVAR_OFERTA+codigo+"&idUser="+usuario;
     }
 
     }

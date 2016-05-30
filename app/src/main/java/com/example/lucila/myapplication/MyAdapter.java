@@ -19,71 +19,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.lucila.myapplication.Entidades.Deporte;
 import com.example.lucila.myapplication.Entidades.Oferta;
 
 
 import java.util.List;
-/*
-public class MyAdapter extends ArrayAdapter<String> {
-    Context context;
-    int layoutResourseId;
-    List<Oferta>data = null;
 
-    public MyAdapter(Context c, int resource, List<Oferta>ofertas) {
-        super(c, resource);
-        context = c;
-        layoutResourseId = resource;
-        data = ofertas;
-
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View row = convertView;
-        MyHolder holder = null;
-        if (row == null) {
-            LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-            row = inflater.inflate(layoutResourseId, parent, false);
-            holder = new MyHolder();
-
-            holder.txtDeporte = (TextView) row.findViewById(R.id.deporte);
-            row.setTag(holder);
-
-
-
-        }
-        else{
-            holder=(MyHolder)row.getTag();
-
-        }
-
-        Oferta element=data.get(position);
-        holder.getTxtTitle().setText(element.getDeporte());
-
-
-        return row;
-    }
-
-    private static class MyHolder {
-
-
-        TextView txtDeporte;
-
-
-        public void setTxtTitle(TextView txtTitle) {
-            this.txtDeporte = txtTitle;
-        }
-
-        public TextView getTxtTitle() {
-            return txtDeporte;
-        }
-
-    }
-
-}
-*/
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>   implements View.OnClickListener{
-    // private String[] mDataset;
+   // private String[] mDataset;
     private List<Oferta>lista_ofertas;
     public Context contexto;
     private View.OnClickListener listener;
@@ -136,13 +79,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>   impl
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
-        holder.text_deporte.setText(lista_ofertas.get(position).getDeporte().getNombre());
-        holder.text_ubicacion.setText(lista_ofertas.get(position).getUbicacion());
-        holder.text_hora.setText(lista_ofertas.get(position).getHora().toString());
-        holder.text_fecha.setText(lista_ofertas.get(position).getFecha().toString());
-        //holder.imagenOferta.setImageResource(lista_ofertas.get(position).getIdFoto());
+        Oferta oferta= lista_ofertas.get(position);
+        if(oferta.getDeporte()!=null){
+            setImagenOferta(holder,oferta.getDeporte());
+            holder.text_deporte.setText(oferta.getDeporte().getNombre());
+        }
+         else  holder.text_deporte.setText("deporte no establecido");
+
+        holder.text_ubicacion.setText(oferta.getUbicacion());
+        holder.text_hora.setText(oferta.getHora().toString());
+        holder.text_fecha.setText(oferta.getFecha().toString());
+
+
         holder.id_oferta.setText(lista_ofertas.get(position).getCodigo().toString());
     }
 
@@ -180,4 +128,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>   impl
         if(listener != null)
             listener.onClick(view);
     }
-}
+
+    public void setImagenOferta(ViewHolder holder,Deporte deporte ){
+
+        int recurso=0;
+        switch (deporte.getNombre()){
+            case "futbol":
+              recurso=R.drawable.futbol;
+                break;
+            case "voley":
+                recurso=R.drawable.voley;
+                break;
+            case "basquet":
+                recurso=R.drawable.basketball;
+                break;
+        }
+        holder.imagenOferta.setImageResource(recurso);
+
+    }
+   }
