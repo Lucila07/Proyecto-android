@@ -1,19 +1,11 @@
-package com.example.lucila.myapplication.fragmentos;
+package com.example.lucila.turnosPP.fragmentos;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.text.format.DateFormat;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.DatePicker;
-import android.widget.TextView;
 
 import java.util.Calendar;
 

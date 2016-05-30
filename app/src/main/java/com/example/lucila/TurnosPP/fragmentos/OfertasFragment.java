@@ -1,4 +1,4 @@
-package com.example.lucila.myapplication.fragmentos;
+package com.example.lucila.turnosPP.fragmentos;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,9 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.lucila.myapplication.MyOfertaRecyclerViewAdapter;
+import com.example.lucila.turnosPP.MyOfertaRecyclerViewAdapter;
 import com.example.lucila.myapplication.R;
-import com.example.lucila.myapplication.beans.Oferta;
+import com.example.lucila.turnosPP.beans.Oferta;
 
 import java.util.ArrayList;
 import java.util.Arrays;

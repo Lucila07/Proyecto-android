@@ -1,4 +1,4 @@
-package com.example.lucila.myapplication.fragmentos;
+package com.example.lucila.turnosPP.fragmentos;
 
 import android.Manifest;
 import android.content.Context;
@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.lucila.myapplication.R;
 

@@ -1,4 +1,4 @@
-package com.example.lucila.myapplication.servicios;
+package com.example.lucila.turnosPP.servicios;
 
 import android.app.IntentService;
 import android.content.Intent;
@@ -8,7 +8,6 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.os.ResultReceiver;
-import android.text.TextUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;

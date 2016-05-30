@@ -1,7 +1,6 @@
-package com.example.lucila.myapplication.beans;
+package com.example.lucila.turnosPP.beans;
 
 import java.io.Serializable;
-import java.util.Calendar;
 
 /**
  * Representa una oferta dentro de la aplicación.

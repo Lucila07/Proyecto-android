@@ -55,4 +55,7 @@
     <string name="boton_gps">GPS</string>
     <string name="hint_ubicacion_editText">Ingrese su ubicacion</string>
 
+    <!-- OAuth 2.0 server code -->
+    <string name="server_id">98368777940-ig4vaiot43q57lrecavlo1jkmrou4ccg.apps.googleusercontent.com</string>
+
 </resources>

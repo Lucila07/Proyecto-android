@@ -1,4 +1,4 @@
-package com.example.lucila.myapplication;
+package com.example.lucila.turnosPP;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,22 +6,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.lucila.myapplication.fragmentos.OfertasFragment.OnListFragmentInteractionListener;
-import com.example.lucila.myapplication.beans.Oferta;
+import com.example.lucila.turnosPP.beans.Oferta;
+import com.example.lucila.turnosPP.fragmentos.OfertasFragment;
+import com.example.lucila.myapplication.R;
 
 import java.util.List;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Oferta} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
+ * specified {@link OfertasFragment.OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class MyOfertaRecyclerViewAdapter extends RecyclerView.Adapter<MyOfertaRecyclerViewAdapter.ViewHolder> {
 
     private final List<Oferta> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private final OfertasFragment.OnListFragmentInteractionListener mListener;
 
-    public MyOfertaRecyclerViewAdapter(List<Oferta> items, OnListFragmentInteractionListener listener) {
+    public MyOfertaRecyclerViewAdapter(List<Oferta> items, OfertasFragment.OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }

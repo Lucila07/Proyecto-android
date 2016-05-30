@@ -1,4 +1,4 @@
-package com.example.lucila.myapplication;
+package com.example.lucila.turnosPP.actividades;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -12,8 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.example.lucila.myapplication.fragmentos.EstablecerUbicacionFragment;
-import com.example.lucila.myapplication.servicios.ObtenerDireccionService;
+import com.example.lucila.myapplication.R;
+import com.example.lucila.turnosPP.fragmentos.EstablecerUbicacionFragment;
+import com.example.lucila.turnosPP.servicios.ObtenerDireccionService;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -24,7 +25,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 

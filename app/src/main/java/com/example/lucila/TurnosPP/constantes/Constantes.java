@@ -1,4 +1,4 @@
-package com.example.lucila.myapplication.constantes;
+package com.example.lucila.turnosPP.constantes;
 
 public class Constantes {
 
@@ -22,5 +22,7 @@ public class Constantes {
     public static final String EXTRA_ID = "IDEXTRA";
 
     public static final String GET_OFERTAS_ESTABLECIMIENTO= GET + "?funcion=getOfertasPorEstablecimiento";
+
+    public static final String LOGIN= IP + PUERTO_HOST + "/login.php";
 
 }

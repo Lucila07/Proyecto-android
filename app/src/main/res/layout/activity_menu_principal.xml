@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.lucila.myapplication.MenuPrincipalActivity"
+    tools:context="com.example.lucila.turnosPP.actividades.MenuPrincipalActivity"
     android:orientation="vertical">
 
     <LinearLayout
         style="@style/panelContenedor"
         android:orientation="horizontal"
-        android:gravity="right">
+        android:gravity="right"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
 
         <TextView
             android:layout_width="wrap_content"
@@ -29,46 +30,33 @@
             android:text="0"
             />
     </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            style="@style/panelContenedor"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="top|center"
-            android:paddingTop="50dp">
+            android:orientation="vertical">
 
-            <Button
-                style="@style/botonMenuPrincipal"
-                android:id="@+id/boton_crear_oferta"
-                android:text="@string/boton_crear_oferta"
+            <TextView
+                android:padding="16dp"
+                android:id="@+id/textView_info_menu_ppal"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="PlaceHolder"
+                android:visibility="invisible"
                 />
 
-            <Button
-                style="@style/botonMenuPrincipal"
-                android:id="@+id/boton_ver_creadas"
-                android:text="@string/boton_ver_ofertas"
-                />
-
-            <Button
-                style="@style/botonMenuPrincipal"
-                android:id="@+id/boton_comprar_ofertas"
-                android:text="@string/boton_comprar_ofertas"
-                />
-
-            <Button
-                style="@style/botonMenuPrincipal"
-                android:id="@+id/boton_establecer_ubicacion"
-                android:text="@string/boton_establecer_ubicacion"
-                />
-
-            <Button
-                style="@style/botonMenuPrincipal"
-                android:id="@+id/boton_denunciar_usuario"
-                android:text="@string/boton_denunciar_usuario"
-                />
+           <fragment
+               android:id="@+id/fragment_menu_principal"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:name="com.example.lucila.turnosPP.fragmentos.MenuPrincipalFragment"
+               tools:layout="@layout/fragment_menu_principal"
+               android:layout_weight="0.5"
+               />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

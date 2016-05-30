@@ -1,4 +1,4 @@
-package com.example.lucila.myapplication.beans;
+package com.example.lucila.turnosPP.beans;
 
 import android.content.Context;
 

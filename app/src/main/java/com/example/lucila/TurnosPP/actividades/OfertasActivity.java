@@ -1,4 +1,4 @@
-package com.example.lucila.myapplication;
+package com.example.lucila.turnosPP.actividades;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -12,10 +12,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
-import com.example.lucila.myapplication.beans.Oferta;
-import com.example.lucila.myapplication.beans.VolleySingleton;
-import com.example.lucila.myapplication.constantes.Constantes;
-import com.example.lucila.myapplication.fragmentos.OfertasFragment;
+import com.example.lucila.turnosPP.beans.Oferta;
+import com.example.lucila.turnosPP.constantes.Constantes;
+import com.example.lucila.turnosPP.fragmentos.OfertasFragment;
+import com.example.lucila.myapplication.R;
+import com.example.lucila.turnosPP.beans.VolleySingleton;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -24,7 +25,6 @@ import org.json.JSONObject;
 
 public class OfertasActivity extends AppCompatActivity implements OfertasFragment.OnListFragmentInteractionListener {
 
-    public static final int PERMISO_INTERNET= 1;
     private static final String TAG= OfertasActivity.class.getSimpleName();
     private static final String GSON= "gson";
 

@@ -43,7 +43,6 @@
     <style name="botonMenuPrincipal">
         <item name="android:layout_width">200dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:onClick">click</item>
         <item name="android:textColor">@color/blanco</item>
     </style>
 

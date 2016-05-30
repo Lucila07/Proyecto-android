@@ -1,13 +1,14 @@
-package com.example.lucila.myapplication;
+package com.example.lucila.turnosPP.actividades;
 
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.lucila.myapplication.beans.Oferta;
-import com.example.lucila.myapplication.fragmentos.CrearOfertasFragment;
-import com.example.lucila.myapplication.fragmentos.DatePickerFragment;
-import com.example.lucila.myapplication.fragmentos.TimePickerFragment;
+import com.example.lucila.turnosPP.beans.Oferta;
+import com.example.lucila.turnosPP.fragmentos.CrearOfertasFragment;
+import com.example.lucila.turnosPP.fragmentos.TimePickerFragment;
+import com.example.lucila.myapplication.R;
+import com.example.lucila.turnosPP.fragmentos.DatePickerFragment;
 
 import java.util.Calendar;
 
@@ -17,7 +18,7 @@ import java.util.Calendar;
 public class CrearOfertasActivity
         extends AppCompatActivity
         implements CrearOfertasFragment.OnCrearOfertaListener,
-                   TimePickerFragment.OnHoraElegidaListener,
+        TimePickerFragment.OnHoraElegidaListener,
                    DatePickerFragment.OnFechaElegidaListener {
 
     private Oferta ofertaACrear;

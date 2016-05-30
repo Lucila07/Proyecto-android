@@ -1,4 +1,4 @@
-package com.example.lucila.myapplication.fragmentos;
+package com.example.lucila.turnosPP.fragmentos;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.lucila.myapplication.R;
-import com.example.lucila.myapplication.beans.Oferta;
+import com.example.lucila.turnosPP.beans.Oferta;
 
 import java.util.Calendar;
 import java.util.regex.Pattern;
