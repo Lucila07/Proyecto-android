@@ -59,7 +59,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
             MainActivity mainActivity = (MainActivity)context;
-            mainActivity.drawerLayout.closeDrawers();
+            mainActivity.getDrawerLayout().closeDrawers();
            // i= new Intent(context, PerfilActivity.class);
            // context.startActivity(i)
 
