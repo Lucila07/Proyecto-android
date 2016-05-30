@@ -6,6 +6,11 @@
     <string name="title.establecer.ubicacion">Establecer Ubicación</string>
     <string name="title.lista.ofertas">Ofertas Creadas</string>
 
+    <!-- Menu xml-->
+    <string name="menu_settings">Opciones</string>
+    <string name="menu_logout">Logout</string>
+    <string name="menu_perfil">Perfil</string>
+
     <!-- Pantalla Login -->
     <string name="hint_usario">Usuario</string>
     <string name="hint_contra">Contraseña</string>
@@ -31,6 +36,7 @@
     <string name="error_usuario">Nombre de usuario no debe ser vacío</string>
 
     <!-- Pantalla menú principal -->
+    <string name="textview_recordatorio">Para crear ofertas debe actualizar sus datos.</string>
     <string name="textview_restantes">Ofertas Restantes:</string>
     <string name="boton_crear_oferta">Crear Oferta</string>
     <string name="boton_ver_ofertas">Ver Creadas</string>
