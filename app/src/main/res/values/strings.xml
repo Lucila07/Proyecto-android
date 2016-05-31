@@ -54,8 +54,11 @@
     <string name="textview.precioHabitual">Precio Habitual</string>
     <string name="boton.crear">Crear</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Fragmento oferta (para la lista de ofertas) -->
+    <string name="textview.oferta.fecha">Fecha</string>
+    <string name="textview.oferta.hora">Hora</string>
+    <string name="textview.oferta.deporte">Deporte</string>
+    <string name="textview.oferta.estado">Estado</string>
 
     <!-- Fragmento establecer ubicacion -->
     <string name="boton_gps">GPS</string>

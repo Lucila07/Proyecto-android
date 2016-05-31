@@ -12,11 +12,6 @@ import com.example.lucila.myapplication.R;
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link Oferta} and makes a call to the
- * specified {@link OfertasFragment.OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
 public class MyOfertaRecyclerViewAdapter extends RecyclerView.Adapter<MyOfertaRecyclerViewAdapter.ViewHolder> {
 
     private final List<Oferta> mValues;

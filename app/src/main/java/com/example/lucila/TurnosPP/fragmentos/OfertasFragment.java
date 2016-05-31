@@ -16,12 +16,6 @@ import com.example.lucila.turnosPP.beans.Oferta;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-/**
- * A fragment representing a list of Items.
- * <p />
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
- */
 public class OfertasFragment extends Fragment {
 
     private OnListFragmentInteractionListener mListener;
