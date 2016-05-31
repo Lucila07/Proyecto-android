@@ -67,4 +67,6 @@ public interface ServicioOfertasUsuario  {
       realiza la peticion de las ofertas y deportes al servidor
       */
     public void realizarPeticion();
+
+    public   void establecerOfertasUsuarioLogueado();
 }

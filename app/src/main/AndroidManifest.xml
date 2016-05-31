@@ -46,7 +46,7 @@
                 android:value="com.example.lucila.myapplication.MainActivity" />
             >
         </activity>
-        <activity android:name=".http.ReservasActivity"
+        <activity android:name=".ReservasUsuarioActivity"
             android:parentActivityName=".MainActivity" >
 
             <!-- Parent activity meta-data to support 4.0 and lower -->

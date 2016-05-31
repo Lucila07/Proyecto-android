@@ -80,18 +80,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>   impl
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Oferta oferta= lista_ofertas.get(position);
-        if(oferta.getDeporte()!=null){
-            setImagenOferta(holder,oferta.getDeporte());
-            holder.text_deporte.setText(oferta.getDeporte().getNombre());
+        if(oferta.getEstado().equals("disponible")) {
+            if (oferta.getDeporte() != null) {
+                setImagenOferta(holder, oferta.getDeporte());
+                holder.text_deporte.setText(oferta.getDeporte().getNombre());
+            } else holder.text_deporte.setText("deporte no establecido");
+
+            holder.text_ubicacion.setText(oferta.getUbicacion());
+            holder.text_hora.setText(oferta.getHora().toString());
+            holder.text_fecha.setText(oferta.getFecha().toString());
+
+
+            holder.id_oferta.setText(lista_ofertas.get(position).getCodigo().toString());
         }
-         else  holder.text_deporte.setText("deporte no establecido");
-
-        holder.text_ubicacion.setText(oferta.getUbicacion());
-        holder.text_hora.setText(oferta.getHora().toString());
-        holder.text_fecha.setText(oferta.getFecha().toString());
-
-
-        holder.id_oferta.setText(lista_ofertas.get(position).getCodigo().toString());
     }
 
     // Return the size of your dataset (invoked by the layout manager)

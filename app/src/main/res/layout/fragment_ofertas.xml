@@ -33,6 +33,13 @@
             android:layout_marginTop="100dp" />
     </LinearLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="No hay ofertas disponibles"
+        android:id="@+id/tv_no_hay_ofertas"
+        />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:scrollbars="vertical"

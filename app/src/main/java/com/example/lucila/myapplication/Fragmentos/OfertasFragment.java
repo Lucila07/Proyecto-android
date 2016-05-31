@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.example.lucila.myapplication.Datos.*;
 import com.example.lucila.myapplication.Entidades.Deporte;
 import com.example.lucila.myapplication.Entidades.Oferta;
+import com.example.lucila.myapplication.Entidades.Usuario;
 import com.example.lucila.myapplication.MyAdapter;
 import com.example.lucila.myapplication.R;
 import com.example.lucila.myapplication.ReservaOfertaActivity;
@@ -44,9 +45,11 @@ public class OfertasFragment extends Fragment implements ServicioOfertasHttp.Cal
     private   List<Oferta>ofertas;
     private  Spinner spinner;
     private  ServicioOfertasHttp servicioOfertasUsuario;
-    private Activity activity;
+    private  Activity activity;
     private  List<Deporte>deportesLista;
-    public OfertasFragment() {
+    private  TextView tv_no_hay_ofertas;
+    private Usuario usuarioLog;
+    public   OfertasFragment() {
         // Required empty public constructor
     }
 /*
@@ -102,14 +105,13 @@ public class OfertasFragment extends Fragment implements ServicioOfertasHttp.Cal
         super.onCreate(savedInstanceState);
 
         servicioOfertasUsuario= ServicioOfertasHttp.getInstanciaServicio(this,activity);
+        usuarioLog= ServicioUsuariosHttp.getInstance().getUsuarioLogueado();
 
-
-        if (savedInstanceState==null)
-        {
+        //if (savedInstanceState==null) {
             Log.d(contexto.getClass().getSimpleName(), "hago requerimiento ");
             servicioOfertasUsuario.realizarPeticion();
-        }
-        else{
+        //}
+      /*  else{
             Log.d(contexto.getClass().getSimpleName(), " ya habia ofertas");
 
             ofertas= savedInstanceState.getParcelableArrayList("ofertas");
@@ -118,7 +120,7 @@ public class OfertasFragment extends Fragment implements ServicioOfertasHttp.Cal
             crearRecycler(ofertas);
             crearSpinner();
 
-        }
+        }*/
     }
 
 
@@ -129,7 +131,18 @@ public class OfertasFragment extends Fragment implements ServicioOfertasHttp.Cal
         servicioOfertasUsuario = ServicioOfertasHttp.getInstanciaServicio(this, getActivity());
     }
 
-        ofertas=servicioOfertasUsuario.getOfertas();
+      if(usuarioLog!=null) {
+          if (usuarioLog.getUbicacion() == null) {
+              ofertas = servicioOfertasUsuario.getOfertas();
+
+          } else {
+              ofertas = servicioOfertasUsuario.getOfertasUbicacion(usuarioLog.getUbicacion());
+          }
+      }
+      else{
+
+          ofertas = servicioOfertasUsuario.getOfertas();
+      }
         deportesLista =servicioOfertasUsuario.getDeportes();
         crearRecycler(ofertas);
         crearSpinner();
@@ -143,47 +156,52 @@ public class OfertasFragment extends Fragment implements ServicioOfertasHttp.Cal
         spinner = (Spinner)rootView.findViewById(R.id.deportes_spinner);
         contexto=getContext();
         activity=getActivity();
-
+        tv_no_hay_ofertas=(TextView)rootView.findViewById(R.id.tv_no_hay_ofertas);
         return rootView;
     }
 
-    @Override
+  /*  @Override
     public void onPause(){
        super.onPause();
        Log.d(contexto.getClass().getSimpleName(), " en pausa ");
 
     }
-
+*/
     private void crearRecycler( List<Oferta>ofertas){
 
   // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
-        mRecyclerView.setHasFixedSize(true);
+      if (!ofertas.isEmpty()) {
+          mRecyclerView.setHasFixedSize(true);
 
-        // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(mLayoutManager);
+          // use a linear layout manager
+          mLayoutManager = new LinearLayoutManager(getActivity());
+          mRecyclerView.setLayoutManager(mLayoutManager);
 
-        // specify an adapter (see also next example)
+          // specify an adapter (see also next example)
 
 
-        mAdapter = new MyAdapter(ofertas,contexto);
-        mAdapter.ClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ReservaOfertaActivity.class);
+          mAdapter = new MyAdapter(ofertas, contexto);
+          mAdapter.ClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  Intent intent = new Intent(getActivity(), ReservaOfertaActivity.class);
 
-               //Intent intent = new Intent( ReservaOfertaActivity.class);
-                TextView textCodigo=(TextView) v.findViewById(R.id.oferta_id);
-                long codigoOferta=Long.parseLong(textCodigo.getText().toString());
-                Oferta oferta= servicioOfertasUsuario.getOfertaCodigo(codigoOferta);
-              //  intent.putExtra("id_oferta",Long.parseLong(codigo.getText().toString()));
-                intent.putExtra("oferta",(Parcelable)oferta);
-                // intent.putExtra("ServicioHttp",(Parcelable) servicioOfertasUsuario);
-                getActivity().startActivity(intent);
-            }
-        });
-        mRecyclerView.setAdapter(mAdapter);
+                  //Intent intent = new Intent( ReservaOfertaActivity.class);
+                  TextView textCodigo = (TextView) v.findViewById(R.id.oferta_id);
+                  long codigoOferta = Long.parseLong(textCodigo.getText().toString());
+                  Oferta oferta = servicioOfertasUsuario.getOfertaCodigo(codigoOferta);
+                  //  intent.putExtra("id_oferta",Long.parseLong(codigo.getText().toString()));
+                  intent.putExtra("oferta", (Parcelable) oferta);
+                  // intent.putExtra("ServicioHttp",(Parcelable) servicioOfertasUsuario);
+                  getActivity().startActivity(intent);
+              }
+          });
+          mRecyclerView.setAdapter(mAdapter);
+      }
+        else{
+            tv_no_hay_ofertas.setVisibility(View.VISIBLE);
+      }
     }
 
 
@@ -234,7 +252,24 @@ public class OfertasFragment extends Fragment implements ServicioOfertasHttp.Cal
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String deporte =  parent.getItemAtPosition(position).toString();
                 if(!deporte.equals("todos")) {
-                   List<Oferta> ofertasDep = servicioOfertasUsuario.getOfertasDeporte(servicioOfertasUsuario.getDeporte(deporte));
+                   List<Oferta> ofertasDep;
+
+                    if(usuarioLog!=null) {
+                        if (usuarioLog.getUbicacion() == null) {
+
+                            ofertasDep= servicioOfertasUsuario.getOfertasDeporte(servicioOfertasUsuario.getDeporte(deporte));
+
+                        }
+                        else
+                        {
+                            String ubicacion= usuarioLog.getUbicacion();
+                            ofertasDep= servicioOfertasUsuario.getOfertasDeporteEnUbicacion(servicioOfertasUsuario.getDeporte(deporte),ubicacion);
+                        }
+                    }
+                    else{
+                        ofertasDep= servicioOfertasUsuario.getOfertasDeporte(servicioOfertasUsuario.getDeporte(deporte));
+
+                    }
                     crearRecycler(ofertasDep);
                    // Toast.makeText(getActivity(), "eleemnto sele " + position, Toast.LENGTH_LONG).show();
                 }

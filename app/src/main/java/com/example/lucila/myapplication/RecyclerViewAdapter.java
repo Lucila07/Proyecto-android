@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.lucila.myapplication.Fragmentos.*;
-import com.example.lucila.myapplication.http.ReservasActivity;
+
 
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
@@ -82,10 +82,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     //fragmentTransaction.commit();
                     break;
                 case 3:
-                     i= new Intent(context, ReservasActivity.class);
+                     i= new Intent(context, ReservasUsuarioActivity.class);
                     context.startActivity(i);
 
-                  //  Fragment reservasFragment = new ReservasFragment();
+
                     //fragmentTransaction.replace(R.id.containerView,reservasFragment);
                     //fragmentTransaction.commit();
 

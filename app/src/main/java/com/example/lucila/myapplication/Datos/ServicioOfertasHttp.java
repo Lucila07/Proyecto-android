@@ -5,7 +5,7 @@ import android.app.Fragment;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
-import android.widget.Toast;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -46,6 +46,8 @@ public class ServicioOfertasHttp implements Parcelable{
     private static CallBack callback;
 
     private static ServicioOfertasHttp singletonInstance;
+
+    private static ReservasUsuarioCallback reservaCallback;
     /**
      * primero se deben obtener los deportes, para luego hacer el mapeo de id deporte a deporte en las ofertas
      * */
@@ -57,6 +59,7 @@ public class ServicioOfertasHttp implements Parcelable{
         reservado=0;
     }
 
+
    public static  ServicioOfertasHttp getInstanciaServicio(CallBack c, Activity a){
 
        if(singletonInstance==null){
@@ -67,7 +70,15 @@ public class ServicioOfertasHttp implements Parcelable{
        return singletonInstance;
    }
 
+    public static  ServicioOfertasHttp getInstanciaServicioReservas(ReservasUsuarioCallback c, Activity a){
 
+        if(singletonInstance==null){
+            singletonInstance=new ServicioOfertasHttp();
+        }
+        singletonInstance.reservaCallback=c;
+        singletonInstance.activity=a;
+        return singletonInstance;
+    }
 
     /*
       realiza la peticion de las ofertas y deportes al servidor
@@ -141,8 +152,11 @@ public class ServicioOfertasHttp implements Parcelable{
     public static List<Oferta> getOfertasUbicacion(String ubicacion) {
         List<Oferta> salida= new ArrayList<Oferta>();
         for(int i=0;i<ofertas.size();i++) {
-            if(ofertas.get(i).getUbicacion().equals(ubicacion))
-                salida.add(ofertas.get(i));
+            String ubicacionOferta=ofertas.get(i).getUbicacion();
+            if(ubicacionOferta!=null){
+                 if(ubicacionOferta.equals(ubicacion))
+                    salida.add(ofertas.get(i));
+            }
 
         }
         return salida;
@@ -163,7 +177,20 @@ public class ServicioOfertasHttp implements Parcelable{
                 }
         return salida;
     }
+    public static  List<Oferta>getOfertasDeporteEnUbicacion(Deporte deporte, String ubicacion){
+        List<Oferta> salida= new ArrayList<Oferta>();
+        for(int i=0;i<ofertas.size();i++) {
+            String ubicacionOferta=ofertas.get(i).getUbicacion();
+            Deporte deporteOferta=ofertas.get(i).getDeporte();
+            if(ubicacionOferta!=null&&deporteOferta!=null){
+                if(ubicacionOferta.equals(ubicacion)&&deporteOferta.getNombre().equals(deporte.getNombre()))
+                    salida.add(ofertas.get(i));
+            }
 
+        }
+        return salida;
+
+    }
 
 
     public static Oferta getOfertaCodigo(Long codigo) {
@@ -267,11 +294,6 @@ public class ServicioOfertasHttp implements Parcelable{
                     break;
                 case "2": // FALLIDO
                     String mensaje2 = response.getString("mensaje");
-
-                    Toast.makeText(
-                            activity,
-                            mensaje2,
-                            Toast.LENGTH_LONG).show();
                     break;
             }
 
@@ -348,12 +370,7 @@ private static void  procesarRespuestaDeportes(JSONObject response) {
                 break;
             case "2": // FALLIDO
                 String mensaje2 = response.getString("mensaje");
-
-                Toast.makeText(
-                        activity,
-                        mensaje2,
-                        Toast.LENGTH_LONG).show();
-                break;
+                  break;
         }
 
     }
@@ -428,6 +445,78 @@ private static void  procesarRespuestaDeportes(JSONObject response) {
 
    }
     /**
+     * retorna las ofertas que reservo un determinado usuario
+     * */
+    public   void establecerOfertasUsuarioLogueado(Usuario user){
+
+        peticionOfertasUsuario(user);
+    }
+
+
+    private static void peticionOfertasUsuario(Usuario user){
+
+
+        String url= ConstantesAcceso.getURL("ofertas_usuario",user.getIdUsuario());
+        Log.d("ofertas del  usuario","url "+url);
+        VolleySingleton.getInstance(activity).addToRequestQueue(
+                new JsonObjectRequest(
+                        Request.Method.GET,
+                        url,
+                        null,
+                        new Response.Listener<JSONObject>() {
+
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                // Procesar la respuesta Json
+                                String respuesta=response.toString();
+
+                                procesarRespuestaOfertasUsuario(response);
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.d(activity.getClass().getSimpleName(), "Error Volley al verificar usuario: " + error.getMessage());
+                            }
+                        }
+
+                )
+        );
+    }
+    private static void  procesarRespuestaOfertasUsuario(JSONObject response){
+        Oferta[] ofertaArray=null;
+        Log.d("ofertas del  usuario","proceso la respuesta ");
+        try {
+
+            // Obtener atributo "estado"
+            String estado = response.getString("estado");
+            //  Log.d(activity.getClass().getSimpleName(), "estado " + estado);
+            switch (estado) {
+                case "1": // EXITO
+                    // Obtener array "ofertas" Json
+                    JSONArray mensaje = response.getJSONArray("ofertas");
+                    String cadenaRecibida=mensaje.toString();
+
+                    GsonBuilder gBuilder = new GsonBuilder();
+                    gBuilder.registerTypeAdapter(Oferta.class,new ofertaDeserializer(mapeo));
+                    gson = gBuilder.create();
+                    ofertaArray= gson.fromJson(cadenaRecibida, Oferta[].class);
+                    Log.d("reservas hechas","array de ofertas "+ofertaArray[0].getDeporte().getNombre());
+                    reservaCallback.exito(ofertaArray);
+
+                    break;
+                case "2": // FALLIDO
+                    reservaCallback.fallo();
+                    break;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
      * interface para establecer los callbacks
      * */
      public interface CallBack{
@@ -437,6 +526,13 @@ private static void  procesarRespuestaDeportes(JSONObject response) {
          public void reservaFallo();
 
          public void dibujarListaOfertas();
+    }
+
+    public interface ReservasUsuarioCallback{
+
+        public void exito(Oferta[] ofertaArray);
+
+        public void fallo();
     }
 }
 

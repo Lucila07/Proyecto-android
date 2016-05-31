@@ -28,19 +28,17 @@ public class ofertaDeserializer  implements JsonDeserializer<Oferta> {
     public Oferta deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException
     {
          JsonObject jsonObject = json.getAsJsonObject();
-        String idUserComprador;
-        long  codigo  = jsonObject.get("codigo").getAsLong();
-
+         String idUserComprador;
+         long  codigo  = jsonObject.get("codigo").getAsLong();
          int deporteId = jsonObject.get("deporte").getAsInt();
          String estado = jsonObject.get("estado").getAsString();
          String fecha =jsonObject.get("fecha").getAsString();
          String hora =jsonObject.get("hora").getAsString();
-
-             idUserComprador= jsonObject.get("idUserComprador").toString();
-
-        long idUserCreador =jsonObject.get("idUserCreador").getAsLong();
-        int precioHabitual =jsonObject.get("precioHabitual").getAsInt();
-        int precioOferta =jsonObject.get("precioOferta").getAsInt();
+         idUserComprador= jsonObject.get("idUserComprador").toString();
+         long idUserCreador =jsonObject.get("idUserCreador").getAsLong();
+         int precioHabitual =jsonObject.get("precioHabitual").getAsInt();
+         int precioOferta =jsonObject.get("precioOferta").getAsInt();
+         String ubicacion=jsonObject.get("ubicacion").getAsString();
 
         Oferta oferta= new Oferta();
         oferta.setCodigo(codigo);
@@ -56,9 +54,8 @@ public class ofertaDeserializer  implements JsonDeserializer<Oferta> {
         oferta.setIdUserCreador(idUserCreador);
         oferta.setPrecioHabitual(precioHabitual);
         oferta.setPrecioOferta(precioOferta);
-
         oferta.setIdUserComprador(idUserComprador);
-
+        oferta.setUbicacion(ubicacion);
         return  oferta;
     }
 }

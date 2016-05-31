@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.lucila.myapplication.Datos.ItemData;
+import com.example.lucila.myapplication.Entidades.Deporte;
+import com.example.lucila.myapplication.Entidades.Oferta;
 
 /**
  * Created by Lucila on 22/05/2016.
@@ -18,9 +20,9 @@ import com.example.lucila.myapplication.Datos.ItemData;
 
 public class AdapterReservas extends RecyclerView.Adapter<AdapterReservas.ViewHolder> {
 
-    private ItemData[] itemsData;
+    private Oferta[] itemsData;
 
-    public AdapterReservas( ItemData[] itemsData ) {
+    public AdapterReservas( Oferta[] itemsData ) {
 
         this.itemsData=itemsData;
     }
@@ -44,11 +46,10 @@ public class AdapterReservas extends RecyclerView.Adapter<AdapterReservas.ViewHo
 
         // - get data from your itemsData at this position
         // - replace the contents of the view with that itemsData
-        viewHolder.txtViewTitle.setText(itemsData[position].getDeporte());
-        viewHolder.imgViewIcon.setImageResource(itemsData[position].getImageUrl());
-        viewHolder.detalle.setText(itemsData[position].getLugar() + "\n" + itemsData[position].getFecha() + "\n" + itemsData[position].getHora());
-
-
+        Oferta oferta=itemsData[position];
+        viewHolder.txtViewTitle.setText(oferta.getDeporte().getNombre());
+        viewHolder.detalle.setText(oferta.getFecha() + "\n" + oferta.getHora());
+        setImagenOferta(viewHolder,oferta.getDeporte());
 
 
 
@@ -77,5 +78,21 @@ public class AdapterReservas extends RecyclerView.Adapter<AdapterReservas.ViewHo
 
     }
 
+    public void setImagenOferta(ViewHolder holder,Deporte deporte ){
 
+        int recurso=0;
+        switch (deporte.getNombre()){
+            case "futbol":
+                recurso=R.drawable.futbol;
+                break;
+            case "voley":
+                recurso=R.drawable.voley;
+                break;
+            case "basquet":
+                recurso=R.drawable.basketball;
+                break;
+        }
+        holder.imgViewIcon.setImageResource(recurso);
+
+    }
 }

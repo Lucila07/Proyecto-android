@@ -28,8 +28,8 @@ public class ConstantesAcceso {
        private  static String RESERVAR_OFERTA = IP + PUERTO_HOST + "/webServiceAndroid2/respuestasUsuario.php?funcion=reservarOferta&codigo=";//123&idUser=1";
        private static String GET_DERPORTES = IP + PUERTO_HOST + "/webServiceAndroid2/respuestasUsuario.php?funcion=getDeportes";
        private static String VERIFICAR_USUARIO=IP+PUERTO_HOST+"/webServiceAndroid2/respuestasUsuario.php?funcion=verificarUsuario&idUser=";
-    private static String GUARDAR_USUARIO=IP+PUERTO_HOST+"/webServiceAndroid2/respuestasUsuario.php?funcion=guardarUsuario";
-
+       private static String GUARDAR_USUARIO=IP+PUERTO_HOST+"/webServiceAndroid2/respuestasUsuario.php?funcion=guardarUsuario";
+    private static String OFERTAS_USUARIO=IP+PUERTO_HOST+"/webServiceAndroid2/respuestasUsuario.php?funcion=getOfertasUsuario&idUser=";
     public static   String getURL(String get,String param1){
 
                switch (get){
@@ -48,6 +48,9 @@ public class ConstantesAcceso {
                        return VERIFICAR_USUARIO+param1;
                    case "guardar_usuario":
                        return GUARDAR_USUARIO;
+                   case "ofertas_usuario":
+                       return OFERTAS_USUARIO+param1;
+
 
                }
                return new String();

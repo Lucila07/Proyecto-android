@@ -51,6 +51,21 @@ public class ServicioUsuariosHttp implements  ServicioUsuarios{
         return instancia;
     }
 
+    /**
+     * constructor vacio y get instance vacio
+     * para ser usado por las clases que solo requieren obtener el usuario logueado
+     * */
+    private  ServicioUsuariosHttp(){
+
+    }
+    public static ServicioUsuariosHttp getInstance(){
+
+        if(instancia==null){
+            instancia= new ServicioUsuariosHttp();
+        }
+        return instancia;
+    }
+
     @Override
     public  Usuario getUsuarioLogueado() {
         return usuarioLogueado;
@@ -180,6 +195,8 @@ public class ServicioUsuariosHttp implements  ServicioUsuarios{
         catch (JSONException e) {
             e.printStackTrace();
         }
+
+
 
     }
 
