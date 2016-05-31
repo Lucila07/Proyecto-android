@@ -6,9 +6,9 @@ public class Constantes {
 
     public static final int CODIGO_ACTUALIZACION = 101;
 
-    private static final String PUERTO_HOST = "80";
+    private static final String PUERTO_HOST = "85";
 
-    private static final String IP = "http://10.0.2.2:";
+    private static final String IP = "http://192.168.1.103:";
 
     public static final String GET = IP + PUERTO_HOST + "/respuestasUsuario.php";
     public static final String GET_BY_ID = IP + PUERTO_HOST + "/obtener_meta_por_id.php";
