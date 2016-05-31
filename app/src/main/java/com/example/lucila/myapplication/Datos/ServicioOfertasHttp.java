@@ -449,7 +449,11 @@ private static void  procesarRespuestaDeportes(JSONObject response) {
      * */
     public   void establecerOfertasUsuarioLogueado(Usuario user){
 
-        peticionOfertasUsuario(user);
+        if(deportes.isEmpty())
+        {
+            realizarPeticion();
+        }
+        else  peticionOfertasUsuario(user);
     }
 
 
@@ -496,12 +500,15 @@ private static void  procesarRespuestaDeportes(JSONObject response) {
                     // Obtener array "ofertas" Json
                     JSONArray mensaje = response.getJSONArray("ofertas");
                     String cadenaRecibida=mensaje.toString();
+                    Log.d("reservas hechas","jason recibido "+cadenaRecibida);
 
                     GsonBuilder gBuilder = new GsonBuilder();
+                    //registra el deserializer de las ofertas con el mapeo de id deporte a deporte
                     gBuilder.registerTypeAdapter(Oferta.class,new ofertaDeserializer(mapeo));
                     gson = gBuilder.create();
                     ofertaArray= gson.fromJson(cadenaRecibida, Oferta[].class);
                     Log.d("reservas hechas","array de ofertas "+ofertaArray[0].getDeporte().getNombre());
+
                     reservaCallback.exito(ofertaArray);
 
                     break;

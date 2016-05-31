@@ -24,7 +24,7 @@ public class ReservasUsuarioActivity extends AppCompatActivity implements Servic
     private  RecyclerView recyclerView;
     private ServicioOfertasHttp servicioOfertasHttp;
     private ServicioUsuariosHttp serviciousario;
-
+    private   RecyclerView.LayoutManager mLayoutManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,14 +68,13 @@ public class ReservasUsuarioActivity extends AppCompatActivity implements Servic
     @Override
     public void exito(Oferta[] ofertaArray) {
 
-      /*  itemsData= new ItemData[ofertaArray.length];
-        for(int i=0;i<itemsData.length;i++){
-            Oferta of=ofertaArray[i];
-            itemsData[i]=new ItemData(i,of.getDeporte().getNombre(),of.getUbicacion(),of.getFecha());
-        }*/
-        //  create an adapter
-        Log.d("reservas hechas","creo el adapter");
+       //  create an adapter
+        Log.d("reservas hechas","creo el adapter cant ofe"+ofertaArray.length);
+        mLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(mLayoutManager);
+
         AdapterReservas mAdapter = new AdapterReservas(ofertaArray);
+
         //  set adapter
         recyclerView.setAdapter(mAdapter);
         // set item animator to DefaultAnimator

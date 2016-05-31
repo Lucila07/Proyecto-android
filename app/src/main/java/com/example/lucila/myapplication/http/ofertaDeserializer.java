@@ -55,7 +55,11 @@ public class ofertaDeserializer  implements JsonDeserializer<Oferta> {
         oferta.setPrecioHabitual(precioHabitual);
         oferta.setPrecioOferta(precioOferta);
         oferta.setIdUserComprador(idUserComprador);
-        oferta.setUbicacion(ubicacion);
+
+        if(ubicacion==null||ubicacion.isEmpty())
+            oferta.setUbicacion("no disponible");
+        else
+            oferta.setUbicacion(ubicacion);
         return  oferta;
     }
 }
