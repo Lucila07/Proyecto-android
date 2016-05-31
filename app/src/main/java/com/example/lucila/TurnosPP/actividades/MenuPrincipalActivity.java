@@ -1,6 +1,7 @@
 package com.example.lucila.turnosPP.actividades;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -36,7 +37,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MenuPrincipalActivity
-        extends AppCompatActivity
+        extends ToolbarActivity
         implements  MenuPrincipalFragment.OnBotonMenuClickListener,
                     CrearOfertasFragment.OnCrearOfertaListener,
                     EstablecerUbicacionFragment.OnEstablecerUbicacionListener,
@@ -52,13 +53,21 @@ public class MenuPrincipalActivity
 
     private GoogleApiClient clienteAPI;
 
+    private SharedPreferences preferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_principal);
 
-        establecimiento= (Establecimiento) getIntent().getSerializableExtra("establecimiento");
 
+        if(savedInstanceState != null) {
+            //Viene de otra actividad
+            establecimiento = (Establecimiento) savedInstanceState.getSerializable("establecimiento");
+        } else {
+            //Viene de la actividad Login
+            establecimiento = (Establecimiento) getIntent().getSerializableExtra("establecimiento");
+        }
         textoRecord= (TextView) findViewById(R.id.textView_info_menu_ppal);
         setearRecordatorio();
 
@@ -97,25 +106,24 @@ public class MenuPrincipalActivity
                 .build();
 
         //TODO ver el tema del TextView con la cantidad de pack restantes
+
     }
 
     @Override
     public void onStart() {
         super.onStart();
         clienteAPI.connect();
+        //Actualizo la cantidad de ofertas
+        preferences= getPreferences(MODE_PRIVATE);
+        int ofCreadas= preferences.getInt(getString(R.string.cant_ofertas_creadas),0);
+        TextView cantOfertas= (TextView) findViewById(R.id.textview_n_ofertas_restantes);
+        cantOfertas.setText(Integer.toString(establecimiento.getCantMaxOfertas() - ofCreadas));
     }
 
     @Override
     public void onStop() {
         clienteAPI.disconnect();
         super.onStop();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return true;
     }
 
     //Métodos onclick de los botones
@@ -198,7 +206,8 @@ public class MenuPrincipalActivity
             textoRecord.setVisibility(View.INVISIBLE);
     }
 
-    private void logout() {
+    @Override
+    protected void logout() {
         if(clienteAPI.isConnected()) {
             Auth.GoogleSignInApi.signOut(clienteAPI).setResultCallback(
                     new ResultCallback<Status>() {
@@ -216,11 +225,13 @@ public class MenuPrincipalActivity
         startActivity(loginAct);
     }
 
-    private void perfil() {
+    @Override
+    protected void perfil() {
 
     }
 
-    private void opciones() {
+    @Override
+    protected void opciones() {
 
     }
     //endregion

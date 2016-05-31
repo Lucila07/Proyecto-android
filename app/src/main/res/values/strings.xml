@@ -64,4 +64,7 @@
     <!-- OAuth 2.0 server code -->
     <string name="server_id">98368777940-ig4vaiot43q57lrecavlo1jkmrou4ccg.apps.googleusercontent.com</string>
 
+    <!-- Especificos de la app -->
+    <string name="cant_ofertas_creadas">cantidadCreadas</string>
+
 </resources>

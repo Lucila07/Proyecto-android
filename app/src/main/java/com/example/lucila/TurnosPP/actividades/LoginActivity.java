@@ -29,6 +29,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -282,10 +283,13 @@ public class LoginActivity
                 Gson gson = new Gson();
 
                 //Obtengo el usuario dentro del json
-                JSONObject json = response.getJSONObject("usuario");
+                JSONObject jsonUser = response.getJSONObject("usuario");
+                JSONObject jsonEstablecimiento= jsonUser.getJSONObject("user");
+                int cantOfertasMax= jsonUser.getJSONObject("cantPack").getInt("cantidadOfertas");
 
                 //Traduzco
-                Establecimiento user = gson.fromJson(json.toString(), Establecimiento.class);
+                Establecimiento user = gson.fromJson(jsonEstablecimiento.toString(), Establecimiento.class);
+                user.setCantMaxOfertas(cantOfertasMax);
                 validacion = true;
 
                 //Inicio el menu principal
