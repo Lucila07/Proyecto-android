@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.lucila.myapplication.CrearOfertasActivity">
+    tools:context="com.example.lucila.turnosPP.actividades.CrearOfertasActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -11,7 +11,7 @@
         android:layout_gravity="top|center">
 
         <fragment
-            class="com.example.lucila.myapplication.fragmentos.CrearOfertasFragment"
+            class="com.example.lucila.turnosPP.fragmentos.CrearOfertasFragment"
             android:id="@+id/fragment_crear_oferta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

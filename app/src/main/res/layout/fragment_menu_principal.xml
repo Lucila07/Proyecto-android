@@ -1,0 +1,44 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.lucila.turnosPP.fragmentos.MenuPrincipalFragment">
+
+    <LinearLayout
+        style="@style/panelContenedor"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="top|center">
+
+        <Button
+            style="@style/botonMenuPrincipal"
+            android:id="@+id/boton_crear_oferta"
+            android:text="@string/boton_crear_oferta"
+            />
+
+        <Button
+            style="@style/botonMenuPrincipal"
+            android:id="@+id/boton_ver_creadas"
+            android:text="@string/boton_ver_ofertas"
+            />
+
+        <Button
+            style="@style/botonMenuPrincipal"
+            android:id="@+id/boton_comprar_ofertas"
+            android:text="@string/boton_comprar_ofertas"
+            />
+
+        <Button
+            style="@style/botonMenuPrincipal"
+            android:id="@+id/boton_establecer_ubicacion"
+            android:text="@string/boton_establecer_ubicacion"
+            />
+
+        <Button
+            style="@style/botonMenuPrincipal"
+            android:id="@+id/boton_denunciar_usuario"
+            android:text="@string/boton_denunciar_usuario"
+            />
+    </LinearLayout>
+
+</FrameLayout>

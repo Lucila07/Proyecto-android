@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.lucila.myapplication.EstablecerUbicacionActivity">
+    tools:context="com.example.lucila.turnosPP.actividades.EstablecerUbicacionActivity">
 
     <fragment
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -27,7 +27,7 @@
             android:background="#ffffffff">
 
             <fragment
-                class="com.example.lucila.myapplication.fragmentos.EstablecerUbicacionFragment"
+                class="com.example.lucila.turnosPP.fragmentos.EstablecerUbicacionFragment"
                 android:id="@+id/fragment_estab_ubicacion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

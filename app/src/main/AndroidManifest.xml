@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.lucila.myapplication">
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.lucila.myapplication"
+    android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
     <!-- Permiso usado para obtener la ubicación del usuario -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -26,7 +28,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD9cQDDEPFhykyVWZidbzA2MDQVKMCW6HY" />
 
-        <activity android:name=".LoginActivity">
+        <activity android:name="com.example.lucila.turnosPP.actividades.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,50 +36,47 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RegistrarseActivity"
+            android:name="com.example.lucila.turnosPP.actividades.RegistrarseActivity"
             android:label="@string/title_activity_registrarse"
-            android:parentActivityName=".LoginActivity">
+            android:parentActivityName="com.example.lucila.turnosPP.actividades.LoginActivity">
 
             <!-- The meta-data element is needed for versions lower than 4.1 -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".LoginActivity" />
+                android:value="com.example.lucila.turnosPP.actividades.LoginActivity" />
         </activity>
+
         <activity
-            android:name=".MenuPrincipalActivity"
-            android:label="@string/title_activity_menuppal"
-            android:parentActivityName=".LoginActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".LoginActivity" />
-        </activity>
+            android:name="com.example.lucila.turnosPP.actividades.MenuPrincipalActivity"
+            android:label="@string/title_activity_menuppal" />
+
         <activity
-            android:name=".CrearOfertasActivity"
+            android:name="com.example.lucila.turnosPP.actividades.CrearOfertasActivity"
             android:label="@string/title.crear.oferta"
-            android:parentActivityName=".MenuPrincipalActivity">
+            android:parentActivityName="com.example.lucila.turnosPP.actividades.MenuPrincipalActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MenuPrincipalActivity" />
+                android:value="com.example.lucila.turnosPP.actividades.MenuPrincipalActivity" />
         </activity>
         <activity
-            android:name=".EstablecerUbicacionActivity"
+            android:name="com.example.lucila.turnosPP.actividades.EstablecerUbicacionActivity"
             android:label="@string/title.establecer.ubicacion"
-            android:parentActivityName=".MenuPrincipalActivity">
+            android:parentActivityName="com.example.lucila.turnosPP.actividades.MenuPrincipalActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MenuPrincipalActivity" />
+                android:value="com.example.lucila.turnosPP.actividades.MenuPrincipalActivity" />
         </activity>
         <activity
-            android:name=".OfertasActivity"
+            android:name="com.example.lucila.turnosPP.actividades.OfertasActivity"
             android:label="@string/title.lista.ofertas"
-            android:parentActivityName=".MenuPrincipalActivity">
+            android:parentActivityName="com.example.lucila.turnosPP.actividades.MenuPrincipalActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MenuPrincipalActivity" />
+                android:value="com.example.lucila.turnosPP.actividades.MenuPrincipalActivity" />
         </activity>
 
         <service
-            android:name=".servicios.ObtenerDireccionService"
+            android:name="com.example.lucila.turnosPP.servicios.ObtenerDireccionService"
             android:exported="false" />
     </application>
 

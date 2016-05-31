@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="activitu_menu_principal" type="layout">@layout/activity_menu_principal</item>
+    <bool name="esTablet">true</bool>
+    <bool name="enPortaretratos">false</bool>
+</resources>

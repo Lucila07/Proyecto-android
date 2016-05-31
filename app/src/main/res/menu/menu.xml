@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_perfil"
+        android:title="@string/menu_perfil"
+        android:icon="@drawable/ic_account_circle_black_24dp"
+        />
+    <item
+        android:id="@+id/menu_settings"
+        android:title="@string/menu_settings"
+        android:icon="@drawable/ic_pages_black_24dp"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/menu_logout"
+        android:title="@string/menu_logout"
+        android:icon="@drawable/ic_cancel_black_24dp"
+        />
+</menu>

@@ -19,7 +19,8 @@
         />
     <LinearLayout
         style="@style/panelContenedor"
-        android:gravity="center">
+        android:gravity="center"
+        android:focusableInTouchMode="true">
 
         <EditText
             android:id="@+id/edit_text_usuario"
@@ -72,5 +73,11 @@
         android:layout_width="120dp"
         android:text="@string/boton_registrarse"
         android:onClick="registrarse"
+        />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         />
 </LinearLayout>
