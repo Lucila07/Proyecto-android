@@ -70,7 +70,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 case 1:
                      i= new Intent(context, PerfilActivity.class);
                     context.startActivity(i);
-                   /* Fragment perfilFragment = new PerfilFragment();
+                   /*
                     fragmentTransaction.replace(R.id.containerView, perfilFragment);
                     fragmentTransaction.commit();
                     */

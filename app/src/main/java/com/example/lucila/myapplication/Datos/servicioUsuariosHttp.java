@@ -10,6 +10,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.lucila.myapplication.Entidades.Oferta;
 import com.example.lucila.myapplication.Entidades.Usuario;
+import com.example.lucila.myapplication.Estado.EstadoApp;
 import com.example.lucila.myapplication.MainActivity;
 import com.example.lucila.myapplication.http.ConstantesAcceso;
 import com.example.lucila.myapplication.http.VolleySingleton;
@@ -35,9 +36,12 @@ public class ServicioUsuariosHttp implements  ServicioUsuarios{
 
     private static  ServicioUsuariosHttp instancia;
 
+    private EstadoApp estadoApp;
+
     private  ServicioUsuariosHttp(AccesoUsuarios a, Activity activity){
        this.accesoUsuarios=a;
         this.activity=activity;
+        estadoApp=EstadoApp.getInstance();
     }
 
     public  static ServicioUsuariosHttp getInstance(AccesoUsuarios acceso, Activity activity){
@@ -75,6 +79,7 @@ public class ServicioUsuariosHttp implements  ServicioUsuarios{
     public  void verificarExistencia(Usuario user)
     {
         usuarioLogueado=user;
+        estadoApp.setUsuarioLogueado(user);
         peticionExistenciaUsuario();
 
 

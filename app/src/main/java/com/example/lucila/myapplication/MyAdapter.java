@@ -19,7 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.lucila.myapplication.Datos.MapeoIdEstablecimiento;
 import com.example.lucila.myapplication.Entidades.Deporte;
+import com.example.lucila.myapplication.Entidades.Establecimiento;
 import com.example.lucila.myapplication.Entidades.Oferta;
 
 
@@ -42,7 +44,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>   impl
         public TextView id_oferta;
         public CardView cardview_lista;
         public ImageView imagenOferta;
-
+        public  TextView nombre_establecimiento;
 
         public ViewHolder(View v) {
             super(v);
@@ -53,7 +55,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>   impl
             cardview_lista=(CardView)v.findViewById(R.id.cardview_lista);
             imagenOferta =(ImageView)v.findViewById(R.id.imagen_oferta);
             id_oferta=(TextView)v.findViewById(R.id.oferta_id);
-
+            nombre_establecimiento=(TextView)v.findViewById(R.id.nombre_establecimiento);
         }
     }
 
@@ -92,6 +94,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>   impl
 
 
             holder.id_oferta.setText(lista_ofertas.get(position).getCodigo().toString());
+
+            Establecimiento establecimiento= MapeoIdEstablecimiento.getInstance().getById(oferta.getIdUserCreador());
+            if(establecimiento!=null){
+
+                holder.nombre_establecimiento.setText(establecimiento.getNombre());
+            }
         }
     }
 

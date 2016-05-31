@@ -1,5 +1,7 @@
 package com.example.lucila.myapplication.Entidades;
 
+import android.net.Uri;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +20,7 @@ public class Usuario {
     private int faltas;
     private String idUsuario; //id para la bd
     private List<Oferta>ofertasReservadas;
-
+    private Uri urlFoto;
 
     public Usuario(String email){
 
@@ -79,5 +81,11 @@ public class Usuario {
         return ofertasReservadas;
     }
 
+    public Uri getUrlFoto() {
+        return urlFoto;
+    }
 
+    public void setUrlFoto(Uri urlFoto) {
+        this.urlFoto = urlFoto;
+    }
 }

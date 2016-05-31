@@ -11,16 +11,20 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.lucila.myapplication.Entidades.Deporte;
+import com.example.lucila.myapplication.Entidades.Establecimiento;
 import com.example.lucila.myapplication.Entidades.Oferta;
 import com.example.lucila.myapplication.Entidades.Usuario;
 import com.example.lucila.myapplication.http.ConstantesAcceso;
 import com.example.lucila.myapplication.http.VolleySingleton;
 import com.example.lucila.myapplication.http.deporteDeserializer;
+import com.example.lucila.myapplication.http.establecimientosDeserializer;
 import com.example.lucila.myapplication.http.ofertaDeserializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 //jason  para las consultas al web service
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,6 +43,8 @@ public class ServicioOfertasHttp implements Parcelable{
 
     private static List<Deporte>deportes;
 
+    private static MapeoIdEstablecimiento establecimientos;
+
     private static MapeoIdDeporte mapeo;
 
     private static int  reservado;
@@ -56,6 +62,7 @@ public class ServicioOfertasHttp implements Parcelable{
         mapeo= new MapeoIdDeporte();
         ofertas= new ArrayList<Oferta>();
         deportes= new ArrayList<Deporte>();
+       
         reservado=0;
     }
 
@@ -83,11 +90,13 @@ public class ServicioOfertasHttp implements Parcelable{
     /*
       realiza la peticion de las ofertas y deportes al servidor
       obetenemos los deportes del servidor y los guardamos en la lista deportes
+      luego obtenemos los establecimientos y los guardamos en la lista establecimientos
       luego de eso pide las ofertas.
       */
     public static void realizarPeticion(){
 
         realizarPeticionDeportes("get_deportes");
+
     }
     //----------PARSELEABLE-----------------
 
@@ -227,6 +236,10 @@ public class ServicioOfertasHttp implements Parcelable{
         return null;
     }
 
+    public  Establecimiento getEstablecimiento(long id){
+       return  establecimientos.getById(id);
+
+    }
     /**
     get representa la funcion que se quiere llamar cuya url se saca de constantes oferta
      param representa el parametro especifico para la funcion, en caso que se quieran todas las ofertas estara null.
@@ -385,8 +398,8 @@ private static void  procesarRespuestaDeportes(JSONObject response) {
 
     }
 
-    realizarPeticionOfertas("get_ofertas", null);
 
+    realizarPeticionEstablecimientos();
     }
 
     /**
@@ -523,6 +536,90 @@ private static void  procesarRespuestaDeportes(JSONObject response) {
 
     }
 
+    /**
+     * le pide al servidor los establecimientos disponibles en la ubicion del usuario
+     * */
+   private static  void  realizarPeticionEstablecimientos(){
+
+       Usuario user= ServicioUsuariosHttp.getInstance().getUsuarioLogueado();
+       String url= ConstantesAcceso.getURL("establecimientos",user.getUbicacion());
+       Log.d("ofertas del  usuario","url "+url);
+
+       VolleySingleton.getInstance(activity).addToRequestQueue(
+               new JsonObjectRequest(
+                       Request.Method.GET,
+                       url,
+                       null,
+                       new Response.Listener<JSONObject>() {
+
+                           @Override
+                           public void onResponse(JSONObject response) {
+                               // Procesar la respuesta Json
+                               String respuesta=response.toString();
+
+                               procesarRespuestaEstablecimientos(response);
+                           }
+                       },
+                       new Response.ErrorListener() {
+                           @Override
+                           public void onErrorResponse(VolleyError error) {
+                               Log.d(activity.getClass().getSimpleName(), "Error Volley al verificar usuario: " + error.getMessage());
+                           }
+                       }
+
+               )
+       );
+
+   }
+
+    private static void procesarRespuestaEstablecimientos(JSONObject response){
+        Establecimiento[] establecimientoArray=null;
+        Log.d("establecimiento","establecimiento");
+        try {
+
+            // Obtener atributo "estado"
+            String estado = response.getString("estado");
+            //  Log.d(activity.getClass().getSimpleName(), "estado " + estado);
+            switch (estado) {
+                case "1": // EXITO
+                    // Obtener array "ofertas" Json
+                    JSONArray mensaje = response.getJSONArray("establecimientos");
+                    String cadenaRecibida=mensaje.toString();
+                    Log.d("esablecimientos","jason recibido "+cadenaRecibida);
+
+                    GsonBuilder gBuilder = new GsonBuilder();
+                    gBuilder.registerTypeAdapter(Establecimiento.class,new establecimientosDeserializer());
+                    //registra el deserializer de las ofertas con el mapeo de id deporte a deporte
+                    gson = gBuilder.create();
+
+                    if(cadenaRecibida!=null) {
+                        establecimientoArray = gson.fromJson(cadenaRecibida, Establecimiento[].class);
+                    }
+                    else {
+                        establecimientoArray= new Establecimiento[0];
+                    }
+
+                    //creamos el hash map de establecimientos
+                    establecimientos=MapeoIdEstablecimiento.getInstance();
+
+                    for (int i=0;i<establecimientoArray.length;i++){
+                        Establecimiento aux=establecimientoArray[i];
+                         establecimientos.put(aux.getId(),aux);
+
+                    }
+
+                    break;
+                case "2": // FALLIDO
+                    Log.d("esablecimientos","fallo el pedido de los establecimientos");
+                    break;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        realizarPeticionOfertas("get_ofertas", null);//pedimos las ofertas
+    }
     /**
      * interface para establecer los callbacks
      * */
