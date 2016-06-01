@@ -1,28 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.lucila.myapplication.NuevoUsuario">
-
+    android:orientation="vertical"
+    tools:context="com.example.lucila.myapplication.NuevoUsuario"
+    android:layout_gravity="center_vertical"
+    android:gravity="center"
+    android:background="@drawable/field5"
+    >
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ingrese su telefono"/>
+        android:text="Bienvenido"
+        android:textAlignment="center"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="60dp"
+        android:typeface="serif"
+        android:paddingBottom="50dp" />
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ingrese su telefono"
+        android:textSize="25dp"
+        android:textColor="@color/abc_background_cache_hint_selector_material_dark" />
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="telefono"
-        android:id="@+id/ed_telefono"/>
+        android:id="@+id/ed_telefono"
+        android:textColor="#121212"
+        android:textSize="20dp"
+        android:textColorHint="#f8112c" />
+</LinearLayout>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/boton_crear_usuario"
-        android:text="Ingresar"/>
+        android:text="Ingresar"
+        android:backgroundTint="@color/colorAccent"
+        android:textSize="25dp"
+        android:textColor="#FFFFFF"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Esta informaacion sera enviada a los establecimientos cuando hagas reservas "
+        android:layout_gravity="bottom"
+        android:textColor="@color/abc_background_cache_hint_selector_material_dark" />
 
-</RelativeLayout>
+</LinearLayout>

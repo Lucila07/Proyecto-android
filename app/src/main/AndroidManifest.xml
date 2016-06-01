@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.lucila.myapplication" >
+    package="com.example.lucila.myapplication">
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/MyMaterialTheme" >
-		<meta-data                                                       
-		 android:name="com.google.android.gms.version"                
-		 android:value="@integer/google_play_services_version" />     
-	 <meta-data                                                       
-		 android:name="com.google.android.geo.API_KEY"                
-		 android:value="AIzaSyD9cQDDEPFhykyVWZidbzA2MDQVKMCW6HY" />
+        android:theme="@style/MyMaterialTheme">
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyD9cQDDEPFhykyVWZidbzA2MDQVKMCW6HY" />
 
-        <activity android:name=".NuevoUsuario"></activity>
+        <activity android:name=".NuevoUsuario" />
         <activity android:name=".MainActivity">
             <intent-filter>
 
@@ -28,7 +30,7 @@
         </activity>
         <activity
             android:name=".ReservaOfertaActivity"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
@@ -38,7 +40,7 @@
         </activity>
         <activity
             android:name=".PerfilActivity"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
@@ -46,8 +48,9 @@
                 android:value="com.example.lucila.myapplication.MainActivity" />
             >
         </activity>
-        <activity android:name=".ReservasUsuarioActivity"
-            android:parentActivityName=".MainActivity" >
+        <activity
+            android:name=".ReservasUsuarioActivity"
+            android:parentActivityName=".MainActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
@@ -65,7 +68,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".EditarPerfilActivity"
+            android:parentActivityName=".PerfilActivity">
 
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.lucila.myapplication.PerfilActivity" />
+        </activity>
     </application>
 
 </manifest>

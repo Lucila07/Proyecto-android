@@ -86,6 +86,7 @@ public class ServicioUsuariosHttp implements  ServicioUsuarios{
     }
 
 
+
     @Override
     public void crearUsuario(String nombreUsuario,String mail,String id,String telefono){
 
@@ -204,8 +205,77 @@ public class ServicioUsuariosHttp implements  ServicioUsuarios{
 
 
     }
+/**
+ * metodo para editar los parametros de un usuario en el servidor
+ * */
+public  void editarPerfil(String id, String nuevoNom, String nuevoTel){
+    HashMap<String,String>mapa= new HashMap<>();
+    mapa.put("idUser",id);
+    mapa.put("nombreApellido",nuevoNom);
+    mapa.put("telefono",nuevoTel);
+    JSONObject json= new JSONObject(mapa);
 
 
+    peticionEditarPerfil(json);
+
+}
+
+    private static void peticionEditarPerfil( JSONObject json){
+
+        String url= ConstantesAcceso.getURL("editar_perfil",null);
+        Log.d("Editar perfil","url "+url);
+        VolleySingleton.getInstance(activity).addToRequestQueue(
+                new JsonObjectRequest(
+                        Request.Method.POST,
+                        url,
+                        json,
+                        new Response.Listener<JSONObject>() {
+
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                // Procesar la respuesta Json
+                                String respuesta=response.toString();
+
+                                procesarRespuestaEditarPerfil(response);
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.d(activity.getClass().getSimpleName(), "Error Volley al editar perfil: " + error.getMessage());
+                            }
+                        }
+
+                )
+        );
+    }
+    /**
+     * si el usuario existe entonces:
+     *  y carga la pantalla principal
+     * */
+    private static void procesarRespuestaEditarPerfil(JSONObject response){
+
+
+        try {
+            String estado= response.getString("estado");
+            Log.d("existe usuario ", "json "+response.toString());
+            switch (estado) {
+                case "1": // EXITO
+                    accesoUsuarios.cargarMain();
+                    break;
+                case "2": // FALLIDO
+                     accesoUsuarios.cargarTelefono();
+                    break;
+            }
+
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
 
 /**
  * interfaz que representa los callback de login

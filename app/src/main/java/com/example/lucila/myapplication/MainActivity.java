@@ -189,13 +189,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     logueado.setUbicacion(strAddress);
                 }
             } else {
-                Log.d("", "No location found..!");
+                Log.d("", "No se ha podido establecer la ubicacion");
                 Toast.makeText(MainActivity.this, "No se ha podido establecer la ubicacion", Toast.LENGTH_SHORT).show();
             }
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            Toast.makeText(getApplicationContext(), "Could not get address..!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "No se ha podido establecer la ubicacion", Toast.LENGTH_LONG).show();
         }
 
     }

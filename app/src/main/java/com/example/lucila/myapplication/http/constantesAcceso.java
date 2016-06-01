@@ -17,8 +17,8 @@ public class ConstantesAcceso {
          * Dirección IP
          */
 
-     //   private static final String IP = "http://192.168.1.106:";
-    private static final String IP = "http://192.168.43.169:";
+        private static final String IP = "http://192.168.1.106:";
+    //private static final String IP = "http://192.168.43.169:";
         /**
          * URLs del Web Service
          */
@@ -30,8 +30,9 @@ public class ConstantesAcceso {
        private static String GET_DERPORTES = IP + PUERTO_HOST + "/webServiceAndroid2/respuestasUsuario.php?funcion=getDeportes";
        private static String VERIFICAR_USUARIO=IP+PUERTO_HOST+"/webServiceAndroid2/respuestasUsuario.php?funcion=verificarUsuario&idUser=";
        private static String GUARDAR_USUARIO=IP+PUERTO_HOST+"/webServiceAndroid2/respuestasUsuario.php?funcion=guardarUsuario";
-      private static String OFERTAS_USUARIO=IP+PUERTO_HOST+"/webServiceAndroid2/respuestasUsuario.php?funcion=getOfertasUsuario&idUser=";
-    private static String ESTABLECIMIENTOS_UBICACION=IP+PUERTO_HOST+"/webServiceAndroid2/respuestasUsuario.php?funcion=getEstablecimientos&ubicacion=";
+       private static String OFERTAS_USUARIO=IP+PUERTO_HOST+"/webServiceAndroid2/respuestasUsuario.php?funcion=getOfertasUsuario&idUser=";
+       private static String ESTABLECIMIENTOS_UBICACION=IP+PUERTO_HOST+"/webServiceAndroid2/respuestasUsuario.php?funcion=getEstablecimientos&ubicacion=";
+       private  static String EDITAR_PERFIL =IP+PUERTO_HOST+"/webServiceAndroid2/respuestasUsuario.php?funcion=editarPerfil";
 
     public static   String getURL(String get,String param1){
 
@@ -55,6 +56,8 @@ public class ConstantesAcceso {
                        return OFERTAS_USUARIO+param1;
                    case "establecimientos":
                        return ESTABLECIMIENTOS_UBICACION+param1;
+                   case "editar_perfil":
+                       return EDITAR_PERFIL;
 
 
                }
