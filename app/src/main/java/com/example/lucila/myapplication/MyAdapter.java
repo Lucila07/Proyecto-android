@@ -45,6 +45,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>   impl
         public CardView cardview_lista;
         public ImageView imagenOferta;
         public  TextView nombre_establecimiento;
+        public TextView text_ahorro;
 
         public ViewHolder(View v) {
             super(v);
@@ -55,7 +56,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>   impl
             cardview_lista=(CardView)v.findViewById(R.id.cardview_lista);
             imagenOferta =(ImageView)v.findViewById(R.id.imagen_oferta);
             id_oferta=(TextView)v.findViewById(R.id.oferta_id);
+            text_ahorro=(TextView)v.findViewById(R.id.tv_ahorro_oferta);
             nombre_establecimiento=(TextView)v.findViewById(R.id.nombre_establecimiento);
+
         }
     }
 
@@ -91,10 +94,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>   impl
             holder.text_ubicacion.setText(oferta.getUbicacion());
             holder.text_hora.setText(oferta.getHora().toString());
             holder.text_fecha.setText(oferta.getFecha().toString());
-
+         //  holder.porcentaje_ahorro.setText((oferta.getPrecioOferta()*100)/oferta.getPrecioHabitual());
+            Integer int_ahorro =new Integer((oferta.getPrecioOferta()*100)/oferta.getPrecioHabitual());
+            String s_ahorro=int_ahorro.toString();
+            holder.text_ahorro.setText(s_ahorro);
 
             holder.id_oferta.setText(lista_ofertas.get(position).getCodigo().toString());
-
             Establecimiento establecimiento= MapeoIdEstablecimiento.getInstance().getById(oferta.getIdUserCreador());
             if(establecimiento!=null){
 

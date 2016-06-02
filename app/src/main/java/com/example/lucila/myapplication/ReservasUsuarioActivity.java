@@ -7,6 +7,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.lucila.myapplication.AdapterReservas;
 import com.example.lucila.myapplication.Datos.ItemData;
@@ -25,6 +27,7 @@ public class ReservasUsuarioActivity extends AppCompatActivity implements Servic
     private ServicioOfertasHttp servicioOfertasHttp;
     private ServicioUsuariosHttp serviciousario;
     private   RecyclerView.LayoutManager mLayoutManager;
+    private TextView ninguna_oferta;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +41,7 @@ public class ReservasUsuarioActivity extends AppCompatActivity implements Servic
         Log.d("reservas hechas","pido las reservas ");
         servicioOfertasHttp.establecerOfertasUsuarioLogueado(user);
 
-
+        ninguna_oferta=(TextView)findViewById(R.id.ofertas_usuario_ninguna);
 
 
 
@@ -68,17 +71,22 @@ public class ReservasUsuarioActivity extends AppCompatActivity implements Servic
     @Override
     public void exito(Oferta[] ofertaArray) {
 
-       //  create an adapter
-        Log.d("reservas hechas","creo el adapter cant ofe"+ofertaArray.length);
-        mLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(mLayoutManager);
+       if(ofertaArray.length>0) {
+           //  create an adapter
+           Log.d("reservas hechas", "creo el adapter cant ofe" + ofertaArray.length);
+           mLayoutManager = new LinearLayoutManager(this);
+           recyclerView.setLayoutManager(mLayoutManager);
 
-        AdapterReservas mAdapter = new AdapterReservas(ofertaArray);
+           AdapterReservas mAdapter = new AdapterReservas(ofertaArray);
 
-        //  set adapter
-        recyclerView.setAdapter(mAdapter);
-        // set item animator to DefaultAnimator
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+           //  set adapter
+           recyclerView.setAdapter(mAdapter);
+           // set item animator to DefaultAnimator
+           recyclerView.setItemAnimator(new DefaultItemAnimator());
+       }
+        else {
+           ninguna_oferta.setVisibility(View.VISIBLE);
+       }
     }
 
     @Override

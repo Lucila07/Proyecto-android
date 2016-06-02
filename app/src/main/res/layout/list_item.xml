@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         card_view:cardCornerRadius="20dp"
         card_view:cardElevation="100dp"
-        android:padding="20dp"
+
         >
 <LinearLayout
     android:layout_width="match_parent"
@@ -28,71 +28,107 @@
                     android:orientation="vertical"
 
                     android:paddingRight="40dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/deporte"
-                        android:textSize="35dp"
-                        android:paddingBottom="10dp"
-                        android:textAlignment="center"
-                        android:layout_gravity="center_horizontal"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="25dp"
-                        android:text="Fecha"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/fecha"
-                                android:textSize="20dp"
-                                android:paddingBottom="10dp"
-                            />
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
+                <LinearLayout
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="25dp"
-                            android:text="Hora"/>
+                            android:orientation="horizontal">
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/hora"
-                                android:textSize="20dp"
+                                android:id="@+id/deporte"
+                                android:textSize="30dp"
+                                android:paddingBottom="10dp"
+                                android:textAlignment="center"
+                                android:layout_gravity="center_horizontal"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" en "
+                                android:textSize="30dp"
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/nombre_establecimiento"
+                                android:textSize="30dp"
                                 android:paddingBottom="10dp"
                                 />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="! "
+                                android:textSize="30dp"
+                                android:paddingBottom="10dp"
+                                />
+                </LinearLayout>
+                           <LinearLayout
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:orientation="horizontal">
+                               <TextView
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:id="@+id/tv_ahorro_oferta"
+                                   android:textSize="30dp"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="% de ahorro!"
+                                    android:textSize="30dp"
+                                    android:paddingBottom="10dp"
+                                    />
+
+
+                </LinearLayout>
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:text="Fecha"/>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:id="@+id/fecha"
+                                        android:textSize="20dp"
+                                        android:paddingBottom="10dp"
+                                    />
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="20dp"
+                                    android:text="Hora"/>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:id="@+id/hora"
+                                        android:textSize="20dp"
+                                        android:paddingBottom="10dp"
+                                        />
 
 
 
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="25dp"
+                            android:textSize="20dp"
                             android:text="Ubicacion"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/ubicacion"
                             android:textSize="20dp"
-                            android:paddingBottom="10dp"
+
                             />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="25dp"
-                        android:text="Establecimiento"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/nombre_establecimiento"
-                        android:textSize="20dp"
-                        android:paddingBottom="10dp"
-                        />
+
+
 
                 </LinearLayout>
 
@@ -111,7 +147,9 @@
                             android:id="@+id/imagen_oferta"
                             android:orientation="vertical"
                             android:paddingLeft="0dp"
-                            android:paddingRight="0dp" />
+                            android:paddingRight="10dp"
+                            android:paddingTop="50dp"
+                            />
 
                         <EditText
                             android:layout_width="wrap_content"

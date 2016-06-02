@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -49,6 +50,7 @@ public class OfertasFragment extends Fragment implements ServicioOfertasHttp.Cal
     private  List<Deporte>deportesLista;
     private  TextView tv_no_hay_ofertas;
     private Usuario usuarioLog;
+    private Button bt_actualizar;
     public   OfertasFragment() {
         // Required empty public constructor
     }
@@ -156,7 +158,16 @@ public class OfertasFragment extends Fragment implements ServicioOfertasHttp.Cal
         spinner = (Spinner)rootView.findViewById(R.id.deportes_spinner);
         contexto=getContext();
         activity=getActivity();
+        bt_actualizar=(Button)rootView.findViewById(R.id.bt_actualizar);
         tv_no_hay_ofertas=(TextView)rootView.findViewById(R.id.tv_no_hay_ofertas);
+
+        bt_actualizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                servicioOfertasUsuario.realizarPeticion();
+                Toast.makeText(getActivity(), "Las ofertas fueron actualizadas ", Toast.LENGTH_SHORT).show();
+            }
+        });
         return rootView;
     }
 
@@ -172,6 +183,9 @@ public class OfertasFragment extends Fragment implements ServicioOfertasHttp.Cal
   // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
       if (!ofertas.isEmpty()) {
+
+          mRecyclerView.setVisibility(View.VISIBLE);
+          tv_no_hay_ofertas.setVisibility(View.GONE);
           mRecyclerView.setHasFixedSize(true);
 
           // use a linear layout manager
@@ -200,6 +214,7 @@ public class OfertasFragment extends Fragment implements ServicioOfertasHttp.Cal
           mRecyclerView.setAdapter(mAdapter);
       }
         else{
+            mRecyclerView.setVisibility(View.GONE);
             tv_no_hay_ofertas.setVisibility(View.VISIBLE);
       }
     }

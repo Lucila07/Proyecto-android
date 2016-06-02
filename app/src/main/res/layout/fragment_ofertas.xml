@@ -18,19 +18,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:paddingTop="10dp"
         >
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Actualizar"
+            android:id="@+id/bt_actualizar"
+            android:backgroundTint="@color/colorAccent"
+            android:textSize="15dp"
+            android:textColor="#FFFFFF"
+            android:layout_gravity="bottom|left"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+          />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Filtrar por deporte: "
+            android:text="Deporte: "
             android:textSize="25dp"
-            android:layout_marginTop="100dp" />
+            android:layout_marginTop="100dp"
+            android:paddingLeft="20dp"/>
         <Spinner
             android:id="@+id/deportes_spinner"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-
             android:layout_marginTop="100dp" />
+
+
     </LinearLayout>
 
     <TextView
@@ -39,6 +55,8 @@
         android:visibility="gone"
         android:text="No hay ofertas disponibles"
         android:id="@+id/tv_no_hay_ofertas"
+        android:layout_gravity="center"
+        android:paddingTop="50dp"
         />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"

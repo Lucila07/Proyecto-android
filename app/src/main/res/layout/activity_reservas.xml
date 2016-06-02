@@ -5,6 +5,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.hmkcode.android.recyclerview.MainActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Todavia no has realizado ninguna oferta"
+        android:visibility="gone"
+        android:id="@+id/ofertas_usuario_ninguna"
+        />
     <!-- App Bar -->
     <android.support.v7.widget.Toolbar
 

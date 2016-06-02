@@ -95,8 +95,11 @@ public class ServicioOfertasHttp implements Parcelable{
       */
     public static void realizarPeticion(){
 
-        realizarPeticionDeportes("get_deportes");
-
+        if(deportes.size()<1) //si es la primera vez pido toodo
+            realizarPeticionDeportes("get_deportes");
+        else{
+            realizarPeticionOfertas("get_ofertas", null);//pedimos solo las ofertas
+        }
     }
     //----------PARSELEABLE-----------------
 
