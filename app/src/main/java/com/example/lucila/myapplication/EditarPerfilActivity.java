@@ -1,6 +1,8 @@
 package com.example.lucila.myapplication;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -42,13 +44,12 @@ public class EditarPerfilActivity extends AppCompatActivity implements ServicioU
                 String nuevoTel= telefono.getText().toString();
                 String nuevoNom=nombre.getText().toString();//&&nuevoTel.length()>4&&cheaquerDato(nuevoTel)
                 if(nuevoTel.equals(usuario.getTelefono())&&nuevoNom.equals(usuario.getNombreApellido()))
-                    Toast.makeText(EditarPerfilActivity.this, "Debes realizar almenos un cambio ", Toast.LENGTH_SHORT).show();
-
-
+                    generarDialogoFallo( "Debes realizar almenos un cambio ");
                 else{
-                    if(!nuevoTel.equals(usuario.getTelefono()))
+                    if(cheaquerDato(nuevoTel)&&cheaquerDato(nuevoNom)) //si lo que cambio fue elt telefono
 
                        servicioUsuarios.editarPerfil(usuario.getIdUsuario(),nuevoNom,nuevoTel);
+                    else generarDialogoFallo(" No se permiten entradas vacias, por favor chequea tus datos");
                 }
             }
         });
@@ -89,5 +90,18 @@ public class EditarPerfilActivity extends AppCompatActivity implements ServicioU
         if(dato.isEmpty()||dato.equals("")||dato.equals(" ")||dato==null)
             return false;
         else return true;
+}
+
+    private void generarDialogoFallo(String mensaje){
+        AlertDialog dialogo= new AlertDialog.Builder(EditarPerfilActivity.this)
+                .setTitle("Reservar")
+                .setMessage(mensaje)
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }}
+                ).show();
+
+
     }
 }
