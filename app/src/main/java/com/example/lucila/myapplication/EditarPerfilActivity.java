@@ -40,14 +40,15 @@ public class EditarPerfilActivity extends AppCompatActivity implements ServicioU
             public void onClick(View v) {
 
                 String nuevoTel= telefono.getText().toString();
-                String nuevoNom=nombre.getText().toString();
-                if(!nuevoTel.equals(usuario.getTelefono())||!nuevoNom.equals(usuario.getNombreApellido())){
+                String nuevoNom=nombre.getText().toString();//&&nuevoTel.length()>4&&cheaquerDato(nuevoTel)
+                if(nuevoTel.equals(usuario.getTelefono())&&nuevoNom.equals(usuario.getNombreApellido()))
+                    Toast.makeText(EditarPerfilActivity.this, "Debes realizar almenos un cambio ", Toast.LENGTH_SHORT).show();
 
-                    servicioUsuarios.editarPerfil(usuario.getIdUsuario(),nuevoNom,nuevoTel);
-                }
+
                 else{
+                    if(!nuevoTel.equals(usuario.getTelefono()))
 
-                    Toast.makeText(EditarPerfilActivity.this, "Debes modificar almenos un cambio ", Toast.LENGTH_SHORT).show();
+                       servicioUsuarios.editarPerfil(usuario.getIdUsuario(),nuevoNom,nuevoTel);
                 }
             }
         });
@@ -82,5 +83,11 @@ public class EditarPerfilActivity extends AppCompatActivity implements ServicioU
     @Override
     public void cargarTelefono() {
         Toast.makeText(EditarPerfilActivity.this, "Ocurrio un error al editar los datos", Toast.LENGTH_SHORT).show();
+    }
+
+    private boolean cheaquerDato(String dato){
+        if(dato.isEmpty()||dato.equals("")||dato.equals(" ")||dato==null)
+            return false;
+        else return true;
     }
 }

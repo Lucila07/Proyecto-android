@@ -1,6 +1,10 @@
 package com.example.lucila.myapplication;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Parcelable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +21,7 @@ public class NuevoUsuario extends AppCompatActivity implements ServicioUsuariosH
 
     private ServicioUsuarios servicioUsuarios;
     private EditText editText;
-    private Button boton_crear_usuario;
+    private Button boton_crear_usuario,bt_omitir;
 
     private String nombreUsuario,mail,id,telefono;
     @Override
@@ -40,11 +44,23 @@ public class NuevoUsuario extends AppCompatActivity implements ServicioUsuariosH
             public void onClick(View v) {
 
                 telefono=editText.getText().toString();
+                if(telefono.isEmpty()||telefono.equals("")||telefono.equals(" ")||telefono.length()<4||telefono==null)
+                    generarDialogoTelefono();
+
                 servicioUsuarios.crearUsuario(nombreUsuario,mail,id,telefono);
                 Log.d("nuevo usuario", "se creo el usuario");
             }
         });
 
+        bt_omitir=(Button)findViewById(R.id.bt_omitir);
+        bt_omitir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                generarDialogoTelefono();
+                cargarMain();
+            }
+        });
     }
 
 
@@ -62,5 +78,21 @@ public class NuevoUsuario extends AppCompatActivity implements ServicioUsuariosH
     public void cargarTelefono() {
 
         Toast.makeText(NuevoUsuario.this,"Ha ocurrido un error al registrase, intentelo nuevamente ", Toast.LENGTH_SHORT).show();
+    }
+
+
+    private void generarDialogoTelefono(){
+        AlertDialog dialogo= new AlertDialog.Builder(NuevoUsuario.this)
+                .setTitle("Ingresar")
+                .setMessage("Para poder reservar debera ingresar su telefono \n Lo podra hacer luego en: 'Mi perfil->editar' ")
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+
+
+                    }}
+                ).show();
+
+
     }
 }

@@ -21,15 +21,15 @@
 <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
+    android:orientation="vertical"
 
     >
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ingrese su telefono"
-        android:textSize="25dp"
-        android:textColor="@color/abc_background_cache_hint_selector_material_dark" />
+        android:text="Ingrese su telefono:"
+        android:textSize="30dp"
+        android:textColor="@color/abc_input_method_navigation_guard" />
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -53,6 +53,18 @@
         android:layout_height="wrap_content"
         android:text="Esta informaacion sera enviada a los establecimientos cuando hagas reservas "
         android:layout_gravity="bottom"
-        android:textColor="@color/abc_background_cache_hint_selector_material_dark" />
+        android:textColor="@color/abc_input_method_navigation_guard" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Omitir"
+        android:id="@+id/bt_omitir"
+        android:layout_gravity="center_horizontal"
+        android:background="#00000000"
+        android:textColor="@color/abc_input_method_navigation_guard"
+        android:textSize="20dp"
+        />
 
 </LinearLayout>

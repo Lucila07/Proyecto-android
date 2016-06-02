@@ -38,7 +38,7 @@ public class ReservaOfertaActivity extends AppCompatActivity  implements Servici
 
         usuario = servicioUsuario.getUsuarioLogueado();
         servicioOfertas= ServicioOfertasHttp.getInstanciaServicio(this,this);
-    oferta= (Oferta)intent.getExtras().getParcelable("oferta");
+        oferta= (Oferta)intent.getExtras().getParcelable("oferta");
 
         if(oferta!=null){
             establecerTextos(oferta);
@@ -70,16 +70,24 @@ public class ReservaOfertaActivity extends AppCompatActivity  implements Servici
                     }
                     else
                     {
-                        if (usuario.getTelefono()==null) {
+                        String telefono=usuario.getTelefono();
+                        if (cheaquerDato(telefono)||telefono.length()<4) {
 
-                            Toast.makeText(ReservaOfertaActivity.this, "Antes de realizar una reserva de ingresar el telefono", Toast.LENGTH_LONG).show();
+                            generarDialogoFallo("Para poder reservar debera ingresar su telefono \n Lo podra hacer  en: 'Mi perfil->editar' ");
                         }
-                        if (!oferta.getEstado().equals("reservada")) {
-                            generarDialogoReserva();
-                        } else {
+                        else
+                            if(!cheaquerDato(usuario.getNombreApellido())){
+                                generarDialogoFallo("Para poder reservar debera ingresar nombre de usuario \n" +
+                                        " Lo podra hacer  en: 'Mi perfil->editar' ");
+                            }
+                            else
+                                if (!oferta.getEstado().equals("reservada")) {
+                                    generarDialogoReserva();
+                                }
+                                else {
 
-                            Toast.makeText(ReservaOfertaActivity.this, "Oferta ya reservada", Toast.LENGTH_LONG).show();
-                        }
+                                    generarDialogoFallo("Esta oferta ya esta reservada :( ");
+                                }
 
                     }
                 }
@@ -116,19 +124,9 @@ public class ReservaOfertaActivity extends AppCompatActivity  implements Servici
                 .setMessage("Seguro que deseas rervar esta oferta?")
                 .setPositiveButton("SI", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                     boolean resultado=servicioOfertas.reservarOferta(oferta,usuario);
+                        servicioOfertas.reservarOferta(oferta,usuario);
                         Log.d(this.getClass().getSimpleName(), "estado oferta en la activity " + oferta.getEstado());
-                      //  resultado= oferta.getEstado().equals("reservada");
-                     /*   if(resultado){
-                         Toast.makeText(ReservaOfertaActivity.this, "Reserva hecha con exito. Sus datos seran enviados al establecimiento", Toast.LENGTH_SHORT).show();
-                         generarDialogoOk();
-                         oferta.setIdUserComprador(servicioUsuario.getUsuarioLogueado().getIdUsuario());
-                      }
-                        else {
 
-                          Toast.makeText(ReservaOfertaActivity.this, "Error al realizar oferta", Toast.LENGTH_LONG).show();
-
-                      }*/
                     }
                 })
                 .setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -170,6 +168,25 @@ private void establecerTextos(Oferta oferta){
                 ).show();
 
 
+    }
+
+    private void generarDialogoFallo(String mensaje){
+        AlertDialog dialogo= new AlertDialog.Builder(ReservaOfertaActivity.this)
+                .setTitle("Reservar")
+                .setMessage(mensaje)
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }}
+                ).show();
+
+
+    }
+
+    private boolean cheaquerDato(String dato){
+        if(dato.isEmpty()||dato.equals("")||dato.equals(" ")||dato==null)
+            return false;
+        else return true;
     }
 
     @Override
