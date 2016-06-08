@@ -11,14 +11,14 @@ public class ConstantesAcceso {
         /**
          * Puerto que utilizas para la conexión.
          */
-        private static final String PUERTO_HOST = "85";
+        private static final String PUERTO_HOST = "";
 
         /**
          * Dirección IP
          */
 
-        private static final String IP = "http://192.168.1.106:";
-    //private static final String IP = "http://192.168.43.169:";
+      //  private static final String IP = "http://192.168.1.106:";
+        private static final String IP = "http://hosting.cs.uns.edu.ar/~com109";
         /**
          * URLs del Web Service
          */
