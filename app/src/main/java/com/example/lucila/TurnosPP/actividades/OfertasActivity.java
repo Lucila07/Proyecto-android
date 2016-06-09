@@ -37,7 +37,7 @@ public class OfertasActivity extends AppCompatActivity implements OfertasFragmen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ofertas);
 
-        idEstablecimiento= 1;
+        idEstablecimiento= getIntent().getIntExtra("id", 0);
 
         if(savedInstanceState == null) {
             gson = new Gson();
@@ -98,7 +98,7 @@ public class OfertasActivity extends AppCompatActivity implements OfertasFragmen
                     settearFragmentListaOfertas();
                     break;
                 case "2": // FALLIDO
-                    String mensajeError = response.getString("mensaje");
+                    String mensajeError = response.getString("mensaje") + "id "+ idEstablecimiento;
                     Toast.makeText(
                             this,
                             mensajeError,

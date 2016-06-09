@@ -8,6 +8,20 @@ public class Establecimiento implements Serializable {
 
     private int id;
     private int telefono;
+    private int cantMaxOfertas;
+    private String nombre;
+    private String token;
+    private String ubicacion;
+    private String email;
+    private ArrayList<String> deportes= new ArrayList<>();
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public int getCantMaxOfertas() {
         return cantMaxOfertas;
@@ -17,10 +31,6 @@ public class Establecimiento implements Serializable {
         this.cantMaxOfertas = cantMaxOfertas;
     }
 
-    private int cantMaxOfertas;
-
-    private String nombre, token, ubicacion;
-
     public ArrayList<String> getDeportes() {
         return deportes;
     }
@@ -28,8 +38,6 @@ public class Establecimiento implements Serializable {
     public void setDeportes(ArrayList<String> deportes) {
         this.deportes = deportes;
     }
-
-    private ArrayList<String> deportes;
 
     public int getId() {
         return id;
@@ -71,7 +79,15 @@ public class Establecimiento implements Serializable {
         this.ubicacion = ubicacion;
     }
 
-    public Establecimiento() {}
+    public Establecimiento() {
+        id= 0;
+        telefono= 0;
+        cantMaxOfertas= 0;
+        nombre= "";
+        token= "";
+        ubicacion= "";
+        email= "";
+    }
 
     public Establecimiento(int id, String token, String nombre, String ubicacion, int telefono) {
         this.id = id;
@@ -81,12 +97,13 @@ public class Establecimiento implements Serializable {
         this.ubicacion = ubicacion;
     }
 
-    public Establecimiento(int id, int telefono, String nombre, String token, String ubicacion, ArrayList<String> deportes) {
+    public Establecimiento(int id, int telefono, String nombre, String token, String ubicacion, String email, ArrayList<String> deportes) {
         this.id = id;
         this.telefono = telefono;
         this.nombre = nombre;
         this.token = token;
         this.ubicacion = ubicacion;
+        this.email = email;
         this.deportes = deportes;
     }
 }

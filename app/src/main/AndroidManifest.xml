@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.lucila.myapplication"
     android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
@@ -8,7 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <!-- Permiso para conectarse a internet y hacer los request a la base de datos -->
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- Si el celular no tiene opengl v2.0 no se puede usar esta aplicación (por el Maps) -->
     <uses-feature
@@ -45,11 +44,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.lucila.turnosPP.actividades.LoginActivity" />
         </activity>
-
         <activity
             android:name="com.example.lucila.turnosPP.actividades.MenuPrincipalActivity"
             android:label="@string/title_activity_menuppal" />
-
         <activity
             android:name="com.example.lucila.turnosPP.actividades.CrearOfertasActivity"
             android:label="@string/title.crear.oferta"
@@ -78,6 +75,9 @@
         <service
             android:name="com.example.lucila.turnosPP.servicios.ObtenerDireccionService"
             android:exported="false" />
+
+        <activity android:name="com.example.lucila.turnosPP.actividades.DeportesCheckerActivity" />
+        <activity android:name="com.example.lucila.turnosPP.actividades.PerfilActivity"></activity>
     </application>
 
 </manifest>

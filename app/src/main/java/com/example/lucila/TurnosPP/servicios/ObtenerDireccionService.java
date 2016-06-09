@@ -8,6 +8,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.os.ResultReceiver;
+import android.text.TextUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -60,10 +61,15 @@ public class ObtenerDireccionService extends IntentService {
             for(int i = 0; i < address.getMaxAddressLineIndex(); i++) {
                 addressFragments.add(address.getAddressLine(i));
             }
+            String u;
             //Direccion
-            //devolverResultado(0,TextUtils.join(System.getProperty("line.separator"), addressFragments));
+            String dir= TextUtils.join(System.getProperty("line.separator"), addressFragments);
             //Ciudad
-            devolverResultado(0,address.getLocality());
+            String ciudad= address.getLocality();
+            if(dir.isEmpty())
+                devolverResultado(0, ciudad);
+            else
+                devolverResultado(0, dir + " ; " + ciudad);
         }
     }
     private void devolverResultado(int resultCode, String message) {

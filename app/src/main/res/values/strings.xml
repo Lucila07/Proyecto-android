@@ -70,4 +70,7 @@
     <!-- Especificos de la app -->
     <string name="cant_ofertas_creadas">cantidadCreadas</string>
 
+    <!-- Fragmento checkers deportes -->
+    <string name="boton_guardar">Aceptar</string>
+
 </resources>

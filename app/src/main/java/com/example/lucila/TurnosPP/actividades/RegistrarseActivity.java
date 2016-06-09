@@ -1,118 +1,171 @@
 package com.example.lucila.turnosPP.actividades;
 
+import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.lucila.myapplication.R;
+import com.example.lucila.turnosPP.beans.Establecimiento;
+import com.example.lucila.turnosPP.beans.VolleySingleton;
+import com.example.lucila.turnosPP.constantes.Constantes;
+import com.example.lucila.turnosPP.fragmentos.DeportesCheckerFragment;
+import com.example.lucila.turnosPP.fragmentos.EstablecerUbicacionFragment;
+import com.example.lucila.turnosPP.fragmentos.InfoUsuarioFragment;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
-public class RegistrarseActivity extends AppCompatActivity {
+public class RegistrarseActivity
+        extends AppCompatActivity
+        implements InfoUsuarioFragment.OnFragmentInteractionListener {
 
-    private static final String VACIO= "";
+    private static final String TAG= RegistrarseActivity.class.getSimpleName();
 
-    private EditText campoUser,
-                     campoContra,
-                     campoTel,
-                     campoUbi,
-                     campoRepetirContra,
-                     campoEMail;
+    private final static int COD_DEP_CHECKER= 1;
+    private final static int COD_UBICACION= 2;
 
-    private TextView errorCampoEMail,
-                     errorCampoUser,
-                     errorCampoContra,
-                     errorCampoRepetirContra,
-                     errorCampoTel;
+    private Establecimiento establecimiento;
+    private Map<String, Boolean> mapeoDeportes; //Usado por la actividad DeportesChecker
 
-    private Pattern patronEMail;
+    //Deportes ingresados por el usuario
+    private List<String> deportesNuevos= new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registrarse_activity);
 
-        //Usado para validar la estructura de los e-mails ingresado por el usuario.
-        patronEMail= Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
 
-        //Obtengo los EditText
-        campoUser= (EditText) findViewById(R.id.user_textfield_registrarse);
-        campoContra= (EditText) findViewById(R.id.contra_textfield_registrarse);
-        campoRepetirContra= (EditText) findViewById(R.id.repetir_contra_textfield_registrarse);
-        campoTel= (EditText) findViewById(R.id.telefono_textfield_registrarse);
-        campoUbi= (EditText) findViewById(R.id.ubicacion_textfield_registrarse);
-        campoEMail= (EditText) findViewById(R.id.email_textfield_registrarse);
-
-        //Obtengo los TextView
-        errorCampoEMail= (TextView) findViewById(R.id.error_email_textfield_registrarse);
-        errorCampoContra= (TextView) findViewById(R.id.error_contra_textfield_registrarse);
-        errorCampoRepetirContra= (TextView) findViewById(R.id.error_repetir_contra_textfield_registrarse);
-        errorCampoUser= (TextView) findViewById(R.id.error_usuario_textfield_registrarse);
-        errorCampoTel= (TextView) findViewById(R.id.telefono_textfield_registrarse);
+        establecimiento= new Establecimiento();
+        //Creo el mapeo para las actividades que lo usan
+        mapeoDeportes= new HashMap<>();
+        String[] dep= (String[]) getIntent().getSerializableExtra("Tdeportes");
+        for(String d : dep) {
+            mapeoDeportes.put(d, false);
+        }
+        establecimiento= new Establecimiento();
     }
 
-    public void obtenerUbicacion(View view) {
-        //TODO intent implícito al gps para obtener la ubicacion
+    @Override
+    public void onGuardarCambios(Establecimiento establecimiento, String pass) {
+        this.establecimiento= establecimiento;
+        crearUser(pass);
     }
 
-    public void registrarse(View view) {
-        boolean paso= validacionEntrada();
-        if(paso) {
-            //TODO agregar a la base de datos el nuevo usuario y redireccioón al menú ppal.
-            resetearCampos();
-            esconderErrores();
+    @Override
+    public void onEstablecerUbicacion() {
+        Intent i = new Intent(this, EstablecerUbicacionActivity.class);
+        i.putExtra("registro", true); //El user se esta registrando
+        startActivityForResult(i, COD_UBICACION);
+    }
+
+    @Override
+    public void onEstablecerDeportes() {
+        Intent i= new Intent(this, DeportesCheckerActivity.class);
+        i.putExtra("mapeoDeportes",(Serializable) mapeoDeportes);
+        startActivityForResult(i, COD_DEP_CHECKER);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //Si el resultado es correcto
+        if(resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case COD_DEP_CHECKER: { //Llame por los deportes
+                    deportesNuevos= (List<String>) data.getSerializableExtra("deportesNuevos");
+                    break;
+                }
+                case COD_UBICACION: {
+                    establecimiento.setUbicacion(data.getStringExtra("ubicacion"));
+                }
+            }
         }
     }
 
-    //Valida los datos de los input text. Retorna true si son válidos
-    private boolean validacionEntrada() {
-        boolean pasa= true;
-        String user= campoUser.getText().toString();
-        if(user.contentEquals(VACIO)) {
-            errorCampoUser.setText(R.string.error_usuario);
-            errorCampoUser.setVisibility(View.VISIBLE);
-            pasa = false;
+    private void crearUser(String pass) {
+        Map<String, String> mapa= new HashMap<>();
+        mapa.put("funcion","crearUsuario");
+        mapa.put("user", establecimiento.getNombre());
+        mapa.put("email", establecimiento.getEmail());
+        mapa.put("pass", pass);
+        if(!establecimiento.getUbicacion().isEmpty()) {
+            String[] u= establecimiento.getUbicacion().split(";");
+            if(u.length == 2) {
+                mapa.put("ubicacion", u[1]);
+                mapa.put("direccion", u[0]);
+            }
+            else mapa.put("ubicacion", u[0]);
         }
-
-        String contra= campoContra.getText().toString();
-        if(contra.length() < 4) {
-            errorCampoContra.setText(R.string.error_contra);
-            errorCampoContra.setVisibility(View.VISIBLE);
-            pasa = false;
+        if(establecimiento.getTelefono() != 0)
+            mapa.put("telefono", String.valueOf(establecimiento.getTelefono()));
+        JSONObject jsonObject= new JSONObject(mapa);
+        JSONArray array1 = new JSONArray(deportesNuevos);
+        try {
+            jsonObject= jsonObject.put("deportesNuevos", array1);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-
-        String Rcontra= campoRepetirContra.getText().toString();
-        if(!contra.equals(Rcontra)) {
-            errorCampoRepetirContra.setText(R.string.error_repetir_contra);
-            errorCampoRepetirContra.setVisibility(View.VISIBLE);
-            pasa= false;
-        }
-
-        String email= campoEMail.getText().toString();
-        if(!email.matches(patronEMail.pattern())) {
-            errorCampoEMail.setText(R.string.error_email);
-            errorCampoEMail.setVisibility(View.VISIBLE);
-            pasa=false;
-        }
-        return pasa;
+        Log.d(TAG, jsonObject.toString());
+        VolleySingleton.getInstance(this).addToRequestQueue(
+                new JsonObjectRequest(
+                        Request.Method.POST,
+                        Constantes.UPDATE,
+                        jsonObject,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                procesarRespuesta(response);
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                mensajeError(error.getMessage());
+                            }
+                        }
+                ));
     }
 
-    private void resetearCampos() {
-        campoEMail.setText(VACIO);
-        campoUser.setText(VACIO);
-        campoContra.setText(VACIO);
-        campoRepetirContra.setText(VACIO);
-        campoTel.setText(VACIO);
-        campoUbi.setText(VACIO);
+    private void actualizarUser() {
+
     }
 
-    private void esconderErrores() {
-        errorCampoEMail.setVisibility(View.INVISIBLE);
-        errorCampoRepetirContra.setVisibility(View.INVISIBLE);
-        errorCampoUser.setVisibility(View.INVISIBLE);
-        errorCampoUser.setVisibility(View.INVISIBLE);
-        errorCampoTel.setVisibility(View.INVISIBLE);
+    private void procesarRespuesta(JSONObject response) {
+        try {
+            int resultado= response.getInt("estado");
+            if(resultado == 1) {
+                finish();
+            }
+            else {
+                mensajeError("Hubo un error al procesar los datos");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void mensajeError(String mensaje) {
+        Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
     }
 }

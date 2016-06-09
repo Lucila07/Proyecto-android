@@ -2,6 +2,7 @@ package com.example.lucila.turnosPP.actividades;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Handler;
@@ -51,6 +52,7 @@ public class EstablecerUbicacionActivity
     private Marker marcas;
     //Asumo que no tengo permiso
     private boolean permiso= false;
+    private boolean registro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +88,8 @@ public class EstablecerUbicacionActivity
                     .addApi(LocationServices.API)
                     .build();
         }
+
+        registro= getIntent().getBooleanExtra("registro", false);
     }
 
     @Override
@@ -176,7 +180,17 @@ public class EstablecerUbicacionActivity
                     marcas = mapa.addMarker(new MarkerOptions()
                             .position(new LatLng(latitud, longitud))
                             .title("Ubicación"));
-                }
+                    }
+            if(registro) {
+                crearIntentResultado(direccion);
+            }
         }
+    }
+
+    private void crearIntentResultado(String direccion) {
+        Intent resultado= new Intent();
+        resultado.putExtra("ubicacion", direccion);
+        setResult(RESULT_OK, resultado);
+        finish();
     }
 }

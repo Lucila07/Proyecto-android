@@ -18,15 +18,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/text_margin"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:text="@string/textview.oferta.fecha"
+                android:textAlignment="center"
                 />
             <TextView
                 android:id="@+id/card_fecha_oferta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:text="@string/textview.oferta.fecha"
                 android:textAlignment="center"
@@ -43,16 +44,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/text_margin"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:text="@string/textview.oferta.hora"
+                android:textAlignment="center"
                 />
 
             <TextView
                 android:id="@+id/card_hora_oferta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 android:textAlignment="center"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:text="@string/textview.oferta.hora"
@@ -76,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/text_margin"
                 android:textAppearance="?attr/textAppearanceListItem"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:text="@string/textview.oferta.deporte"
                 />
             <TextView
@@ -84,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?attr/textAppearanceListItem"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 android:text="@string/textview.oferta.deporte"
                 />
         </LinearLayout>
@@ -101,7 +103,7 @@
                 android:layout_margin="@dimen/text_margin"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:text="@string/textview.oferta.estado"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 />
 
             <TextView
@@ -110,15 +112,15 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:text="@string/textview.oferta.estado"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 />
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="2dp"
         android:background="@color/colorAccentDark"
-        android:layout_margin="4dp"
+        android:layout_marginTop="8dp"
         />
 </LinearLayout>

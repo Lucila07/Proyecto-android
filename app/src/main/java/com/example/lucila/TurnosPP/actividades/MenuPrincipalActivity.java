@@ -33,6 +33,7 @@ import com.google.android.gms.common.api.Status;
 
 import org.w3c.dom.Text;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,6 +46,7 @@ public class MenuPrincipalActivity
 
     private Map<Integer, Class> mapBotonClase;
     private Map<Integer, Fragment> mapBotonFrag;
+    private Map<String, Boolean> mapDeportes;
 
     private boolean esTablet;
     private boolean enPortaretrato;
@@ -60,6 +62,7 @@ public class MenuPrincipalActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_principal);
 
+        mapDeportes= new HashMap<>();
 
         if(savedInstanceState != null) {
             //Viene de otra actividad
@@ -67,6 +70,11 @@ public class MenuPrincipalActivity
         } else {
             //Viene de la actividad Login
             establecimiento = (Establecimiento) getIntent().getSerializableExtra("establecimiento");
+            String[] dep= (String[]) getIntent().getSerializableExtra("Tdeportes");
+            for(String d : dep) {
+                boolean tiene= establecimiento.getDeportes().contains(d);
+                mapDeportes.put(d, tiene);
+            }
         }
         textoRecord= (TextView) findViewById(R.id.textView_info_menu_ppal);
         setearRecordatorio();
@@ -134,6 +142,7 @@ public class MenuPrincipalActivity
             //Si no es una tablet creo el intent con una actividad.
             Class claseActivity = mapBotonClase.get(viewID);
             Intent sigActividad = new Intent(this, claseActivity);
+            sigActividad.putExtra("id", establecimiento.getId());
             startActivity(sigActividad);
         }
         else {
@@ -199,7 +208,7 @@ public class MenuPrincipalActivity
     private void setearRecordatorio() {
         //TODO deportes
         boolean seteoTelefono= establecimiento.getTelefono() != 0;
-        boolean seteoUbicacion= !establecimiento.getUbicacion().isEmpty();
+        boolean seteoUbicacion= establecimiento.getUbicacion() != null;
         if((!seteoTelefono) || (!seteoUbicacion))
             textoRecord.setVisibility(View.VISIBLE);
         else
@@ -209,6 +218,12 @@ public class MenuPrincipalActivity
     @Override
     protected void logout() {
         if(clienteAPI.isConnected()) {
+            Auth.GoogleSignInApi.revokeAccess(clienteAPI).setResultCallback(
+                    new ResultCallback<Status>() {
+                        public void onResult(Status status) {
+                            finish();
+                        }
+                    });
             Auth.GoogleSignInApi.signOut(clienteAPI).setResultCallback(
                     new ResultCallback<Status>() {
                         @Override
@@ -227,7 +242,10 @@ public class MenuPrincipalActivity
 
     @Override
     protected void perfil() {
-
+        Intent i= new Intent(this, DeportesCheckerActivity.class);
+        i.putExtra("mapeoDeportes",  (Serializable) mapDeportes);
+        i.putExtra("id", establecimiento.getId());
+        startActivity(i);
     }
 
     @Override
@@ -235,4 +253,13 @@ public class MenuPrincipalActivity
 
     }
     //endregion
+
+    private void revokeAccess() {
+        Auth.GoogleSignInApi.revokeAccess(clienteAPI).setResultCallback(
+                new ResultCallback<Status>() {
+                    public void onResult(Status status) {
+                        finish();
+                    }
+                });
+    }
 }
