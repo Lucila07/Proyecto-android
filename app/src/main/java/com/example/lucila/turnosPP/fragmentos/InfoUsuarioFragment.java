@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.example.lucila.myapplication.R;
 import com.example.lucila.turnosPP.beans.Establecimiento;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class InfoUsuarioFragment extends Fragment {
@@ -171,8 +173,13 @@ public class InfoUsuarioFragment extends Fragment {
         void onEstablecerDeportes();
     }
 
+    public void actualizarDeportesUsuario(List<String> deportes) {
+        establecimiento.setDeportes((ArrayList<String>) deportes);
+        actualizarUI();
+    }
+
     //Actualiza la ui
-    private void actualizarUI() {
+    public void actualizarUI() {
         mail.setText(establecimiento.getEmail());
 
         int tel= establecimiento.getTelefono();

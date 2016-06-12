@@ -94,6 +94,7 @@ public class RegistrarseActivity
             switch (requestCode) {
                 case COD_DEP_CHECKER: { //Llame por los deportes
                     deportesNuevos= (List<String>) data.getSerializableExtra("deportesNuevos");
+                    Map<String,Boolean> m= (Map<String, Boolean>) data.getSerializableExtra("mapeo");
                     break;
                 }
                 case COD_UBICACION: {

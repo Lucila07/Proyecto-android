@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.lucila.myapplication.R;
@@ -31,7 +32,9 @@ public class DeportesCheckerActivity
         extends AppCompatActivity
         implements DeportesCheckerFragment.OnGuardarCambiosListener{
 
-    private int user;
+    //Mantiene la informacion de los checkers al momento de creacion de la actividad
+    //Es usado para crear el fragmento con los cheques y para comparar los
+    //deportes que agrega o quita el usuario
     private Map<String, Boolean> deportes;
 
     @Override
@@ -39,8 +42,18 @@ public class DeportesCheckerActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deportes_checker);
 
-        deportes= (Map<String,Boolean>)getIntent().getSerializableExtra("mapeoDeportes");
-        //Para crear esta actividad el intent si o si tiene que tener el mapeo
+        //Recupero el mapeo
+        if(savedInstanceState != null) {
+            if(savedInstanceState.containsKey("mapeo"))
+                //Ya fue creada la actividad
+                deportes = (Map<String, Boolean>) savedInstanceState.getSerializable("mapeo");
+            else
+                deportes= (Map<String,Boolean>) getIntent().getSerializableExtra("mapeoDeportes");
+        } else
+            //O fue llamada desde un intent
+            deportes= (Map<String,Boolean>) getIntent().getSerializableExtra("mapeoDeportes");
+
+        //Creao el fragmento de los checkers
         Fragment f= DeportesCheckerFragment.newInstance(new HashMap<>(deportes));
         FragmentTransaction ft= getSupportFragmentManager().beginTransaction();
         ft.add(R.id.layout_deportes_checker,f);
@@ -48,12 +61,22 @@ public class DeportesCheckerActivity
     }
 
     @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putSerializable("mapeo", (Serializable) deportes);
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
     public void onGuardarCambios(Map<String, Boolean> deportesActualizados)  {
-        //Creo el intent resultado y termino esta actividad
+        //Analizo que deportes hizo un check y cuales quito
         List<List<String>> deportes= analizarCambios(deportesActualizados);
+        //Actualizo el mapeo por si se vuelve a entrar en la actividad
+        this.deportes= deportesActualizados;
+
         Intent resultado= new Intent();
         resultado.putExtra("deportesNuevos",(Serializable) deportes.get(0));
         resultado.putExtra("deportesEliminar",(Serializable) deportes.get(1));
+        resultado.putExtra("mapeo", (Serializable) deportesActualizados);
         setResult(RESULT_OK, resultado);
         finish();
     }
