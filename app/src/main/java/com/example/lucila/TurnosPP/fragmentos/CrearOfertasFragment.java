@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.lucila.myapplication.R;
@@ -81,10 +82,10 @@ public class CrearOfertasFragment
         fragmentLayout.findViewById(R.id.panel_hora).setOnClickListener(this);
 
         //Anexo las sugerencias al TextView
-        deporteTextView= (AutoCompleteTextView) fragmentLayout.findViewById(R.id.autocomplete_deporte);
-        ArrayAdapter<String> adapter= new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, this.deportes);
-        deporteTextView.setAdapter(adapter);
-        deporteTextView.setDropDownHeight(3);
+        Spinner spinner = (Spinner) fragmentLayout.findViewById(R.id.deportes_spinner);
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(getActivity(), R.layout.support_simple_spinner_dropdown_item, deportes);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
 
         precioFinal= (EditText) fragmentLayout.findViewById(R.id.edittext_precioFinal);
         precioHabitual= (EditText) fragmentLayout.findViewById(R.id.edittext_precioHabitual);

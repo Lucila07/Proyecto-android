@@ -23,6 +23,7 @@ import com.example.lucila.turnosPP.constantes.Constantes;
 import com.example.lucila.turnosPP.fragmentos.DeportesCheckerFragment;
 import com.example.lucila.turnosPP.fragmentos.EstablecerUbicacionFragment;
 import com.example.lucila.turnosPP.fragmentos.InfoUsuarioFragment;
+import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,27 +46,43 @@ public class RegistrarseActivity
     private final static int COD_UBICACION= 2;
 
     private Establecimiento establecimiento;
-    private Map<String, Boolean> mapeoDeportes; //Usado por la actividad DeportesChecker
+
+    //Usado por la actividad DeportesChecker
+    private Map<String, Boolean> mapeoDeportes;
 
     //Deportes ingresados por el usuario
-    private List<String> deportesNuevos= new ArrayList<>();
+    private List<String> deportesNuevos;
+
+    private InfoUsuarioFragment fragmentoInfoUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registrarse_activity);
 
+        fragmentoInfoUsuario= (InfoUsuarioFragment) getSupportFragmentManager().findFragmentById(R.id.fragmento_infousuario);
+
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
         establecimiento= new Establecimiento();
-        //Creo el mapeo para las actividades que lo usan
-        mapeoDeportes= new HashMap<>();
-        String[] dep= (String[]) getIntent().getSerializableExtra("Tdeportes");
-        for(String d : dep) {
-            mapeoDeportes.put(d, false);
+        if(savedInstanceState != null) {
+            mapeoDeportes= (Map<String, Boolean>) savedInstanceState.getSerializable("mapeo");
+            deportesNuevos= (List<String>) savedInstanceState.getSerializable("lista");
+        } else {
+            //Creo el mapeo para las actividades que lo usan
+            mapeoDeportes= new HashMap<>();
+            String[] dep= (String[]) getIntent().getSerializableExtra("Tdeportes");
+            if(dep != null)
+                for(String d : dep)
+                    mapeoDeportes.put(d, false);
         }
-        establecimiento= new Establecimiento();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstaceState) {
+        savedInstaceState.putSerializable("mapeo",(Serializable) mapeoDeportes);
+
     }
 
     @Override
@@ -92,13 +109,22 @@ public class RegistrarseActivity
         //Si el resultado es correcto
         if(resultCode == RESULT_OK) {
             switch (requestCode) {
-                case COD_DEP_CHECKER: { //Llame por los deportes
-                    deportesNuevos= (List<String>) data.getSerializableExtra("deportesNuevos");
-                    Map<String,Boolean> m= (Map<String, Boolean>) data.getSerializableExtra("mapeo");
+                //Llame por los deportes
+                case COD_DEP_CHECKER: {
+                    //Mapeo de los deportes elegidos
+                    mapeoDeportes= (Map<String, Boolean>) data.getSerializableExtra("mapeo");
+                    deportesNuevos= new ArrayList<>();
+                    for(String dep : mapeoDeportes.keySet())
+                        if(mapeoDeportes.get(dep).booleanValue())
+                            deportesNuevos.add(dep);
+                    establecimiento.setDeportes((ArrayList<String>) deportesNuevos);
+                    fragmentoInfoUsuario.actualizarDeportesUsuario(deportesNuevos);
                     break;
                 }
                 case COD_UBICACION: {
-                    establecimiento.setUbicacion(data.getStringExtra("ubicacion"));
+                    String ubicacion= data.getStringExtra("ubicacion");
+                    establecimiento.setUbicacion(ubicacion);
+                    fragmentoInfoUsuario.actualizarUbicacion(ubicacion);
                 }
             }
         }
@@ -121,9 +147,9 @@ public class RegistrarseActivity
         if(establecimiento.getTelefono() != 0)
             mapa.put("telefono", String.valueOf(establecimiento.getTelefono()));
         JSONObject jsonObject= new JSONObject(mapa);
-        JSONArray array1 = new JSONArray(deportesNuevos);
+        JSONArray array = new JSONArray(deportesNuevos);
         try {
-            jsonObject= jsonObject.put("deportesNuevos", array1);
+            jsonObject= jsonObject.put("deportesNuevos", array);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -142,25 +168,20 @@ public class RegistrarseActivity
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                mensajeError(error.getMessage());
+                                mensajeError("Error de conección");
+                                Log.d(TAG,error.getMessage());
                             }
                         }
                 ));
     }
 
-    private void actualizarUser() {
-
-    }
-
     private void procesarRespuesta(JSONObject response) {
         try {
             int resultado= response.getInt("estado");
-            if(resultado == 1) {
+            if(resultado == 1)
                 finish();
-            }
-            else {
+            else
                 mensajeError("Hubo un error al procesar los datos");
-            }
         } catch (JSONException e) {
             e.printStackTrace();
         }

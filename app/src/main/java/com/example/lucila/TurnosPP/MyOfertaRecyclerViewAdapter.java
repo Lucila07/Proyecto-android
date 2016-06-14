@@ -10,6 +10,7 @@ import com.example.lucila.turnosPP.beans.Oferta;
 import com.example.lucila.turnosPP.fragmentos.OfertasFragment;
 import com.example.lucila.myapplication.R;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class MyOfertaRecyclerViewAdapter extends RecyclerView.Adapter<MyOfertaRecyclerViewAdapter.ViewHolder> {
@@ -32,13 +33,18 @@ public class MyOfertaRecyclerViewAdapter extends RecyclerView.Adapter<MyOfertaRe
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Oferta oferta= mValues.get(position);
-        //Calendar fecha= oferta.getFecha();
         holder.mItem= oferta;
-        holder.mFecha.setText(oferta.fecha);
-        holder.mHora.setText(oferta.hora);
+        Calendar fecha= oferta.getFecha();
+        String dia, hora;
+        dia= fecha.get(Calendar.DAY_OF_MONTH) + "/" +
+                fecha.get(Calendar.MONTH) + "/" +
+                fecha.get(Calendar.YEAR);
+        hora= fecha.get(Calendar.HOUR) + ":" + fecha.get(Calendar.MINUTE);
+        holder.mFecha.setText(dia);
+        holder.mHora.setText(hora);
         //TODO estado
-        holder.mEstado.setText(oferta.estado);
-        holder.mDeporte.setText(oferta.idDeporte);
+        holder.mEstado.setText(oferta.getEstado());
+        holder.mDeporte.setText(oferta.getNombreDeporte());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

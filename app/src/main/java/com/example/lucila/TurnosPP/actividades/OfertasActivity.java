@@ -18,10 +18,15 @@ import com.example.lucila.turnosPP.fragmentos.OfertasFragment;
 import com.example.lucila.myapplication.R;
 import com.example.lucila.turnosPP.beans.VolleySingleton;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import java.util.Collection;
 
 public class OfertasActivity extends AppCompatActivity implements OfertasFragment.OnListFragmentInteractionListener {
 
@@ -30,6 +35,7 @@ public class OfertasActivity extends AppCompatActivity implements OfertasFragmen
 
     private Gson gson;
     private Oferta[] ofertas;
+    private String[] deportes;
     private int idEstablecimiento;
 
     @Override
@@ -38,16 +44,9 @@ public class OfertasActivity extends AppCompatActivity implements OfertasFragmen
         setContentView(R.layout.activity_ofertas);
 
         idEstablecimiento= getIntent().getIntExtra("id", 0);
-
-        if(savedInstanceState == null) {
-            gson = new Gson();
-            cargarAdaptador();
-        }
-        else {
-            ofertas= (Oferta[]) savedInstanceState.getSerializable("ofertas");
-            settearFragmentListaOfertas();
-        }
-
+        deportes= (String[]) getIntent().getSerializableExtra("Tdeportes");
+        gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+        cargarAdaptador();
     }
 
     /**
@@ -78,32 +77,28 @@ public class OfertasActivity extends AppCompatActivity implements OfertasFragmen
                         )
                 );
     }
-
-    /**
-     * Interpreta los resultados de la respuesta y así
-     * realizar las operaciones correspondientes
-     *
-     * @param response Objeto Json con la respuesta
-     */
     private void procesarRespuesta(JSONObject response) {
         try {
             // Obtener atributo "estado"
             String estado = response.getString("estado");
             switch (estado) {
-                case "1": // EXITO
-                    // Obtener array "metas" Json
+                case "1": {
+                    // EXITO
+                    // Obtener array Json
                     JSONArray mensaje = response.getJSONArray("ofertas");
                     // Parsear con Gson
-                    ofertas = gson.fromJson(mensaje.toString(), Oferta[].class);
+                    Type collectionType = new TypeToken<Collection<Oferta>>(){}.getType();
+                    Collection<Oferta> enums = gson.fromJson(mensaje.toString(), collectionType);
+                    ofertas = enums.toArray(new Oferta[0]);
+                    for(Oferta o : ofertas) {
+                        o.setNombreDeporte(deportes[o.getIdDeporte()-1]);
+                    }
                     settearFragmentListaOfertas();
                     break;
-                case "2": // FALLIDO
-                    String mensajeError = response.getString("mensaje") + "id "+ idEstablecimiento;
-                    Toast.makeText(
-                            this,
-                            mensajeError,
-                            Toast.LENGTH_LONG).show();
-                    break;
+                    }
+                case "2": {
+                    // El Usuario no tiene ofertas creadas
+                }
             }
 
         } catch (JSONException e) {

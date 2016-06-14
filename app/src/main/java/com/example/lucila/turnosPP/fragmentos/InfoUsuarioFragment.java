@@ -175,7 +175,17 @@ public class InfoUsuarioFragment extends Fragment {
 
     public void actualizarDeportesUsuario(List<String> deportes) {
         establecimiento.setDeportes((ArrayList<String>) deportes);
-        actualizarUI();
+
+        String aux= new String();
+        for(String deporte : deportes) {
+            aux= aux.concat(deporte);
+            aux= aux.concat(" - ");
+        }
+        this.deportes.setText(aux);
+    }
+
+    public void actualizarUbicacion(String ubicacion) {
+        this.ubicacion.setText(ubicacion);
     }
 
     //Actualiza la ui

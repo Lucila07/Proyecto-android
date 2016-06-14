@@ -86,13 +86,10 @@
                 style="@style/textoErrorDenso"
                 />
 
-            <AutoCompleteTextView
-                android:id="@+id/autocomplete_deporte"
+            <Spinner
+                android:id="@+id/deportes_spinner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/textview.deporte"
-                android:completionThreshold="1"
-                />
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <LinearLayout

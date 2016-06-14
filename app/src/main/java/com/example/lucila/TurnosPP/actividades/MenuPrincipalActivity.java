@@ -52,6 +52,7 @@ public class MenuPrincipalActivity
     private boolean enPortaretrato;
     private TextView textoRecord;
     private Establecimiento establecimiento;
+    private String[] deportes;
 
     private GoogleApiClient clienteAPI;
 
@@ -70,8 +71,8 @@ public class MenuPrincipalActivity
         } else {
             //Viene de la actividad Login
             establecimiento = (Establecimiento) getIntent().getSerializableExtra("establecimiento");
-            String[] dep= (String[]) getIntent().getSerializableExtra("Tdeportes");
-            for(String d : dep) {
+            deportes= (String[]) getIntent().getSerializableExtra("Tdeportes");
+            for(String d : deportes) {
                 boolean tiene= establecimiento.getDeportes().contains(d);
                 mapDeportes.put(d, tiene);
             }
@@ -143,6 +144,7 @@ public class MenuPrincipalActivity
             Class claseActivity = mapBotonClase.get(viewID);
             Intent sigActividad = new Intent(this, claseActivity);
             sigActividad.putExtra("id", establecimiento.getId());
+            sigActividad.putExtra("Tdeportes", deportes);
             startActivity(sigActividad);
         }
         else {

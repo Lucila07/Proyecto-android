@@ -89,14 +89,6 @@ public class Establecimiento implements Serializable {
         email= "";
     }
 
-    public Establecimiento(int id, String token, String nombre, String ubicacion, int telefono) {
-        this.id = id;
-        this.token = token;
-        this.telefono = telefono;
-        this.nombre = nombre;
-        this.ubicacion = ubicacion;
-    }
-
     public Establecimiento(int id, int telefono, String nombre, String token, String ubicacion, String email, ArrayList<String> deportes) {
         this.id = id;
         this.telefono = telefono;
