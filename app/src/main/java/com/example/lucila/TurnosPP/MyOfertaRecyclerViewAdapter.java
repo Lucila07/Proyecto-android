@@ -10,6 +10,7 @@ import com.example.lucila.turnosPP.beans.Oferta;
 import com.example.lucila.turnosPP.fragmentos.OfertasFragment;
 import com.example.lucila.myapplication.R;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -35,14 +36,10 @@ public class MyOfertaRecyclerViewAdapter extends RecyclerView.Adapter<MyOfertaRe
         Oferta oferta= mValues.get(position);
         holder.mItem= oferta;
         Calendar fecha= oferta.getFecha();
-        String dia, hora;
-        dia= fecha.get(Calendar.DAY_OF_MONTH) + "/" +
-                fecha.get(Calendar.MONTH) + "/" +
-                fecha.get(Calendar.YEAR);
-        hora= fecha.get(Calendar.HOUR) + ":" + fecha.get(Calendar.MINUTE);
-        holder.mFecha.setText(dia);
-        holder.mHora.setText(hora);
-        //TODO estado
+        SimpleDateFormat formatoFecha= new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formatoHora= new SimpleDateFormat("hh:mm");
+        holder.mFecha.setText(formatoFecha.format(fecha.getTime()));
+        holder.mHora.setText(formatoHora.format(fecha.getTime()));
         holder.mEstado.setText(oferta.getEstado());
         holder.mDeporte.setText(oferta.getNombreDeporte());
 

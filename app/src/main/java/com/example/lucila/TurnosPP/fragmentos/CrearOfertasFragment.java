@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -31,6 +32,7 @@ public class CrearOfertasFragment
 
     //Valores ingresados porp el usuario
     private int diaLeido, mesLeido, anioLeido, horaLeida, minLeido;
+    private int idDeporteElegido;
     private float precioHabLeido, precioFinalLeido;
     private Calendar fechaCalendario;
 
@@ -60,8 +62,9 @@ public class CrearOfertasFragment
         if(savedInstanceState != null)
             deportes= (String[]) savedInstanceState.get("listaDeportes");
         else
-            deportes = new String[0];
+            deportes = getArguments().getStringArray("listaDeportes");
         patronFloat= Pattern.compile("[0-9]*\\.?[0-9]+");
+        fechaCalendario= Calendar.getInstance();
     }
 
     @Override
@@ -86,6 +89,17 @@ public class CrearOfertasFragment
         ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(getActivity(), R.layout.support_simple_spinner_dropdown_item, deportes);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                setIdDeporteSeleccionado(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                setIdDeporteSeleccionado(0);
+            }
+        });
 
         precioFinal= (EditText) fragmentLayout.findViewById(R.id.edittext_precioFinal);
         precioHabitual= (EditText) fragmentLayout.findViewById(R.id.edittext_precioHabitual);
@@ -96,6 +110,10 @@ public class CrearOfertasFragment
         errorPrecioHab= (TextView) fragmentLayout.findViewById(R.id.error_precioHab_crearOferta);
 
         return fragmentLayout;
+    }
+
+    private void setIdDeporteSeleccionado(int id) {
+        idDeporteElegido= id;
     }
 
     @Override
@@ -120,6 +138,11 @@ public class CrearOfertasFragment
             if(view.getId() == R.id.boton_crear_ofertas_fragment) {
                 if(validacionEntrada()) {
                     Oferta oferta = new Oferta();
+                    oferta.setPrecioFinal(precioFinalLeido);
+                    oferta.setPrecioHabitual(precioHabLeido);
+                    oferta.setIdDeporte(idDeporteElegido);
+                    oferta.setNombreDeporte(deportes[idDeporteElegido]);
+                    oferta.setFecha(fechaCalendario);
                     resetErrores();
                     mListener.onCrearOferta(oferta);
                 }
@@ -136,12 +159,26 @@ public class CrearOfertasFragment
         diaLeido= dia;
         mesLeido= mes;
         anioLeido= anio;
+        fechaCalendario.set(
+                anio,
+                mes,
+                dia,
+                fechaCalendario.get(Calendar.HOUR),
+                fechaCalendario.get(Calendar.MINUTE)
+        );
     }
 
     public void setHora(String horaS, int hora, int minuto) {
         this.editTextHora.setText(horaS);
         horaLeida= hora;
         minLeido= minuto;
+        fechaCalendario.set(
+                fechaCalendario.get(Calendar.YEAR),
+                fechaCalendario.get(Calendar.MONTH),
+                fechaCalendario.get(Calendar.DAY_OF_MONTH),
+                hora,
+                minuto
+        );
     }
 
     public interface OnCrearOfertaListener {
