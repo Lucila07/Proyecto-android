@@ -1,5 +1,6 @@
 package com.example.lucila.myapplication;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.lucila.myapplication.Datos.ServicioUsuariosHttp;
 import com.example.lucila.myapplication.Entidades.Usuario;
+import com.example.lucila.myapplication.http.VerificaConexion;
 
 public class EditarPerfilActivity extends AppCompatActivity implements ServicioUsuariosHttp.AccesoUsuarios {
 
@@ -20,20 +22,26 @@ public class EditarPerfilActivity extends AppCompatActivity implements ServicioU
     private EditText telefono,nombre;
     private Button boton;
     private Usuario usuario;
+    private Activity activity=this;
     private ServicioUsuariosHttp servicioUsuarios;
+    private String nuevoTel;
+    private  String nuevoNom;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_perfil);
         setToolbar();
-        servicioUsuarios=ServicioUsuariosHttp.getInstance();
+        servicioUsuarios=ServicioUsuariosHttp.getInstance(this,this);
         usuario=servicioUsuarios.getUsuarioLogueado();
 
         telefono=(EditText)findViewById(R.id.editar_telefono);
         nombre=(EditText)findViewById(R.id.editar_nombre);
 
-        telefono.setHint(usuario.getTelefono());
-        nombre.setHint(usuario.getNombreApellido());
+        telefono.setText(usuario.getTelefono());
+        nombre.setText(usuario.getNombreApellido());
+
+        nuevoNom=" ";
+        nuevoTel=" ";
 
         boton= (Button)findViewById(R.id.bt_guardar_cambios_perfil);
 
@@ -41,15 +49,29 @@ public class EditarPerfilActivity extends AppCompatActivity implements ServicioU
             @Override
             public void onClick(View v) {
 
-                String nuevoTel= telefono.getText().toString();
-                String nuevoNom=nombre.getText().toString();//&&nuevoTel.length()>4&&cheaquerDato(nuevoTel)
-                if(nuevoTel.equals(usuario.getTelefono())&&nuevoNom.equals(usuario.getNombreApellido()))
-                    generarDialogoFallo( "Debes realizar almenos un cambio ");
-                else{
-                    if(cheaquerDato(nuevoTel)&&cheaquerDato(nuevoNom)) //si lo que cambio fue elt telefono
+                  nuevoTel= telefono.getText().toString();
+                   nuevoNom=nombre.getText().toString();
+                  String telViejo=usuario.getTelefono();
+                  if(telViejo==null)
+                      telViejo=new String(" ");
 
-                       servicioUsuarios.editarPerfil(usuario.getIdUsuario(),nuevoNom,nuevoTel);
-                    else generarDialogoFallo(" No se permiten entradas vacias, por favor chequea tus datos");
+                if(nuevoTel.equals(telViejo)&&nuevoNom.equals(usuario.getNombreApellido()))
+                    generarDialogoFallo( "Debes realizar almenos un cambio ");
+                else {
+
+                    if (cheaquerDatoTel(nuevoTel)) {
+                        if (cheaquerDato(nuevoNom)) {
+                            if (VerificaConexion.hayConexionInternet(activity)) {
+                                servicioUsuarios.editarPerfil(usuario.getIdUsuario(), nuevoNom, nuevoTel);
+                            }
+                            else {
+                                Toast.makeText(EditarPerfilActivity.this, "No hay conexion a internet", Toast.LENGTH_SHORT).show();
+                            }
+                        } else
+                            generarDialogoFallo(" No se permiten Nombres vacios, por favor chequea tus datos");
+                    }
+                    else
+                        generarDialogoFallo(" Formato del telefono incorrecto");
                 }
             }
         });
@@ -72,9 +94,11 @@ public class EditarPerfilActivity extends AppCompatActivity implements ServicioU
      * */
     @Override
     public void cargarMain() {
+        usuario.setTelefono(nuevoTel);
+        usuario.setNombreApellido(nuevoNom);
         Toast.makeText(EditarPerfilActivity.this, "Sus datos fueron editados con exito", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent();
-        intent.setClass(EditarPerfilActivity.this, MainActivity.class);
+        intent.setClass(EditarPerfilActivity.this, PerfilActivity.class);
         startActivity(intent);
     }
 
@@ -91,7 +115,13 @@ public class EditarPerfilActivity extends AppCompatActivity implements ServicioU
             return false;
         else return true;
 }
+    private boolean cheaquerDatoTel(String tel){
+        if(tel==null||tel.isEmpty()||tel.equals("")||tel.equals(" ")||tel.length()<4){
+            return false;
+        }
+        else return true;
 
+    }
     private void generarDialogoFallo(String mensaje){
         AlertDialog dialogo= new AlertDialog.Builder(EditarPerfilActivity.this)
                 .setTitle("Reservar")

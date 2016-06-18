@@ -15,6 +15,7 @@ import android.widget.Toast;
 import  com.example.lucila.myapplication.Datos.*;
 import com.example.lucila.myapplication.Entidades.Oferta;
 import com.example.lucila.myapplication.Entidades.Usuario;
+import com.example.lucila.myapplication.http.VerificaConexion;
 
 
 public class ReservaOfertaActivity extends AppCompatActivity  implements ServicioOfertasHttp.CallBack,ServicioUsuariosHttp.AccesoUsuarios {
@@ -27,7 +28,7 @@ public class ReservaOfertaActivity extends AppCompatActivity  implements Servici
     private Usuario usuario;
     private ServicioOfertasHttp servicioOfertas;
     private ServicioUsuarios servicioUsuario= ServicioUsuariosHttp.getInstance(this,this); //deberia ser inyectado
-
+    private Activity activity =this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,48 +51,53 @@ public class ReservaOfertaActivity extends AppCompatActivity  implements Servici
         }
 
         botonReservar=(Button)findViewById(R.id.boton_reservar);
+
+
         botonReservar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (oferta == null) {
-                    Toast.makeText(ReservaOfertaActivity.this, "Error al obtener la oferta de la bd", Toast.LENGTH_LONG).show();
 
-                }
-                else
-                {
+                if(VerificaConexion.hayConexionInternet(activity)){
+                    if (oferta == null) {
+                        Toast.makeText(ReservaOfertaActivity.this, "Error al obtener la oferta de la bd", Toast.LENGTH_LONG).show();
+
+                    } else {
 
 
+                        if (usuario == null) {
 
-                    if (usuario == null)
-                    {
+                            Toast.makeText(ReservaOfertaActivity.this, "Antes de realizar una reserva debe loguearse", Toast.LENGTH_LONG).show();
+                        } else {
+                            String telefono = usuario.getTelefono();
+                            Log.d("Reserva oferta","el tel es "+usuario.getTelefono());
+                            if (telefono==null||telefono.length() < 4) {
 
-                        Toast.makeText(ReservaOfertaActivity.this, "Antes de realizar una reserva debe loguearse", Toast.LENGTH_LONG).show();
-                    }
-                    else
-                    {
-                        String telefono=usuario.getTelefono();
-                        if (cheaquerDato(telefono)||telefono.length()<4) {
-
-                            generarDialogoFallo("Para poder reservar debera ingresar su telefono \n Lo podra hacer  en: 'Mi perfil->editar' ");
-                        }
-                        else
-                            if(!cheaquerDato(usuario.getNombreApellido())){
-                                generarDialogoFallo("Para poder reservar debera ingresar nombre de usuario \n" +
-                                        " Lo podra hacer  en: 'Mi perfil->editar' ");
+                                generarDialogoFallo("Para poder reservar debera ingresar su telefono \n Lo podra hacer  en: 'Mi perfil->editar' ");
                             }
                             else
-                                if (!oferta.getEstado().equals("reservada")) {
-                                    generarDialogoReserva();
+                                if (!cheaquerDato(usuario.getNombreApellido())) {
+                                    generarDialogoFallo("Para poder reservar debera ingresar nombre de usuario \n" +
+                                            " Lo podra hacer  en: 'Mi perfil->editar' ");
                                 }
-                                else {
+                              else
+                                    if (!oferta.getEstado().equals("reservada")) {
+                                        generarDialogoReserva();
+                                    } else {
 
-                                    generarDialogoFallo("Esta oferta ya esta reservada :( ");
-                                }
+                                        generarDialogoFallo("Esta oferta ya esta reservada :( ");
+                                    }
 
+                        }
                     }
                 }
+                else {
+                    Toast.makeText(ReservaOfertaActivity.this, "No hay conexion a internet", Toast.LENGTH_SHORT).show();
+                }
+
             }
+
+
         });
 
     }
@@ -184,7 +190,7 @@ private void establecerTextos(Oferta oferta){
     }
 
     private boolean cheaquerDato(String dato){
-        if(dato.isEmpty()||dato.equals("")||dato.equals(" ")||dato==null)
+        if(dato==null||dato.isEmpty()||dato.equals("")||dato.equals(" "))
             return false;
         else return true;
     }

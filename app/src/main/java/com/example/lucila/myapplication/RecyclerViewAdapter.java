@@ -77,7 +77,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                     break;
                 case 2:
-                    Fragment fixtureFragment = new FixtureFragment();
+                   // Fragment fixtureFragment = new FixtureFragment();
                     //fragmentTransaction.replace(R.id.containerView,fixtureFragment);
                     //fragmentTransaction.commit();
                     break;

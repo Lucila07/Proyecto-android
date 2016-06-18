@@ -4,6 +4,8 @@ package com.example.lucila.myapplication.Fragmentos;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -29,6 +31,7 @@ import com.example.lucila.myapplication.Entidades.Usuario;
 import com.example.lucila.myapplication.MyAdapter;
 import com.example.lucila.myapplication.R;
 import com.example.lucila.myapplication.ReservaOfertaActivity;
+import com.example.lucila.myapplication.http.VerificaConexion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,46 +57,7 @@ public class OfertasFragment extends Fragment implements ServicioOfertasHttp.Cal
     public   OfertasFragment() {
         // Required empty public constructor
     }
-/*
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
-        dest.writeValue(lista);
-        dest.writeValue(contexto);
-        dest.writeValue(mRecyclerView);
-        dest.writeValue(mAdapter);
-        dest.writeValue(mLayoutManager);
-        dest.writeList(ofertas);
-        dest.writeParcelable((Parcelable) servicioOfertasUsuario,0);
-
-    }
-    public static final Parcelable.Creator<OfertasFragment> CREATOR
-            = new Parcelable.Creator<OfertasFragment>() {
-        public OfertasFragment createFromParcel(Parcel in) {
-            return new OfertasFragment(in);
-        }
-
-        public OfertasFragment[] newArray(int size) {
-            return new OfertasFragment[size];
-        }
-    };
-
-    public  OfertasFragment(Parcel in){
-
-        this.lista=(ListView)in.readValue(ListView.class.getClassLoader());
-        this.contexto=(Context)in.readValue(Context.class.getClassLoader());
-        this.mRecyclerView=(RecyclerView)in.readValue(RecyclerView.class.getClassLoader());
-        this.mAdapter=(MyAdapter)in.readValue(MyAdapter.class.getClassLoader());
-        this.mLayoutManager=(RecyclerView.LayoutManager)in.readValue(RecyclerView.LayoutManager.class.getClassLoader());
-        this.ofertas=(List<Oferta>)in.readValue(List.class.getClassLoader());
-
-    }
-    */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,7 +75,13 @@ public class OfertasFragment extends Fragment implements ServicioOfertasHttp.Cal
 
         //if (savedInstanceState==null) {
             Log.d(contexto.getClass().getSimpleName(), "hago requerimiento ");
-            servicioOfertasUsuario.realizarPeticion();
+         if(VerificaConexion.hayConexionInternet(getActivity())) {
+             servicioOfertasUsuario.realizarPeticion();
+         }
+        else {
+
+             Toast.makeText(getActivity(), "No hay conexion a internet", Toast.LENGTH_SHORT).show();
+         }
         //}
       /*  else{
             Log.d(contexto.getClass().getSimpleName(), " ya habia ofertas");
@@ -164,8 +134,13 @@ public class OfertasFragment extends Fragment implements ServicioOfertasHttp.Cal
         bt_actualizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                servicioOfertasUsuario.realizarPeticion();
-                Toast.makeText(getActivity(), "Las ofertas fueron actualizadas ", Toast.LENGTH_SHORT).show();
+                  if( VerificaConexion.hayConexionInternet(getActivity())) {
+                    servicioOfertasUsuario.realizarPeticion();
+                    Toast.makeText(getActivity(), "Las ofertas fueron actualizadas ", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                      Toast.makeText(getActivity(), "No hay conexion a internet ", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         return rootView;

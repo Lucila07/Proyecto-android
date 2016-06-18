@@ -16,13 +16,15 @@ import android.widget.Toast;
 import com.example.lucila.myapplication.Datos.ServicioOfertasHttp;
 import com.example.lucila.myapplication.Datos.ServicioUsuarios;
 import com.example.lucila.myapplication.Datos.ServicioUsuariosHttp;
+import com.example.lucila.myapplication.Entidades.Usuario;
+import com.example.lucila.myapplication.http.VerificaConexion;
 
 public class NuevoUsuario extends AppCompatActivity implements ServicioUsuariosHttp.AccesoUsuarios{
 
     private ServicioUsuarios servicioUsuarios;
     private EditText editText;
     private Button boton_crear_usuario,bt_omitir;
-
+    private Activity activity=this;
     private String nombreUsuario,mail,id,telefono;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +45,19 @@ public class NuevoUsuario extends AppCompatActivity implements ServicioUsuariosH
             @Override
             public void onClick(View v) {
 
-                telefono=editText.getText().toString();
-                if(telefono.isEmpty()||telefono.equals("")||telefono.equals(" ")||telefono.length()<4||telefono==null)
-                    generarDialogoTelefono();
 
-                servicioUsuarios.crearUsuario(nombreUsuario,mail,id,telefono);
+                if(!VerificaConexion.hayConexionInternet(activity)) {
+                    Toast.makeText(NuevoUsuario.this, "No hay conexion a internet", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    telefono=editText.getText().toString();
+                    if(telefono==null||telefono.isEmpty()||telefono.equals("")||telefono.equals(" ")||telefono.length()<4)
+                         generarDialogoTelefono();
+                    else{
+                        servicioUsuarios.crearUsuario(nombreUsuario,mail,id,telefono);
+                    }
+                }
+
                 Log.d("nuevo usuario", "se creo el usuario");
             }
         });
@@ -57,8 +67,14 @@ public class NuevoUsuario extends AppCompatActivity implements ServicioUsuariosH
             @Override
             public void onClick(View v) {
 
-                generarDialogoTelefono();
-                cargarMain();
+                if(!VerificaConexion.hayConexionInternet(activity)) {
+                    Toast.makeText(NuevoUsuario.this, "No hay conexion a internet", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                  generarDialogoTelefono();
+                }
+
+
             }
         });
     }
@@ -68,10 +84,11 @@ public class NuevoUsuario extends AppCompatActivity implements ServicioUsuariosH
     @Override
     public void cargarMain() {
 
-        Toast.makeText(NuevoUsuario.this,"Gracias por registrarse! ", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent();
-        intent.setClass(NuevoUsuario.this,MainActivity.class);
-        startActivity(intent);
+            Toast.makeText(NuevoUsuario.this, "Gracias por registrarse! ", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent();
+            intent.setClass(NuevoUsuario.this, MainActivity.class);
+            startActivity(intent);
+
     }
 
     @Override
@@ -87,9 +104,7 @@ public class NuevoUsuario extends AppCompatActivity implements ServicioUsuariosH
                 .setMessage("Para poder reservar debera ingresar su telefono \n Lo podra hacer luego en: 'Mi perfil->editar' ")
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-
-
-
+                        servicioUsuarios.crearUsuario(nombreUsuario,mail,id,new String(" "));
                     }}
                 ).show();
 

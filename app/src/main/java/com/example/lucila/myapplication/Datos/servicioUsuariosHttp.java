@@ -98,6 +98,7 @@ public class ServicioUsuariosHttp implements  ServicioUsuarios{
 
         JSONObject json= new JSONObject(mapa);
         Log.d("nuevo usuario","json a mandar "+json.toString());
+        usuarioLogueado.setTelefono(telefono);
         peticionCrearUsuario(json);
 
     }
@@ -214,7 +215,8 @@ public  void editarPerfil(String id, String nuevoNom, String nuevoTel){
     mapa.put("nombreApellido",nuevoNom);
     mapa.put("telefono",nuevoTel);
     JSONObject json= new JSONObject(mapa);
-
+    usuarioLogueado.setTelefono(nuevoTel);
+    usuarioLogueado.setNombreApellido(nuevoNom);
 
     peticionEditarPerfil(json);
 
@@ -261,6 +263,7 @@ public  void editarPerfil(String id, String nuevoNom, String nuevoTel){
             Log.d("existe usuario ", "json "+response.toString());
             switch (estado) {
                 case "1": // EXITO
+
                     accesoUsuarios.cargarMain();
                     break;
                 case "2": // FALLIDO

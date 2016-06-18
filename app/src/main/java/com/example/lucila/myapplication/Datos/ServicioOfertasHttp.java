@@ -633,6 +633,8 @@ private static void  procesarRespuestaDeportes(JSONObject response) {
          public void reservaFallo();
 
          public void dibujarListaOfertas();
+
+
     }
 
     public interface ReservasUsuarioCallback{

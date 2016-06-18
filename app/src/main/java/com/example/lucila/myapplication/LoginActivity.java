@@ -180,6 +180,7 @@ public class LoginActivity extends AppCompatActivity implements ServicioUsuarios
             usuario.setIdUsuario(acct.getId());
             usuario.setNombreApellido(acct.getDisplayName());
             usuario.setUrlFoto(acct.getPhotoUrl());
+            usuario.setTelefono(" ");
             servicioUsuarios.verificarExistencia(usuario);
 
 

@@ -51,11 +51,12 @@ public class PerfilActivity extends AppCompatActivity {
         mail=(TextView)findViewById(R.id.tv_mail);
         bt_editar_perfil=(Button)findViewById(R.id.bt_editar_perfil);
 
+    if(usuario!=null) {
         nombre.setText(usuario.getNombreApellido());
         telefono.setText(usuario.getTelefono());
         localidad.setText(usuario.getUbicacion());
         mail.setText(usuario.getEmail());
-
+    }
         new Thread(
                 new Runnable() {
 
@@ -66,11 +67,9 @@ public class PerfilActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                   DescargarBitMap descarga= new DescargarBitMap();
+                                  if(usuario!=null&&usuario.getUrlFoto()!=null)
                                     descarga.execute(usuario.getUrlFoto().toString());
-                                  /*  Bitmap bitmap=  descarga.doInBackground(usuario.getUrlFoto().toString());
-                                    if(bitmap!=null) {
-                                        fotoPerfil.setImageBitmap(bitmap);
-                                    }*/
+
                                 }
                             });
 

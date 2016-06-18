@@ -11,7 +11,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
@@ -35,31 +34,16 @@ import android.widget.Toast;
 import com.example.lucila.myapplication.Datos.ServicioOfertasUsuario;
 import com.example.lucila.myapplication.Datos.ServicioUsuariosHttp;
 import com.example.lucila.myapplication.Entidades.Usuario;
-import com.example.lucila.myapplication.Fragmentos.CrearPartidoFragment;
-import com.example.lucila.myapplication.Fragmentos.FragmentPartidos;
 import com.example.lucila.myapplication.Fragmentos.OfertasFragment;
+import com.example.lucila.myapplication.http.VerificaConexion;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -130,22 +114,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         navIcons = getResources().obtainTypedArray(R.array.navDrawerIcons);
 
 
-        /**
-         *Here , pass the titles and icons array to the adapter .
-         *Additionally , pass the context of 'this' activity .
-         *So that , later we can use the fragmentManager of this activity to add/replace fragments.
-         */
-
         recyclerViewAdapter = new RecyclerViewAdapter(navTitles, navIcons, this);
         recyclerView.setAdapter(recyclerViewAdapter);
-
-        /**
-         *It is must to set a Layout Manager For Recycler View
-         *As per docs ,
-         *RecyclerView allows client code to provide custom layout arrangements for child views.
-         *These arrangements are controlled by the RecyclerView.LayoutManager.
-         *A LayoutManager must be provided for RecyclerView to function.
-         */
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -160,7 +130,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
          Log.d("","on connected");
         if (clienteGoogle.isConnected()) {
             Log.d("","is connected");
-            ultimaLocacionConocida = LocationServices.FusedLocationApi.getLastLocation(clienteGoogle);
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISO_UBICACION);
+
+            }
+            else
+             ultimaLocacionConocida = LocationServices.FusedLocationApi.getLastLocation(clienteGoogle);
+
             if (ultimaLocacionConocida == null) { // fallo , le seteo una loc por default
                 //Si por alguna razón se almaceno mal
            /*     ultimaLocacionConocida = new Location("Bahia Blanca");
@@ -192,27 +170,29 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                      ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISO_UBICACION);
 
                  }
-                 List<Address> addresses = geocoder.getFromLocation(ultimaLocacionConocida.getLatitude(), ultimaLocacionConocida.getLongitude(), 1);
-                 Log.d("", "addresses");
-                 Log.d("", String.valueOf(addresses.size()));
-                 Address fetchedAddress;
+            else {
+                     List<Address> addresses = geocoder.getFromLocation(ultimaLocacionConocida.getLatitude(), ultimaLocacionConocida.getLongitude(), 1);
+                     Log.d("", "addresses");
+                     Log.d("", String.valueOf(addresses.size()));
+                     Address fetchedAddress;
 
-                 if (addresses != null) {
-                     if (addresses.size() == 0) {
-                         //ACOMODAR NI ENTRARIA NUNCA
-                         strAddress = "CORONEL SUAREZ";
-                         Log.d("", "No se ha podido establecer la ubicacion");
+                     if (addresses != null) {
+                         if (addresses.size() == 0) {
+                             //ACOMODAR NI ENTRARIA NUNCA
+                             strAddress = "CORONEL SUAREZ";
+                             Log.d("", "No se ha podido establecer la ubicacion");
 
+                         } else {
+                             fetchedAddress = addresses.get(0);
+                             strAddress = fetchedAddress.getLocality();
+                         }
                      } else {
-                         fetchedAddress = addresses.get(0);
-                         strAddress = fetchedAddress.getLocality();
+                         Log.d("", "No se ha podido establecer la ubicacion");
+                         Toast.makeText(MainActivity.this, "No se ha podido establecer la ubicacion", Toast.LENGTH_SHORT).show();
                      }
-                 } else {
-                     Log.d("", "No se ha podido establecer la ubicacion");
-                     Toast.makeText(MainActivity.this, "No se ha podido establecer la ubicacion", Toast.LENGTH_SHORT).show();
-                 }
 
-                 Log.d("ubicacion: ", strAddress);
+                     Log.d("ubicacion: ", strAddress);
+                 }
             LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
             if ((lm.isProviderEnabled(LocationManager.GPS_PROVIDER) && lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)))
                      Toast.makeText(MainActivity.this, "Se buscaran ofertas en: " + strAddress, Toast.LENGTH_SHORT).show();
@@ -263,14 +243,16 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private void MostrarOfertas() {
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        OfertasFragment fragmentoOfertas = new OfertasFragment();
 
-        adapter.addFragment(fragmentoOfertas, "Ofertas");
-        viewPager.setAdapter(adapter);
+           OfertasFragment fragmentoOfertas = new OfertasFragment();
+
+           adapter.addFragment(fragmentoOfertas, "Ofertas");
+           viewPager.setAdapter(adapter);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
     }
+
 
     private void CheckEnableGPS() {
 
