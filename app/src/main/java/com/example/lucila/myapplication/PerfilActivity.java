@@ -31,7 +31,7 @@ public class PerfilActivity extends AppCompatActivity {
     private  Toolbar toolbar;
 
     private Usuario usuario;
-    private  TextView nombre, telefono, localidad, denuncias, reservas,mail;
+    private  TextView nombre, telefono, localidad,mail;
     private ImageView fotoPerfil;
     private Button bt_editar_perfil;
 
@@ -45,8 +45,6 @@ public class PerfilActivity extends AppCompatActivity {
         nombre=(TextView)findViewById(R.id.nombreUsuario);
         telefono=(TextView)findViewById(R.id.nroTel);
         localidad=(TextView)findViewById(R.id.nombreLocalidad);
-        denuncias=(TextView)findViewById(R.id.nroDenuncias);
-        reservas =(TextView)findViewById(R.id.nroRes);
         fotoPerfil=(ImageView)findViewById(R.id.imageView_perfil_usuario);
         mail=(TextView)findViewById(R.id.tv_mail);
         bt_editar_perfil=(Button)findViewById(R.id.bt_editar_perfil);

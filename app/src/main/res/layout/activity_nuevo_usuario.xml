@@ -7,7 +7,8 @@
     tools:context="com.example.lucila.myapplication.NuevoUsuario"
     android:layout_gravity="center_vertical"
     android:gravity="center"
-    android:background="@drawable/field5"
+    android:background="@color/colorPrimary"
+
     >
     <TextView
         android:layout_width="wrap_content"

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:android.support.v7.cardview="http://schemas.android.com/tools"
     android:orientation="vertical"
 
     >
@@ -11,8 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:padding="20dp"
-
         >
 
 
@@ -33,25 +32,89 @@
         android:layout_gravity="clip_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card_view:cardElevation="20dp"
-        card_view:cardCornerRadius="10dp"
+        card_view:cardElevation="50dp"
+        card_view:cardCornerRadius="4dp"
         android:paddingTop="0dp"
+        android.support.v7.cardview:contentPadding="true"
+        android.support.v7.cardview:cardPreventCornerOverlap="true"
+        android:background="@color/windowBackground"
         >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:textSize="30dp"
             >
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/reserva_deporte"
-                android:textSize="35dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:paddingBottom="20dp"
-                android:paddingTop="20dp"
-                />
+                android:orientation="horizontal"
+
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Juga al "
+                    android:textSize="30dp"
+                    android:textColor="@color/abc_input_method_navigation_guard"
+                    />
+                <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/reserva_deporte"
+                    android:textSize="30dp"
+                    android:textColor="@color/abc_input_method_navigation_guard"
+                    android:paddingBottom="20dp"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" en "
+                    android:textSize="30dp"
+                    android:textColor="@color/abc_input_method_navigation_guard"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/reserva_nombre_establecimiento"
+                    android:textSize="30dp"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/abc_input_method_navigation_guard"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="! "
+                    android:textSize="30dp"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/abc_input_method_navigation_guard"
+                    />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/reserva_ahorro_oferta"
+                        android:textColor="@color/design_textinput_error_color_light"
+                        android:textSize="30dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="% de ahorro!"
+                        android:textSize="30dp"
+                        android:paddingBottom="10dp"
+                        android:textColor="@color/abc_input_method_navigation_guard"
+                        />
+                    </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -63,9 +126,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="25dp"
                     android:text="Fecha: "
-
+                    android:textSize="20dp"
+                    android:textColor="@color/abc_input_method_navigation_guard"
                     android:paddingBottom="50dp"
                     />
                 <TextView
@@ -80,8 +143,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="25dp"
                     android:text="  Hora: "
+                    android:textSize="20dp"
+                    android:textColor="@color/abc_input_method_navigation_guard"
                     android:paddingLeft="20dp"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -99,7 +163,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="25dp"
+                    android:textSize="20dp"
+                    android:textColor="@color/abc_input_method_navigation_guard"
                     android:text=" Ubicacion: "
                     android:layout_alignBottom="@+id/reserva_fecha"
                     android:layout_alignParentLeft="true"

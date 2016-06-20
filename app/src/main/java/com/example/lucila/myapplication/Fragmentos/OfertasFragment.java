@@ -28,6 +28,7 @@ import com.example.lucila.myapplication.Datos.*;
 import com.example.lucila.myapplication.Entidades.Deporte;
 import com.example.lucila.myapplication.Entidades.Oferta;
 import com.example.lucila.myapplication.Entidades.Usuario;
+import com.example.lucila.myapplication.Estado.EstadoApp;
 import com.example.lucila.myapplication.MyAdapter;
 import com.example.lucila.myapplication.R;
 import com.example.lucila.myapplication.ReservaOfertaActivity;
@@ -178,11 +179,21 @@ public class OfertasFragment extends Fragment implements ServicioOfertasHttp.Cal
 
                   //Intent intent = new Intent( ReservaOfertaActivity.class);
                   TextView textCodigo = (TextView) v.findViewById(R.id.oferta_id);
-                  long codigoOferta = Long.parseLong(textCodigo.getText().toString());
+                  Long codigoOferta = Long.parseLong(textCodigo.getText().toString());
                   Oferta oferta = servicioOfertasUsuario.getOfertaCodigo(codigoOferta);
-                  //  intent.putExtra("id_oferta",Long.parseLong(codigo.getText().toString()));
-                  intent.putExtra("oferta", (Parcelable) oferta);
-                  // intent.putExtra("ServicioHttp",(Parcelable) servicioOfertasUsuario);
+                  intent.putExtra("oferta",(Parcelable)oferta);
+                  EstadoApp.getInstance().setOfertaActual(oferta);
+
+                  //bolsa.putParcelable("oferta",(Parcelable) oferta);
+                  //intent.putExtra("ubicacion",(String)oferta.getUbicacion());
+                 // intent.putExtra("precioH",(int)oferta.getPrecioHabitual());
+
+
+
+
+
+                  Log.d("oferta enviada","ubicacion "+oferta.getUbicacion()+" precioh "+oferta.getPrecioHabitual());
+
                   getActivity().startActivity(intent);
               }
           });

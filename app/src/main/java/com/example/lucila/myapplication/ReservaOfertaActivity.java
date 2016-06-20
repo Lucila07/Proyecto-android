@@ -13,8 +13,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import  com.example.lucila.myapplication.Datos.*;
+import com.example.lucila.myapplication.Entidades.Establecimiento;
 import com.example.lucila.myapplication.Entidades.Oferta;
 import com.example.lucila.myapplication.Entidades.Usuario;
+import com.example.lucila.myapplication.Estado.EstadoApp;
 import com.example.lucila.myapplication.http.VerificaConexion;
 
 
@@ -39,8 +41,15 @@ public class ReservaOfertaActivity extends AppCompatActivity  implements Servici
 
         usuario = servicioUsuario.getUsuarioLogueado();
         servicioOfertas= ServicioOfertasHttp.getInstanciaServicio(this,this);
-        oferta= (Oferta)intent.getExtras().getParcelable("oferta");
 
+      // oferta= (Oferta)intent.getExtras().getParcelable("oferta");
+
+       // oferta=(Oferta)intent.getExtras().getParcelable("oferta");
+        oferta= EstadoApp.getInstance().getOfertaActual();
+        Log.d("oferta recibida "," ubicacion de of"+oferta.getUbicacion()+" precio "+oferta.getPrecioHabitual());
+
+       // String ubicacion=(String)intent.getExtras().getString("ubicacion");
+        //int precioH=(int)intent.getExtras().getInt("precioH");
         if(oferta!=null){
             establecerTextos(oferta);
 
@@ -107,15 +116,7 @@ public class ReservaOfertaActivity extends AppCompatActivity  implements Servici
         //toolbar-------------
         toolbar = (Toolbar) findViewById(R.id.toolbar_reserva); //encontramos la instancia de la toolbar
         setSupportActionBar(toolbar);   //la setamos a la actividad
-
-
-//        if (getSupportActionBar() != null) { // Habilitar up button para volcver atras
-
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true); //este muestra el boton de volver
-           // getSupportActionBar().setDisplayShowHomeEnabled(true);//para volver atras
-        //}
-
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); //este muestra el boton de volver
         getSupportActionBar().setTitle("Hace tu reserva");
         getSupportActionBar().setDisplayShowTitleEnabled(true);
 
@@ -151,11 +152,23 @@ private void establecerTextos(Oferta oferta){
     TextView ubicacion= (TextView)findViewById(R.id.reserva_ubicacion);
     TextView hora= (TextView)findViewById(R.id.reserva_hora);
     TextView deporte= (TextView)findViewById(R.id.reserva_deporte);
+    TextView establecimiento_nombre= (TextView)findViewById(R.id.reserva_nombre_establecimiento);
+    TextView ahorro=(TextView)findViewById(R.id.reserva_ahorro_oferta);
+
+    Establecimiento establecimiento= MapeoIdEstablecimiento.getInstance().getById(oferta.getIdUserCreador());
+    establecimiento_nombre.setText(establecimiento.getNombre());
+    int precioH=oferta.getPrecioHabitual();
+    Integer int_ahorro=0;
+    if( precioH>0)
+     int_ahorro =new Integer((oferta.getPrecioOferta()*100)/precioH);
+
+    String s_ahorro=int_ahorro.toString();
+    ahorro.setText(s_ahorro);
 
     fecha.setText(oferta.getFecha().toString());
     ubicacion.setText(oferta.getUbicacion());
     hora.setText(oferta.getHora().toString());
-   // deporte.setText(oferta.getDeporte().getNombre());
+    deporte.setText(oferta.getDeporte().getNombre());
 
 }
 

@@ -14,17 +14,13 @@ import java.util.Date;
 
     private Long codigo;
     private Deporte deporte;
-    private String estado;
     private String fecha;
-
+    private String estado;
     private String hora;
     private String  idUserComprador;
-
     private long idUserCreador;
-
     private int precioHabitual;
     private int precioOferta;
-
     private String ubicacion;
 
     public Oferta() {

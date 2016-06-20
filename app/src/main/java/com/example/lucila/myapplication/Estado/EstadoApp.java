@@ -2,6 +2,7 @@ package com.example.lucila.myapplication.Estado;
 
 import com.example.lucila.myapplication.Entidades.Deporte;
 import com.example.lucila.myapplication.Entidades.Establecimiento;
+import com.example.lucila.myapplication.Entidades.Oferta;
 import com.example.lucila.myapplication.Entidades.Usuario;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class EstadoApp {
     private List<Establecimiento>establecimientos;
     private  Usuario usuarioLogueado;
     private static EstadoApp instancia;
+    private Oferta actual;
 
     private EstadoApp() {
         this.deportes = new ArrayList<Deporte>();
@@ -57,5 +59,11 @@ public class EstadoApp {
         this.usuarioLogueado = usuarioLogueado;
     }
 
+    public Oferta getOfertaActual() {
+        return actual;
+    }
 
+    public void setOfertaActual(Oferta actual) {
+        this.actual = actual;
+    }
 }
