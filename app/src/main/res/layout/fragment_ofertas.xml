@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     tools:context=".Fragmentos.OfertasFragment"
     android:orientation="vertical"
-
+    android:background="@color/layoutCards"
     >
 
     <ListView
@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingTop="10dp"
+        android:background="@color/layoutCards"
         >
         <Button
             android:layout_width="wrap_content"
@@ -69,5 +70,6 @@
         android:scrollbars="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/layoutCards"
         />
 </LinearLayout>

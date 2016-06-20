@@ -23,7 +23,7 @@ public class ItemData {
         this.fecha=fecha;
         this.hora=hora;
         switch (deporte){
-            case 0:{ this.imageUrl= R.drawable.ball;
+            case 0:{ this.imageUrl= R.drawable.futbol;
                 break;}//futboll
             case 1:{
                 this.imageUrl= R.drawable.tennis;
@@ -34,7 +34,7 @@ public class ItemData {
                 break;}//Basket
 
 
-            default: this.imageUrl=R.drawable.fcb; // corregir
+
         }
 
     }

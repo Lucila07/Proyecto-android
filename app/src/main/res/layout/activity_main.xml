@@ -60,7 +60,7 @@
         android:layout_height="match_parent"
         android:id="@+id/recyclerView"
         android:scrollbars="vertical"
-        android:background="#FFFFFF"
+        android:background="@color/layoutCards"
         android:layout_gravity="left"
         />
 

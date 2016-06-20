@@ -148,7 +148,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>   impl
         int recurso=0;
         switch (deporte.getNombre()){
             case "futbol":
-              recurso=R.drawable.futbol;
+              recurso= R.drawable.futbol;
                 break;
             case "voley":
                 recurso=R.drawable.voley;
@@ -156,6 +156,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>   impl
             case "basquet":
                 recurso=R.drawable.basketball;
                 break;
+            case "tennis":
+                recurso= R.drawable.tennis;
         }
         holder.imagenOferta.setImageResource(recurso);
 
