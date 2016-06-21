@@ -8,7 +8,8 @@ public class Constantes {
 
     private static final String PUERTO_HOST = "80";
 
-    private static final String IP = "http://10.0.2.2:";
+    private static final String IP_lala = "http://10.0.2.2:";
+    public static final String IP = "http://hosting.cs.uns.edu.ar/~com109/webServiceAndroid2";
 
     public static final String GET = IP + PUERTO_HOST + "/respuestasUsuario.php";
     public static final String GET_BY_ID = IP + PUERTO_HOST + "/obtener_meta_por_id.php";
@@ -25,6 +26,5 @@ public class Constantes {
 
     public static final String LOGIN= IP + PUERTO_HOST + "/ConsultasEstablecimiento.php";
 
-    public static final String IP_Server = "http://hosting.cs.uns.edu.ar/~com109/webServiceAndroid2";
 
 }
