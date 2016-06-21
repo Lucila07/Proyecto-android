@@ -296,7 +296,7 @@ public class ServicioOfertasHttp implements Parcelable{
                     // Obtener array "ofertas" Json
                     JSONArray mensaje = response.getJSONArray("ofertas");
                     String cadenaRecibida=mensaje.toString();
-
+                    Log.d("ofertas ",cadenaRecibida);
                     GsonBuilder gBuilder = new GsonBuilder();
                     gBuilder.registerTypeAdapter(Oferta.class,new ofertaDeserializer(mapeo));
                     gson = gBuilder.create();

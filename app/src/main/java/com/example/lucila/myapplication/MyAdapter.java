@@ -150,13 +150,26 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>   impl
             case "futbol":
               recurso= R.drawable.futbol;
                 break;
+            case "Futbol":
+                recurso= R.drawable.futbol;
+                break;
             case "voley":
+                recurso=R.drawable.voley;
+                break;
+            case "Voley":
                 recurso=R.drawable.voley;
                 break;
             case "basquet":
                 recurso=R.drawable.basketball;
                 break;
+            case "Basquet":
+                recurso=R.drawable.basketball;
+                break;
             case "tennis":
+                recurso= R.drawable.tennis;
+            case "tenis":
+                recurso= R.drawable.tennis;
+            case "Tenis":
                 recurso= R.drawable.tennis;
         }
         holder.imagenOferta.setImageResource(recurso);
