@@ -145,6 +145,16 @@
                 android:textColor="@color/blanco"
                 android:backgroundTint="@color/colorAccent"
                 />
+
+            <Button
+                android:visibility="gone"
+                android:id="@+id/boton_eliminar_ofertas_fragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/boton.eliminar"
+                android:textColor="@color/blanco"
+                android:backgroundTint="@color/colorAccent"
+            />
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

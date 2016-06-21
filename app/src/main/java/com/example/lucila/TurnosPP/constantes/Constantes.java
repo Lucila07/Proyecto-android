@@ -25,4 +25,6 @@ public class Constantes {
 
     public static final String LOGIN= IP + PUERTO_HOST + "/ConsultasEstablecimiento.php";
 
+    public static final String IP_Server = "http://hosting.cs.uns.edu.ar/~com109/webServiceAndroid2";
+
 }

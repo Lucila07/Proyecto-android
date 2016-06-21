@@ -53,6 +53,8 @@ public class MenuPrincipalActivity
     private TextView textoRecord;
     private Establecimiento establecimiento;
     private String[] deportes;
+    private Oferta[] ofertas;
+    private int cantidadOfertas;
 
     private GoogleApiClient clienteAPI;
 
@@ -68,10 +70,14 @@ public class MenuPrincipalActivity
         if(savedInstanceState != null) {
             //Viene de otra actividad
             establecimiento = (Establecimiento) savedInstanceState.getSerializable("establecimiento");
+            deportes= savedInstanceState.getStringArray("Tdeportes");
+            ofertas= (Oferta[]) savedInstanceState.getSerializable("ofertas");
+            mapDeportes= (Map<String, Boolean>) savedInstanceState.getSerializable("mapeoDeportes");
         } else {
             //Viene de la actividad Login
             establecimiento = (Establecimiento) getIntent().getSerializableExtra("establecimiento");
             deportes= (String[]) getIntent().getSerializableExtra("Tdeportes");
+            ofertas= (Oferta[]) getIntent().getSerializableExtra("ofertas");
             for(String d : deportes) {
                 boolean tiene= establecimiento.getDeportes().contains(d);
                 mapDeportes.put(d, tiene);
@@ -113,20 +119,25 @@ public class MenuPrincipalActivity
                 .enableAutoManage(this, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, opcionesSignIn)
                 .build();
+    }
 
-        //TODO ver el tema del TextView con la cantidad de pack restantes
-
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putSerializable("establecimiento", establecimiento);
+        savedInstanceState.putStringArray("Tdeportes", deportes);
+        savedInstanceState.putSerializable("ofertas", ofertas);
+        savedInstanceState.putSerializable("mapeoDeportes", (Serializable) mapDeportes);
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override
     public void onStart() {
         super.onStart();
         clienteAPI.connect();
-        //Actualizo la cantidad de ofertas
-        preferences= getPreferences(MODE_PRIVATE);
-        int ofCreadas= preferences.getInt(getString(R.string.cant_ofertas_creadas),0);
-        TextView cantOfertas= (TextView) findViewById(R.id.textview_n_ofertas_restantes);
-        cantOfertas.setText(Integer.toString(establecimiento.getCantMaxOfertas() - ofCreadas));
+    }
+
+    public void onResume() {
+        super.onResume();
+        setOfertasRestantes();
     }
 
     @Override
@@ -142,10 +153,17 @@ public class MenuPrincipalActivity
         if(!esTablet) {
             //Si no es una tablet creo el intent con una actividad.
             Class claseActivity = mapBotonClase.get(viewID);
-            Intent sigActividad = new Intent(this, claseActivity);
-            sigActividad.putExtra("id", establecimiento.getId());
-            sigActividad.putExtra("Tdeportes", deportes);
-            startActivity(sigActividad);
+            boolean esCrearOferta= claseActivity == CrearOfertasActivity.class;
+            boolean puedeCrearOferta= cantidadOfertas < establecimiento.getCantMaxOfertas();
+            if(!esCrearOferta || (esCrearOferta && puedeCrearOferta)) {
+                Intent sigActividad = new Intent(this, claseActivity);
+                sigActividad.putExtra("id", establecimiento.getId());
+                sigActividad.putExtra("Tdeportes", deportes);
+                sigActividad.putExtra("ofertas", ofertas);
+                startActivity(sigActividad);
+            } else {
+
+            }
         }
         else {
             if(enPortaretrato) {
@@ -195,6 +213,10 @@ public class MenuPrincipalActivity
 
     }
 
+    public void eliminarOferta(int codigo) {
+    }
+
+
     /* EstablecerUbicacionFragment */
     @Override
     public void onObtenerUbicacionListener() {
@@ -208,10 +230,10 @@ public class MenuPrincipalActivity
 
     //region PRIVADOS
     private void setearRecordatorio() {
-        //TODO deportes
         boolean seteoTelefono= establecimiento.getTelefono() != 0;
         boolean seteoUbicacion= establecimiento.getUbicacion() != null;
-        if((!seteoTelefono) || (!seteoUbicacion))
+        boolean seteoDeportes= (establecimiento.getDeportes() != null && establecimiento.getDeportes().size() != 0);
+        if((!seteoTelefono) || (!seteoUbicacion) || (!seteoDeportes))
             textoRecord.setVisibility(View.VISIBLE);
         else
             textoRecord.setVisibility(View.INVISIBLE);
@@ -263,5 +285,10 @@ public class MenuPrincipalActivity
                         finish();
                     }
                 });
+    }
+
+    private void setOfertasRestantes() {
+        TextView cantOfertas= (TextView) findViewById(R.id.textview_n_ofertas_restantes);
+        cantOfertas.setText(Integer.toString(establecimiento.getCantMaxOfertas() - ofertas.length));
     }
 }

@@ -18,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.lucila.turnosPP.beans.Establecimiento;
+import com.example.lucila.turnosPP.beans.Oferta;
 import com.example.lucila.turnosPP.beans.VolleySingleton;
 import com.example.lucila.turnosPP.constantes.Constantes;
 import com.example.lucila.myapplication.R;
@@ -30,13 +31,17 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -105,12 +110,6 @@ public class LoginActivity
 
     public void onPause() {
         super.onPause();
-        //Si el usuario quiere ser recordado
-        /*
-        if(recordarmeChk.isChecked() && validacion) {
-            //Almaceno su informacion en el celular
-            //TODO SQLLite con info del user y checkbox.
-        }*/
         if(recordarmeChk != null) {
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean("recordarme",recordarmeChk.isChecked());
@@ -234,23 +233,29 @@ public class LoginActivity
                 msjError.setVisibility(EditText.INVISIBLE);
 
                 //Creo el traductor de json
-                Gson gson = new Gson();
+                Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
                 //Obtengo el usuario dentro del json
                 JSONObject jsonUser = response.getJSONObject("usuario");
                 JSONObject jsonEstablecimiento= jsonUser.getJSONObject("user");
                 JSONArray jsonDeportes= jsonUser.getJSONArray("deportes");
                 int cantOfertasMax= jsonUser.getInt("cantPack");
-
                 //Traduzco
                 Establecimiento user = gson.fromJson(jsonEstablecimiento.toString(), Establecimiento.class);
                 String[] deportes= gson.fromJson(jsonDeportes.toString(), String[].class);
                 user.setCantMaxOfertas(cantOfertasMax);
                 user.setDeportes(new ArrayList<String>(Arrays.asList(deportes)));
+                Type collectionType = new TypeToken<Collection<Oferta>>(){}.getType();
+                Collection<Oferta> enums = gson.fromJson(jsonUser.getJSONArray("ofertas").toString(), collectionType);
+                Oferta[] ofertas = enums.toArray(new Oferta[0]);
+                for(Oferta o : ofertas) {
+                    o.setNombreDeporte(Tdeportes[o.getIdDeporte()-1]);
+                }
+
                 validacion = true;
 
                 //Inicio el menu principal
-                iniciciarMenuPPal(user);
+                iniciciarMenuPPal(user, ofertas);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -260,10 +265,11 @@ public class LoginActivity
     /*
     * Dispara el intent del menu principal con el establecimiento pasado por parámetro
     */
-    private void iniciciarMenuPPal(Establecimiento e) {
+    private void iniciciarMenuPPal(Establecimiento e, Oferta[] ofertas) {
         Intent menuPPal = new Intent(this, MenuPrincipalActivity.class);
         menuPPal.putExtra("establecimiento", e);
         menuPPal.putExtra("Tdeportes", Tdeportes);
+        menuPPal.putExtra("ofertas",ofertas);
         startActivity(menuPPal);
     }
 

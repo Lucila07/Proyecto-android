@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class DatePickerFragment
@@ -39,18 +40,7 @@ public class DatePickerFragment
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         if(mListener != null) {
-            String fechaElegida;
-            String mes, dia;
-            if(monthOfYear < 10)
-                mes= "/0" + monthOfYear;
-            else
-                mes= "/" + monthOfYear;
-            if(dayOfMonth < 10)
-                dia= "0" + dayOfMonth;
-            else
-                dia= "" + dayOfMonth;
-            fechaElegida= dia + mes;
-            mListener.onFechaElegida(fechaElegida,dayOfMonth,monthOfYear,year);
+            mListener.onFechaElegida(dayOfMonth,monthOfYear,year);
         }
     }
 
@@ -58,6 +48,6 @@ public class DatePickerFragment
      * Interfaz que deben implementar las actividades que quieran usar este diálogo.
      */
     public interface OnFechaElegidaListener {
-        public void onFechaElegida(String stringFecha, int dia, int mes, int anio);
+        void onFechaElegida(int dia, int mes, int anio);
     }
 }

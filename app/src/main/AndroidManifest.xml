@@ -77,7 +77,7 @@
             android:exported="false" />
 
         <activity android:name="com.example.lucila.turnosPP.actividades.DeportesCheckerActivity" />
-        <activity android:name="com.example.lucila.turnosPP.actividades.PerfilActivity"></activity>
+        <activity android:name="com.example.lucila.turnosPP.actividades.PerfilActivity" />
     </application>
 
 </manifest>

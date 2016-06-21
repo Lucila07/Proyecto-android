@@ -47,20 +47,8 @@ public class TimePickerFragment
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         //Se ejecuta cuando se acepta el dialog.
         if(mListener != null) {
-            //Genero un string que representa la hora elegida
-            String horaString;
-            String hora, minuto;
-            if(minute < 10)
-               minuto=  "0" + minute;
-            else
-               minuto= "" + minute;
-            if(hourOfDay < 10)
-                hora= "0" + hourOfDay;
-            else
-                hora= "" + hourOfDay;
-            horaString= hora + ":" + minuto;
             //Hago el callback a la actividad
-            mListener.onHoraElegida(horaString, hourOfDay, minute);
+            mListener.onHoraElegida(hourOfDay, minute);
         }
     }
 
@@ -68,6 +56,6 @@ public class TimePickerFragment
      * Interfaz que deben implementar las actividades que quieran usar este diálogo.
      */
     public interface OnHoraElegidaListener {
-        public void onHoraElegida(String stringHora, int hora, int min);
+        public void onHoraElegida(int hora, int min);
     }
 }

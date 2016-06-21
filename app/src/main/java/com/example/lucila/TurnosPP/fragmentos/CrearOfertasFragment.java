@@ -13,10 +13,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.lucila.myapplication.R;
 import com.example.lucila.turnosPP.beans.Oferta;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.regex.Pattern;
 
@@ -28,13 +30,15 @@ public class CrearOfertasFragment
 
     private TextView editTextFecha, editTextHora;
     private EditText precioHabitual, precioFinal;
-    private AutoCompleteTextView deporteTextView;
 
-    //Valores ingresados porp el usuario
+    //Valores ingresados por el usuario
     private int diaLeido, mesLeido, anioLeido, horaLeida, minLeido;
     private int idDeporteElegido;
     private float precioHabLeido, precioFinalLeido;
     private Calendar fechaCalendario;
+
+    //Oferta a editar
+    private Oferta aEditar;
 
     //Textos de error
     private TextView errorFecha, errorHora, errorPrecioHab, errorPrecioFinal;
@@ -48,10 +52,12 @@ public class CrearOfertasFragment
 
     public CrearOfertasFragment() {}
 
-    public static CrearOfertasFragment newInstance(String[] deportes) {
+    public static CrearOfertasFragment newInstance(String[] deportes, boolean editar, Oferta oferta) {
         CrearOfertasFragment fragment = new CrearOfertasFragment();
         Bundle args = new Bundle();
         args.putSerializable("listaDeportes", deportes);
+        if(editar)
+            args.putSerializable("ofertaEditar",oferta);
         fragment.setArguments(args);
         return fragment;
     }
@@ -59,12 +65,19 @@ public class CrearOfertasFragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(savedInstanceState != null)
-            deportes= (String[]) savedInstanceState.get("listaDeportes");
-        else
+        if(savedInstanceState != null) {
+            deportes = (String[]) savedInstanceState.get("listaDeportes");
+            if(getArguments().containsKey("ofertaEditar"))
+                aEditar= (Oferta) getArguments().getSerializable("ofertaEditar");
+        }
+        else {
             deportes = getArguments().getStringArray("listaDeportes");
+            aEditar= (Oferta) getArguments().getSerializable("ofertaEditar");
+        }
         patronFloat= Pattern.compile("[0-9]*\\.?[0-9]+");
         fechaCalendario= Calendar.getInstance();
+        anioLeido = -1;
+        horaLeida = -1;
     }
 
     @Override
@@ -97,7 +110,10 @@ public class CrearOfertasFragment
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                setIdDeporteSeleccionado(0);
+                if(aEditar != null)
+                    setIdDeporteSeleccionado(aEditar.getIdDeporte());
+                else
+                    setIdDeporteSeleccionado(0);
             }
         });
 
@@ -108,6 +124,24 @@ public class CrearOfertasFragment
         errorHora= (TextView) fragmentLayout.findViewById(R.id.error_hora_crearOferta);
         errorPrecioFinal= (TextView) fragmentLayout.findViewById(R.id.error_precioFinal_crearOferta);
         errorPrecioHab= (TextView) fragmentLayout.findViewById(R.id.error_precioHab_crearOferta);
+
+        if(aEditar != null) {
+            anioLeido= aEditar.getFecha().get(Calendar.YEAR);
+            horaLeida= aEditar.getFecha().get(Calendar.HOUR);
+            spinner.setSelection(aEditar.getIdDeporte()-1);
+            SimpleDateFormat formatoFecha= new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat formatoHora= new SimpleDateFormat("hh:mm");
+            editTextFecha.setText(formatoFecha.format(aEditar.getFecha().getTime()));
+            editTextHora.setText(formatoHora.format(aEditar.getFecha().getTime()));
+            precioHabitual.setText(Float.toString(aEditar.getPrecioHabitual()));
+            precioFinal.setText(Float.toString(aEditar.getPrecioFinal()));
+            fechaCalendario= aEditar.getFecha();
+            botonCrear.setText(getString(R.string.boton_editar));
+            if(aEditar.getIdComprador() == null) { //Nadie la reservo
+                fragmentLayout.findViewById(R.id.boton_eliminar_ofertas_fragment).setVisibility(View.VISIBLE);
+                fragmentLayout.findViewById(R.id.boton_eliminar_ofertas_fragment).setOnClickListener(this);
+            }
+        }
 
         return fragmentLayout;
     }
@@ -135,27 +169,41 @@ public class CrearOfertasFragment
 
     public void onClick(View view) {
         if (mListener != null) {
-            if(view.getId() == R.id.boton_crear_ofertas_fragment) {
-                if(validacionEntrada()) {
-                    Oferta oferta = new Oferta();
-                    oferta.setPrecioFinal(precioFinalLeido);
-                    oferta.setPrecioHabitual(precioHabLeido);
-                    oferta.setIdDeporte(idDeporteElegido);
-                    oferta.setNombreDeporte(deportes[idDeporteElegido]);
-                    oferta.setFecha(fechaCalendario);
-                    resetErrores();
-                    mListener.onCrearOferta(oferta);
+            switch(view.getId()) {
+                case R.id.boton_crear_ofertas_fragment: {
+                    if(validacionEntrada()) {
+                        Oferta oferta = new Oferta();
+                        if(aEditar != null) {
+                            oferta.setCodigo(aEditar.getCodigo());
+                        }
+                        oferta.setPrecioFinal(precioFinalLeido);
+                        oferta.setPrecioHabitual(precioHabLeido);
+                        oferta.setNombreDeporte(deportes[idDeporteElegido]);
+                        //El spinner usa numeros del 0 a n
+                        oferta.setIdDeporte(idDeporteElegido + 1);
+                        oferta.setFecha(fechaCalendario);
+                        resetErrores();
+                        mListener.onCrearOferta(oferta);
+                    }
+                    break;
+                }
+                case R.id.panel_fecha: {
+                    mListener.mostrarDialogoFecha();
+                    break;
+                }
+                case R.id.panel_hora: {
+                    mListener.mostrarDialogoHora();
+                    break;
+                }
+                case R.id.boton_eliminar_ofertas_fragment: {
+                    mListener.eliminarOferta(aEditar.getCodigo());
+                    break;
                 }
             }
-            else if (view.getId() == R.id.panel_fecha)
-                mListener.mostrarDialogoFecha();
-            else
-                mListener.mostrarDialogoHora();
         }
     }
 
-    public void setFecha(String fecha, int dia, int mes, int anio) {
-        this.editTextFecha.setText(fecha);
+    public void setFecha(int dia, int mes, int anio) {
         diaLeido= dia;
         mesLeido= mes;
         anioLeido= anio;
@@ -166,10 +214,11 @@ public class CrearOfertasFragment
                 fechaCalendario.get(Calendar.HOUR),
                 fechaCalendario.get(Calendar.MINUTE)
         );
+        SimpleDateFormat formatoFecha= new SimpleDateFormat("dd/MM/yyyy");
+        this.editTextFecha.setText(formatoFecha.format(fechaCalendario.getTime()));
     }
 
-    public void setHora(String horaS, int hora, int minuto) {
-        this.editTextHora.setText(horaS);
+    public void setHora(int hora, int minuto) {
         horaLeida= hora;
         minLeido= minuto;
         fechaCalendario.set(
@@ -179,12 +228,8 @@ public class CrearOfertasFragment
                 hora,
                 minuto
         );
-    }
-
-    public interface OnCrearOfertaListener {
-        void onCrearOferta(Oferta oferta);
-        void mostrarDialogoHora();
-        void mostrarDialogoFecha();
+        SimpleDateFormat formatoHora= new SimpleDateFormat("hh:mm");
+        this.editTextHora.setText(formatoHora.format(fechaCalendario.getTime()));
     }
 
     /**
@@ -231,7 +276,7 @@ public class CrearOfertasFragment
             correcta= false;
         }
 
-        if(anioLeido == 0) {
+        if(anioLeido < 0) {
             //No ingreso fecha
             errorFecha.setText("Ingrese una fecha");
             errorFecha.setVisibility(View.VISIBLE);
@@ -240,7 +285,7 @@ public class CrearOfertasFragment
         else
             errorFecha.setVisibility(View.INVISIBLE);
 
-        if(horaLeida == 0) {
+        if(horaLeida < 0) {
             //No ingreso hora
             errorHora.setText("Ingrese una hora");
             errorHora.setVisibility(View.VISIBLE);
@@ -253,9 +298,7 @@ public class CrearOfertasFragment
         //No obstante hay que revisar que sean posteriores a la fecha y hora actual
         if((anioLeido != 0)&&(horaLeida != 0)) {
             Calendar fechaActual = Calendar.getInstance();
-            Calendar fechaElegida = Calendar.getInstance();
-            fechaElegida.set(anioLeido, mesLeido, diaLeido, horaLeida, minLeido);
-            if (fechaActual.compareTo(fechaElegida) >= 0) {
+            if (fechaActual.compareTo(fechaCalendario) >= 0) {
                 errorFecha.setText("La fecha y hora debe ser la misma o posterior a la actual");
                 errorFecha.setVisibility(View.VISIBLE);
                 correcta = false;
@@ -271,6 +314,13 @@ public class CrearOfertasFragment
         errorHora.setVisibility(View.INVISIBLE);
         errorPrecioFinal.setVisibility(View.INVISIBLE);
         errorPrecioHab.setVisibility(View.INVISIBLE);
+    }
+
+    public interface OnCrearOfertaListener {
+        void onCrearOferta(Oferta oferta);
+        void mostrarDialogoHora();
+        void mostrarDialogoFecha();
+        void eliminarOferta(int codigo);
     }
 }
 

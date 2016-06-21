@@ -9,25 +9,26 @@ import java.util.Date;
  */
 public final class Oferta implements Serializable {
 
-    private int codigo, idEstab;
+    private int codigo;
+    private int idUserCreador;
     private String idComprador;
     private int deporte;
-    private float precioHabitual, precioFinal;
+    private float precioHabitual, precioOferta;
     private String estado;
-    private Date fecha;
+    private Date fechaHora;
     private String nombreDeporte;
 
     public Oferta(){}
 
     public Oferta(int codigo, int idEstab, String idComprador, int idDeporte, float precioHabitual, float precioFinal, String estado, Date fecha) {
         this.codigo = codigo;
-        this.idEstab = idEstab;
+        this.idUserCreador = idEstab;
         this.idComprador = idComprador;
         this.deporte = idDeporte;
         this.precioHabitual = precioHabitual;
-        this.precioFinal = precioFinal;
+        this.precioOferta = precioFinal;
         this.estado = estado;
-        this.fecha = fecha;
+        this.fechaHora = fecha;
         nombreDeporte= "";
     }
 
@@ -40,11 +41,11 @@ public final class Oferta implements Serializable {
     }
 
     public int getIdEstab() {
-        return idEstab;
+        return idUserCreador;
     }
 
     public void setIdEstab(int idEstab) {
-        this.idEstab = idEstab;
+        this.idUserCreador = idEstab;
     }
 
     public String getIdComprador() {
@@ -72,11 +73,11 @@ public final class Oferta implements Serializable {
     }
 
     public float getPrecioFinal() {
-        return precioFinal;
+        return precioOferta;
     }
 
     public void setPrecioFinal(float precioFinal) {
-        this.precioFinal = precioFinal;
+        this.precioOferta = precioFinal;
     }
 
     public String getEstado() {
@@ -89,12 +90,12 @@ public final class Oferta implements Serializable {
 
     public Calendar getFecha() {
         Calendar toR= Calendar.getInstance();
-        toR.setTime(fecha);
+        toR.setTime(fechaHora);
         return toR;
     }
 
     public void setFecha(Calendar fecha) {
-        this.fecha = fecha.getTime();
+        this.fechaHora = fecha.getTime();
     }
 
     public String getNombreDeporte() {

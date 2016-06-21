@@ -1,5 +1,6 @@
 package com.example.lucila.turnosPP.actividades;
 
+import android.content.SharedPreferences;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.example.lucila.turnosPP.fragmentos.DatePickerFragment;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,13 +40,14 @@ public class CrearOfertasActivity
     private Oferta ofertaACrear;
     private String[] deportes;
     private int idEst;
+    private boolean editar, eliminar, crearOferta;
+    private int cantOfertasCreadas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_ofertas);
 
-        ofertaACrear= new Oferta();
         idEst= getIntent().getIntExtra("id",0);
         if(savedInstanceState != null) {
             deportes= savedInstanceState.getStringArray("deportes");
@@ -54,9 +57,16 @@ public class CrearOfertasActivity
         else
             deportes= (String[]) getIntent().getSerializableExtra("Tdeportes");
 
+        editar= getIntent().getBooleanExtra("editar", false);
+        if(editar)
+            ofertaACrear= (Oferta) getIntent().getSerializableExtra("ofertaEditar");
+        else
+            ofertaACrear= new Oferta();
+        crearOferta= false;
+        eliminar= false;
         getSupportFragmentManager().beginTransaction().add(
                 R.id.panel_fragment_crearOfertas,
-                CrearOfertasFragment.newInstance(deportes),
+                CrearOfertasFragment.newInstance(deportes, editar, ofertaACrear),
                 TAG
         ).commit();
     }
@@ -68,9 +78,27 @@ public class CrearOfertasActivity
         savedInstanceState.putInt("id",idEst);
         super.onSaveInstanceState(savedInstanceState);
     }
+
+    protected void onStart() {
+        super.onStart();
+        SharedPreferences sp=  getSharedPreferences("ofertasCreadas", MODE_PRIVATE);
+        cantOfertasCreadas= sp.getInt(getString(R.string.cant_ofertas_creadas), 0);
+    }
+
+    protected void onStop() {
+        if(crearOferta) {
+            SharedPreferences sp=  getSharedPreferences("ofertasCreadas", MODE_PRIVATE);
+            SharedPreferences.Editor editor= sp.edit();
+            cantOfertasCreadas= sp.getInt(getString(R.string.cant_ofertas_creadas), 0);
+            cantOfertasCreadas++;
+            editor.putInt(getString(R.string.cant_ofertas_creadas), cantOfertasCreadas);
+            editor.commit();
+        }
+        super.onStop();
+    }
+
     @Override
     public void onCrearOferta(Oferta oferta) {
-        //TODO Crear oferta en el server.
         ofertaACrear= oferta;
         crearRequestAlServer(oferta);
     }
@@ -88,27 +116,39 @@ public class CrearOfertasActivity
     }
 
     @Override
-    public void onHoraElegida(String stringHora, int hora, int min) {
+    public void onHoraElegida(int hora, int min) {
         CrearOfertasFragment fragmentCO= (CrearOfertasFragment) getSupportFragmentManager().findFragmentByTag(TAG);
-        fragmentCO.setHora(stringHora, hora, min);
+        fragmentCO.setHora(hora, min);
 
     }
 
     @Override
-    public void onFechaElegida(String stringFecha, int dia, int mes, int anio) {
+    public void onFechaElegida(int dia, int mes, int anio) {
         CrearOfertasFragment fragmentCO= (CrearOfertasFragment) getSupportFragmentManager().findFragmentByTag(TAG);
-        fragmentCO.setFecha(stringFecha, dia, mes, anio);
+        fragmentCO.setFecha(dia, mes, anio);
+    }
+
+    public void eliminarOferta(int codigo) {
+        Map<String,String> mapeoJSON= new HashMap<>();
+        mapeoJSON.put("funcion", "eliminarOferta");
+        mapeoJSON.put("codigo", Integer.toString(codigo));
+        eliminar= true;
+        crearPOSTJson(mapeoJSON);
     }
 
     private void crearRequestAlServer(Oferta oferta) {
         Map<String,String> mapeoJSON= new HashMap<>();
-        mapeoJSON.put("funcion","crearOferta");
+        if(editar) {
+            mapeoJSON.put("funcion", "actualizarOferta");
+            mapeoJSON.put("idOferta", Integer.toString(oferta.getCodigo()));
+        }
+        else
+            mapeoJSON.put("funcion","crearOferta");
         Calendar fechaElegida= oferta.getFecha();
-        String fecha= fechaElegida.get(Calendar.YEAR) + "-" +
-                fechaElegida.get(Calendar.MONTH) + "-" +
-                fechaElegida.get(Calendar.DAY_OF_MONTH) + " " +
-                fechaElegida.get(Calendar.HOUR) + ":" +
-                fechaElegida.get(Calendar.MINUTE) + ":00";
+        fechaElegida.set(Calendar.SECOND,0);
+        SimpleDateFormat formatoFecha= new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+        String fecha= formatoFecha.format(fechaElegida.getTime());
 
         mapeoJSON.put("fecha", fecha);
         mapeoJSON.put("idEstablecimiento", Integer.toString(idEst));
@@ -162,8 +202,13 @@ public class CrearOfertasActivity
     private void procesarRespuesta(JSONObject respuesta) {
         try {
             boolean fallo= respuesta.getInt("estado") == 2;
-            if(!fallo)
+            if(!fallo) {
+                if(!editar) //Cree una oferta
+                    crearOferta= true;
+                else if(eliminar) //Elimine una oferta
+                    cantOfertasCreadas--;
                 finish();
+            }
             else
                 Toast.makeText(this,"Se produjo un error",Toast.LENGTH_SHORT).show();
         } catch (JSONException e) {

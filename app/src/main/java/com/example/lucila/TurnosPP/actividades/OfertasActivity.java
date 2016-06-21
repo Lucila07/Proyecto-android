@@ -1,5 +1,6 @@
 package com.example.lucila.turnosPP.actividades;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 
 import com.example.lucila.turnosPP.beans.Oferta;
 import com.example.lucila.turnosPP.constantes.Constantes;
+import com.example.lucila.turnosPP.fragmentos.CrearOfertasFragment;
 import com.example.lucila.turnosPP.fragmentos.OfertasFragment;
 import com.example.lucila.myapplication.R;
 import com.example.lucila.turnosPP.beans.VolleySingleton;
@@ -31,7 +33,6 @@ import java.util.Collection;
 public class OfertasActivity extends AppCompatActivity implements OfertasFragment.OnListFragmentInteractionListener {
 
     private static final String TAG= OfertasActivity.class.getSimpleName();
-    private static final String GSON= "gson";
 
     private Gson gson;
     private Oferta[] ofertas;
@@ -47,6 +48,12 @@ public class OfertasActivity extends AppCompatActivity implements OfertasFragmen
         deportes= (String[]) getIntent().getSerializableExtra("Tdeportes");
         gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
         cargarAdaptador();
+    }
+
+    @Override
+    protected void onResume() {
+        cargarAdaptador();
+        super.onResume();
     }
 
     /**
@@ -116,6 +123,13 @@ public class OfertasActivity extends AppCompatActivity implements OfertasFragmen
 
     @Override
     public void onListFragmentInteraction(Oferta item) {
-
+        if(item.getEstado().equals("Disponible")) {
+            Intent i = new Intent(this, CrearOfertasActivity.class);
+            i.putExtra("editar", true);
+            i.putExtra("Tdeportes", deportes);
+            i.putExtra("ofertaEditar", item);
+            startActivity(i);
+        }
+        else Toast.makeText(this,"La oferta ya fue reservada", Toast.LENGTH_SHORT);
     }
 }

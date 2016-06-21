@@ -53,6 +53,8 @@
     <string name="textview.precioFinal">Precio Final</string>
     <string name="textview.precioHabitual">Precio Habitual</string>
     <string name="boton.crear">Crear</string>
+    <string name="boton.editar">Editar</string>
+    <string name="boton.eliminar">Eliminar</string>
 
     <!-- Fragmento oferta (para la lista de ofertas) -->
     <string name="textview.oferta.fecha">Fecha</string>
