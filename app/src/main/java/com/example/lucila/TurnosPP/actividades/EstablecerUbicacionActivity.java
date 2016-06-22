@@ -181,6 +181,7 @@ public class EstablecerUbicacionActivity
                             .position(new LatLng(latitud, longitud))
                             .title("Ubicación"));
                     }
+            
             if(registro) {
                 crearIntentResultado(direccion);
             }

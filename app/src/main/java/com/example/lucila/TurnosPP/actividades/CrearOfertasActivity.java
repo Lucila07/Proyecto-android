@@ -55,7 +55,7 @@ public class CrearOfertasActivity
             idEst= savedInstanceState.getInt("id");
         }
         else
-            deportes= (String[]) getIntent().getSerializableExtra("Tdeportes");
+            deportes= (String[]) getIntent().getSerializableExtra("deportesEst");
 
         editar= getIntent().getBooleanExtra("editar", false);
         if(editar)

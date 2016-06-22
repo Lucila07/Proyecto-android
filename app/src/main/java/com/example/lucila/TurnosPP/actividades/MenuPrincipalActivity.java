@@ -159,6 +159,7 @@ public class MenuPrincipalActivity
                 Intent sigActividad = new Intent(this, claseActivity);
                 sigActividad.putExtra("id", establecimiento.getId());
                 sigActividad.putExtra("Tdeportes", deportes);
+                sigActividad.putExtra("deportesEst", establecimiento.getDeportes().toArray());
                 sigActividad.putExtra("ofertas", ofertas);
                 startActivity(sigActividad);
             } else {

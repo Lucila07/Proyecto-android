@@ -10,6 +10,9 @@ import android.os.Bundle;
 import android.support.v4.os.ResultReceiver;
 import android.text.TextUtils;
 
+import com.example.lucila.turnosPP.beans.Establecimiento;
+import com.example.lucila.turnosPP.fragmentos.EstablecerUbicacionFragment;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +67,7 @@ public class ObtenerDireccionService extends IntentService {
             String u;
             //Direccion
             String dir= TextUtils.join(System.getProperty("line.separator"), addressFragments);
+            dir= "";
             //Ciudad
             String ciudad= address.getLocality();
             if(dir.isEmpty())

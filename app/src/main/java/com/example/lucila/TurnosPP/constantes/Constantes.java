@@ -6,9 +6,8 @@ public class Constantes {
 
     public static final int CODIGO_ACTUALIZACION = 101;
 
-    private static final String PUERTO_HOST = "80";
+    private static final String PUERTO_HOST = "";
 
-    private static final String IP_lala = "http://10.0.2.2:";
     public static final String IP = "http://hosting.cs.uns.edu.ar/~com109/webServiceAndroid2";
 
     public static final String GET = IP + PUERTO_HOST + "/respuestasUsuario.php";
@@ -22,7 +21,7 @@ public class Constantes {
      */
     public static final String EXTRA_ID = "IDEXTRA";
 
-    public static final String GET_OFERTAS_ESTABLECIMIENTO= GET + "?funcion=getOfertasPorEstablecimiento";
+    public static final String GET_OFERTAS_ESTABLECIMIENTO= UPDATE + "?funcion=getOfertasEstablecimiento";
 
     public static final String LOGIN= IP + PUERTO_HOST + "/ConsultasEstablecimiento.php";
 
