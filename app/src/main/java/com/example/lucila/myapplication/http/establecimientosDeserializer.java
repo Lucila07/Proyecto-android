@@ -20,6 +20,7 @@ public class establecimientosDeserializer implements JsonDeserializer<Establecim
         String  nombre = jsonObject.get("nombre").getAsString();
         String ubicacion =jsonObject.get("ubicacion").toString();
         String telefono="";
+        String direccion =jsonObject.get("direccion").toString();
         long id=jsonObject.get("id").getAsLong();
 
        if(jsonObject.get("telefono")!=null)
@@ -31,6 +32,8 @@ public class establecimientosDeserializer implements JsonDeserializer<Establecim
         establecimiento.setUbicacion(ubicacion);
         establecimiento.setNombre(nombre);
         establecimiento.setTelefono(telefono);
+        establecimiento.setDireccion(direccion);
+
         return  establecimiento;
     }
 }

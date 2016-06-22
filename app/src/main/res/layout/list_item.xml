@@ -15,7 +15,7 @@
         card_view:cardCornerRadius="4dp"
         card_view:cardElevation="50dp"
         card_view:contentPadding="5dp"
-
+        android:elevation="15dp"
         card_view:cardUseCompatPadding="false"
         android:background="@color/cardview_light_background"
 

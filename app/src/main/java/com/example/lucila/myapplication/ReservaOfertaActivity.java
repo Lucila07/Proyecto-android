@@ -154,13 +154,26 @@ private void establecerTextos(Oferta oferta){
     TextView deporte= (TextView)findViewById(R.id.reserva_deporte);
     TextView establecimiento_nombre= (TextView)findViewById(R.id.reserva_nombre_establecimiento);
     TextView ahorro=(TextView)findViewById(R.id.reserva_ahorro_oferta);
+    TextView tv_precioHabitual=(TextView)findViewById(R.id.tv_reserva_precio_h);
+    TextView tv_precioO=(TextView)findViewById(R.id.tv_reserva_precio_oferta);
+    TextView tv_direccion=(TextView)findViewById(R.id.reserva_direccion);
 
     Establecimiento establecimiento= MapeoIdEstablecimiento.getInstance().getById(oferta.getIdUserCreador());
     establecimiento_nombre.setText(establecimiento.getNombre());
-    int precioH=oferta.getPrecioHabitual();
+    String direccion=establecimiento.getDireccion();
+    if(direccion!=null)
+        tv_direccion.setText(establecimiento.getDireccion().toString());
+    else tv_direccion.setText("No disponible");
+
+    Integer precioH=oferta.getPrecioHabitual();
     Integer int_ahorro=0;
+    Integer precioOfertado=oferta.getPrecioOferta();
     if( precioH>0)
-     int_ahorro =new Integer((oferta.getPrecioOferta()*100)/precioH);
+     int_ahorro =new Integer((precioOfertado*100)/precioH);
+
+
+    tv_precioHabitual.setText(precioH.toString());
+    tv_precioO.setText(precioOfertado.toString());
 
     String s_ahorro=int_ahorro.toString();
     ahorro.setText(s_ahorro);
