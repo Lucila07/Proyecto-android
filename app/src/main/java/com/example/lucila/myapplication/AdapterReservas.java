@@ -97,17 +97,24 @@ public class AdapterReservas extends RecyclerView.Adapter<AdapterReservas.ViewHo
                 break;
 
             case "basquet":
-                recurso=R.drawable.basketball;
+                recurso=R.drawable.basquet;
                 break;
             case "Basquet":
-                recurso=R.drawable.basketball;
+                recurso=R.drawable.basquet;
                 break;
             case "tenis":
-                recurso=R.drawable.tennis;
+                recurso=R.drawable.tenis;
                 break;
             case "Tenis":
-                recurso=R.drawable.tennis;
+                recurso=R.drawable.tenis;
                 break;
+            case "paddle":
+                recurso=R.drawable.paddle;
+                break;
+            case "Paddle":
+                recurso=R.drawable.paddle;
+                break;
+
 
         }
         holder.imgViewIcon.setImageResource(recurso);

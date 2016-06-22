@@ -26,10 +26,10 @@ public class ItemData {
             case 0:{ this.imageUrl= R.drawable.futbol;
                 break;}//futboll
             case 1:{
-                this.imageUrl= R.drawable.tennis;
+                this.imageUrl= R.drawable.tenis;
 
                 break;}//
-            case 2:{this.imageUrl= R.drawable.basketball;
+            case 2:{this.imageUrl= R.drawable.basquet;
 
                 break;}//Basket
 

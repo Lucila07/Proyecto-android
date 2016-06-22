@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,6 +88,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>   impl
         Oferta oferta= lista_ofertas.get(position);
         if(oferta.getEstado().equals("disponible")) {
             if (oferta.getDeporte() != null) {
+
                 setImagenOferta(holder, oferta.getDeporte());
                 holder.text_deporte.setText(oferta.getDeporte().getNombre());
             } else holder.text_deporte.setText("deporte no establecido");
@@ -146,12 +148,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>   impl
     public void setImagenOferta(ViewHolder holder,Deporte deporte ){
 
         int recurso=0;
+        Log.d("dibujar ofertas","el nombre del deporte "+deporte.getNombre());
         switch (deporte.getNombre()){
             case "futbol":
-              recurso= R.drawable.futbol;
+              recurso= R.drawable.football;
                 break;
             case "Futbol":
-                recurso= R.drawable.futbol;
+                recurso= R.drawable.football;
                 break;
             case "voley":
                 recurso=R.drawable.voley;
@@ -160,17 +163,27 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>   impl
                 recurso=R.drawable.voley;
                 break;
             case "basquet":
-                recurso=R.drawable.basketball;
+                recurso=R.drawable.basquet;
                 break;
             case "Basquet":
-                recurso=R.drawable.basketball;
+                recurso=R.drawable.basquet;
                 break;
             case "tennis":
-                recurso= R.drawable.tennis;
+                recurso= R.drawable.tenis;
+                break;
             case "tenis":
-                recurso= R.drawable.tennis;
+                recurso= R.drawable.tenis;
+                break;
             case "Tenis":
-                recurso= R.drawable.tennis;
+                recurso= R.drawable.tenis;
+                break;
+            case "paddle":
+                recurso=R.drawable.paddle;
+                break;
+            case "Paddle":
+                recurso=R.drawable.paddle;
+                break;
+
         }
         holder.imagenOferta.setImageResource(recurso);
 

@@ -9,5 +9,5 @@
 	<color name="statusBarColor">#4169E1</color>
     <color name="toolBarColor">#8BC34A</color>
     <color name="texto">#000000</color>
-    <color name="layoutCards">#d4d3ca</color>
+    <color name="layoutCards">#cfcfc8</color>
 </resources>
