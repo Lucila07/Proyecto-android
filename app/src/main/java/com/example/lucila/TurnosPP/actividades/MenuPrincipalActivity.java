@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.lucila.myapplication.R;
 import com.example.lucila.turnosPP.beans.Establecimiento;
 import com.example.lucila.turnosPP.beans.Oferta;
+import com.example.lucila.turnosPP.beans.Pack;
 import com.example.lucila.turnosPP.fragmentos.CrearOfertasFragment;
 import com.example.lucila.turnosPP.fragmentos.EstablecerUbicacionFragment;
 import com.example.lucila.turnosPP.fragmentos.MenuPrincipalFragment;
@@ -34,6 +35,8 @@ import com.google.android.gms.common.api.Status;
 import org.w3c.dom.Text;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,6 +58,7 @@ public class MenuPrincipalActivity
     private String[] deportes;
     private Oferta[] ofertas;
     private int cantidadOfertas;
+    private Collection<Pack> packs;
 
     private GoogleApiClient clienteAPI;
 
@@ -82,6 +86,7 @@ public class MenuPrincipalActivity
                 boolean tiene= establecimiento.getDeportes().contains(d);
                 mapDeportes.put(d, tiene);
             }
+            packs= (Collection<Pack>) getIntent().getSerializableExtra("packs");
         }
         textoRecord= (TextView) findViewById(R.id.textView_info_menu_ppal);
         setearRecordatorio();
@@ -91,7 +96,7 @@ public class MenuPrincipalActivity
 
         mapBotonClase= new HashMap<Integer, Class>(7);
         mapBotonClase.put(R.id.boton_crear_oferta, CrearOfertasActivity.class);
-        mapBotonClase.put(R.id.boton_comprar_ofertas, LoginActivity.class);
+        mapBotonClase.put(R.id.boton_comprar_ofertas, ComprarPackActivity.class);
         mapBotonClase.put(R.id.boton_denunciar_usuario, LoginActivity.class);
         mapBotonClase.put(R.id.boton_establecer_ubicacion, EstablecerUbicacionActivity.class);
         mapBotonClase.put(R.id.boton_ver_creadas, OfertasActivity.class);
@@ -161,7 +166,12 @@ public class MenuPrincipalActivity
                 sigActividad.putExtra("Tdeportes", deportes);
                 sigActividad.putExtra("deportesEst", establecimiento.getDeportes().toArray());
                 sigActividad.putExtra("ofertas", ofertas);
-                startActivity(sigActividad);
+                sigActividad.putExtra("packs_disponibles",(Serializable) packs);
+                if(claseActivity == ComprarPackActivity.class)
+                    startActivityForResult(sigActividad, 5);
+                else
+                    startActivity(sigActividad);
+
             } else {
 
             }
@@ -291,5 +301,19 @@ public class MenuPrincipalActivity
     private void setOfertasRestantes() {
         TextView cantOfertas= (TextView) findViewById(R.id.textview_n_ofertas_restantes);
         cantOfertas.setText(Integer.toString(establecimiento.getCantMaxOfertas() - ofertas.length));
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //Si el resultado es correcto
+        if(resultCode == RESULT_OK) {
+            switch (requestCode) {
+                //Llame por los packs
+                case 5: {
+                    Pack packElegido= (Pack) data.getSerializableExtra("pack_elegido");
+                    establecimiento.setCantMaxOfertas(packElegido.getCantidadOfertas());
+                    setOfertasRestantes();
+                }
+            }
+        }
     }
 }

@@ -19,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.lucila.turnosPP.beans.Establecimiento;
 import com.example.lucila.turnosPP.beans.Oferta;
+import com.example.lucila.turnosPP.beans.Pack;
 import com.example.lucila.turnosPP.beans.VolleySingleton;
 import com.example.lucila.turnosPP.constantes.Constantes;
 import com.example.lucila.myapplication.R;
@@ -38,7 +39,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
+import java.text.CollationElementIterator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -59,6 +62,7 @@ public class LoginActivity
     private boolean validacion;
     private boolean recordarme;
     private String[] Tdeportes;
+    private Collection<Pack> packs;
 
     private SharedPreferences preferences;
     private GoogleApiClient clienteAPI;
@@ -105,6 +109,7 @@ public class LoginActivity
             findViewById(R.id.sign_in_button).setOnClickListener(this);
 
             traerDeportes();
+            traerPacks();
         }
     }
 
@@ -270,6 +275,7 @@ public class LoginActivity
         menuPPal.putExtra("establecimiento", e);
         menuPPal.putExtra("Tdeportes", Tdeportes);
         menuPPal.putExtra("ofertas",ofertas);
+        menuPPal.putExtra("packs", (Serializable) packs);
         startActivity(menuPPal);
     }
 
@@ -314,11 +320,63 @@ public class LoginActivity
         );
     }
 
+    private void traerPacks() {
+        HashMap<String, String> map = new HashMap<>();// Mapeo previo
+        map.put("funcion", "traerPacks");
+        JSONObject postJSON= new JSONObject(map);
+        //Lo envio al server
+        VolleySingleton.getInstance(this).addToRequestQueue(
+                new JsonObjectRequest(
+                        Request.Method.POST,
+                        Constantes.UPDATE,
+                        postJSON,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                // Procesar la respuesta del servidor
+                                settearPacks(response);
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.d(TAG, "Error Volley: " + error.getMessage());
+                            }
+                        }
+
+                ) {
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        Map<String, String> headers = new HashMap<String, String>();
+                        headers.put("Content-Type", "application/json; charset=utf-8");
+                        headers.put("Accept", "application/json");
+                        return headers;
+                    }
+
+                    @Override
+                    public String getBodyContentType() {
+                        return "application/json; charset=utf-8" + getParamsEncoding();
+                    }
+                }
+        );
+    }
+
     private void settearDeportes(JSONObject response) {
         try {
             JSONArray jsonTDeportes= response.getJSONArray("todosD");
             Gson gson = new Gson();
             Tdeportes= gson.fromJson(jsonTDeportes.toString(), String[].class);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void settearPacks(JSONObject response) {
+        try {
+            JSONArray jsonTPacks= response.getJSONArray("packs");
+            Type collectionType = new TypeToken<Collection<Pack>>(){}.getType();
+            Gson gson = new Gson();
+            packs = gson.fromJson(jsonTPacks.toString(), collectionType);
         } catch (JSONException e) {
             e.printStackTrace();
         }

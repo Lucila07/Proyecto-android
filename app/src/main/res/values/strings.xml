@@ -75,4 +75,9 @@
     <!-- Fragmento checkers deportes -->
     <string name="boton_guardar">Aceptar</string>
 
+    <!-- Fragmento Pack -->
+    <string name="TextView.TipoPack">Tipo: %1$s</string>
+    <string name="TextView.PrecioPack">Precio: $ %1$.2f</string>
+    <string name="TextView.CantOfertasDisponibles">Cantidad Ofertas</string>
+
 </resources>

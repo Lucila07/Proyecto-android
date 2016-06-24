@@ -78,6 +78,7 @@
 
         <activity android:name="com.example.lucila.turnosPP.actividades.DeportesCheckerActivity" />
         <activity android:name="com.example.lucila.turnosPP.actividades.PerfilActivity" />
+        <activity android:name="com.example.lucila.turnosPP.actividades.ComprarPackActivity"></activity>
     </application>
 
 </manifest>
