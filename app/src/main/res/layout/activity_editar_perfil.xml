@@ -6,70 +6,64 @@
     android:layout_height="match_parent"
     android:weightSum="1"
     android:baselineAligned="false"
-
     >
 
     <android.support.v7.widget.Toolbar
-
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:id="@+id/toolbar_editar_perfil"
-
         />
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:gravity="center_vertical|center">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_vertical|center">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editar_nombre"
+            android:ems="10"
+            android:hint="Usuario"
+            android:gravity="center"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="100dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:paddingTop="10dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/editar_telefono"
+            android:hint="Teléfono"
+            android:gravity="center"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="30dp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Aceptar cambios"
+            android:textSize="25dp"
+            android:textColor="#FFFFFF"
+            android:layout_gravity="center|bottom"
+            android:id="@+id/bt_guardar_cambios_perfil"
+            android:layout_marginTop="30dp"
+            android:background="@color/colorPrimaryDark"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:textAlignment="center" />
+
+    </LinearLayout>
+
     <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Edita tu perfil"
-        android:textColor="@color/abc_input_method_navigation_guard"
-        android:textSize="50dp"
-        android:layout_marginBottom="70dp"
-        android:gravity="center" />
-
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nombre de usuario"/>
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/editar_nombre"
-        android:ems="10"
-        />
-    <TextView
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:text="Telefono"/>
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/editar_telefono"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Esta informaacion sera enviada a los establecimientos cuando hagas reservas "
-        android:layout_gravity="bottom"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Aceptar cambios"
-        android:backgroundTint="@color/colorAccent"
-        android:textSize="25dp"
-        android:textColor="#FFFFFF"
-        android:layout_gravity="center|bottom"
-        android:id="@+id/bt_guardar_cambios_perfil"/>
-
-</LinearLayout>
+        android:text="*Esta información sera enviada a los establecimientos cuando hagas reservas "
+        android:layout_marginTop="10dp" />
 </LinearLayout>

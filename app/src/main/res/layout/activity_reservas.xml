@@ -24,7 +24,7 @@
 
         />
 
-    <android.support.v7.widget.RecyclerView
+    <!--  <android.support.v7.widget.RecyclerView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/reservasView"
@@ -32,7 +32,18 @@
         android:layout_height="match_parent"
 
         android:layout_below="@+id/toolbar_reservasHechas" />
+
+        -->
+
+    <ExpandableListView
+        android:id="@+id/lvExp"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/toolbar_reservasHechas"
+        android:layout_alignParentStart="false" />
+
     <!--tools:context=".MainActivity"-->
+
 
 
 

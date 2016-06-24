@@ -3,7 +3,6 @@ package com.example.lucila.myapplication;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +17,6 @@ import com.example.lucila.myapplication.Datos.ServicioUsuariosHttp;
 import com.example.lucila.myapplication.Entidades.Usuario;
 
 import java.io.BufferedInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
@@ -80,7 +78,7 @@ public class PerfilActivity extends AppCompatActivity {
                 }).start();
 
 
-        Log.d("perfil",usuario.getUbicacion()+" "+usuario.getUrlFoto().toString());
+      //  Log.d("perfil",usuario.getUbicacion()+" "+usuario.getUrlFoto().toString());
         //reservas TODO: hace run atributo reservas para el usuario, y denuncias
 
         bt_editar_perfil.setOnClickListener(new View.OnClickListener() {
