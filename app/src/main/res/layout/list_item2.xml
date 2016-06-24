@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/border"
+>
+
+    <TextView
+        android:id="@+id/item_fecha"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:textSize="20sp"
+        android:layout_below="@+id/item_title"
+        android:layout_column="0"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp" />
+    <TextView
+        android:id="@+id/item_hora"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:textSize="20sp"
+        android:layout_below="@+id/item_title"
+        android:layout_column="0"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp" />
+    <TextView
+        android:id="@+id/item_Dirección"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:textSize="20sp"
+        android:layout_below="@+id/item_title"
+        android:layout_column="0"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp" />
+    <TextView
+        android:id="@+id/item_Télefono"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:textSize="20sp"
+        android:layout_below="@+id/item_title"
+        android:layout_column="0"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp" />
+    <TextView
+        android:id="@+id/item_precioOferta"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:textSize="20dp"
+        android:layout_column="0"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp" />
+    <TextView
+        android:id="@+id/item_detalle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:textSize="20sp"
+        android:layout_below="@+id/item_title"
+        android:layout_column="0"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp" />
+
+
+</LinearLayout>
