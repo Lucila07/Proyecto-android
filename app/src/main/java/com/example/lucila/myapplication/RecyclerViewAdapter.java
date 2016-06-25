@@ -3,14 +3,12 @@ package com.example.lucila.myapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
@@ -58,13 +56,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
            //----- MainActivity mainActivity = (MainActivity)context;
-            MainActivity mainActivity = (MainActivity)context;
+          /*  MainActivity mainActivity = (MainActivity)context;
             mainActivity.drawerLayout.closeDrawers();//------ esto es lo q no me andaba!!
             mainActivity.setInvisibleToolbar();
+        */
+              Intent i= new Intent(context, menuActivity.class);
+              i.putExtra("opcion",getPosition());
+               context.startActivity(i);
+
 
            // i= new Intent(context, PerfilActivity.class);
            // context.startActivity(i)
-
+/*
             FragmentTransaction fragmentTransaction = mainActivity.getSupportFragmentManager().beginTransaction();
             Intent i;
             switch (getPosition()){
@@ -82,15 +85,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     //fragmentTransaction.commit();
                     break;
                 case 3:
+
+                    /*
                      i= new Intent(context, ReservasUsuarioActivity.class);
                     context.startActivity(i);
+                        */
+             //       ReservasUsuarioFragment reservasFragment= new ReservasUsuarioFragment();
+               //     fragmentTransaction.replace(R.id.containerView,reservasFragment);
+                 //   fragmentTransaction.commit();
+                   // break;
 
-
-                    //fragmentTransaction.replace(R.id.containerView,reservasFragment);
-                    //fragmentTransaction.commit();
-
-
-                    break;
             }
         }
 
@@ -101,7 +105,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
 
-    } // cierra clas view holder
+  //  } // cierra clas view holder
 
 
 

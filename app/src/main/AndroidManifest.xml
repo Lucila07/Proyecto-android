@@ -60,6 +60,16 @@
                 android:value="com.example.lucila.myapplication.MainActivity" />
             >
         </activity>
+        <activity
+            android:name=".menuActivity"
+            android:parentActivityName=".MainActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.lucila.myapplication.MainActivity" />
+            >
+        </activity>
         <!-- Permiso usado para obtener la ubicación del usuario -->
         <activity
             android:name=".LoginActivity"

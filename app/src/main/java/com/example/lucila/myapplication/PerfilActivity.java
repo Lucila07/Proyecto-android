@@ -93,7 +93,7 @@ public class PerfilActivity extends AppCompatActivity {
 
     public void setToolbar(){
         //toolbar-------------
-        toolbar = (Toolbar) findViewById(R.id.toolbar_perfil); //encontramos la instancia de la toolbar
+      //  toolbar = (Toolbar) findViewById(R.id.toolbar_perfil); //encontramos la instancia de la toolbar
         setSupportActionBar(toolbar);   //la setamos a la actividad
 
 

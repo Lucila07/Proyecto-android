@@ -1,4 +1,4 @@
-package com.example.lucila.myapplication;
+package com.example.lucila.myapplication.Fragmentos;
 
 /**
  * Created by Lucila on 25/6/2016.
@@ -21,7 +21,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.lucila.myapplication.Datos.ServicioUsuariosHttp;
+import com.example.lucila.myapplication.EditarPerfilActivity;
 import com.example.lucila.myapplication.Entidades.Usuario;
+import com.example.lucila.myapplication.R;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
@@ -49,7 +51,7 @@ public class PerfilFragment  extends android.support.v4.app.Fragment {
 
 
         View v=  inflater.inflate(R.layout.perfil_layout,null);
-        setToolbar(v);
+      //  setToolbar(v, container);
         usuario= ServicioUsuariosHttp.getInstance().getUsuarioLogueado();
 
 
@@ -67,6 +69,10 @@ public class PerfilFragment  extends android.support.v4.app.Fragment {
             mail.setText(usuario.getEmail());
         }
 
+
+        //---------------------------------------------------
+
+        //------------------------------------------------
         new Thread(
                 new Runnable() {
 
@@ -108,23 +114,25 @@ public class PerfilFragment  extends android.support.v4.app.Fragment {
         return v;
     }
 
-    private void setToolbar(View v ) {
+    private void setToolbar(View v,  ViewGroup c ) {
 
         //toolbar-------------
-
-         toolbar = (Toolbar)v.findViewById(R.id.toolbar_perfil); //encontramos la instancia de la toolbar
+       // toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar_perfil);
+         toolbar = (Toolbar)c.findViewById(R.id.toolbar_menu); //encontramos la instancia de la toolbar
         // setSupportActionBar(toolbar);   //la setamos a la actividad
 
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 //        if (getSupportActionBar() != null) { // Habilitar up button para volcver atras
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true); //este muestra el boton de volver
+   //-----------     ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true); //este muestra el boton de volver
         // getSupportActionBar().setDisplayShowHomeEnabled(true);//para volver atras
         //}
 
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Mi perfil");
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
+   //     ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Mi perfil");
+        //     ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
+
+       // toolbar.setVisibility(View.VISIBLE);
 
         //--------------------
 

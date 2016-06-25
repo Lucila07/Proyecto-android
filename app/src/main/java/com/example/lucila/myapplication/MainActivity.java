@@ -30,7 +30,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import com.example.lucila.myapplication.Datos.ServicioOfertasUsuario;
@@ -230,10 +229,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false); //el boton de back
 
-        toolbar = (Toolbar) findViewById(R.id.toolBar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        toolbar.setVisibility(View.VISIBLE);
 
     }
 
@@ -304,7 +299,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     public void setInvisibleToolbar(){
-        toolbar.setVisibility(View.INVISIBLE);
+        getSupportActionBar().hide();
 
     }
 
