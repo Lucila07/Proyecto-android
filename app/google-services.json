@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "855861162770",
+    "project_id": "testgplus-1339"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:855861162770:android:c783c64ba9e37674",
+        "android_client_info": {
+          "package_name": "com.example.lucila.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "855861162770-lh0lnhbsneqkufmdi4p88qd7hr8q57dn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lucila.myapplication",
+            "certificate_hash": "89F55C3E16F146A6F558F522486AB28FFDA776DA"
+          }
+        },
+        {
+          "client_id": "855861162770-joja6dh597oftf8jgb192cs2g9a8ejhe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSN03qWnn-LUj5mV8fC7Sg9V24PwCKYqw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
