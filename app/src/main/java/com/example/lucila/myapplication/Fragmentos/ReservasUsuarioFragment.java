@@ -1,7 +1,6 @@
 package com.example.lucila.myapplication.Fragmentos;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -10,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
+
 import com.example.lucila.myapplication.Datos.ItemData;
 import com.example.lucila.myapplication.Datos.ServicioOfertasHttp;
 import com.example.lucila.myapplication.Datos.ServicioUsuariosHttp;
@@ -17,6 +17,7 @@ import com.example.lucila.myapplication.Entidades.Oferta;
 import com.example.lucila.myapplication.Entidades.Usuario;
 import com.example.lucila.myapplication.ExpandableListAdapter;
 import com.example.lucila.myapplication.R;
+
 import java.util.HashMap;
 
 /**
@@ -40,7 +41,7 @@ public class ReservasUsuarioFragment extends android.support.v4.app.Fragment imp
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)  {
 
-        View v=  inflater.inflate(R.layout.activity_reservas,null);
+        View v=  inflater.inflate(R.layout.fragment_reservas,null);
        // setToolbar(v);
         // get the listview
         expListView = (ExpandableListView) v.findViewById(R.id.lvExp);
@@ -53,18 +54,6 @@ public class ReservasUsuarioFragment extends android.support.v4.app.Fragment imp
 
         return v;
     }
-
-    public void setToolbar(View v){
-         toolbar = (Toolbar) v.findViewById(R.id.toolbar_reservasHechas); //encontramos la instancia de la toolbar
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);   //la setamos a la actividad
-        
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true); //este muestra el boton de volver
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);//para volver atras
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Mis Reservas");
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
-        toolbar.setVisibility(View.VISIBLE);
-    }
-
 
     @Override
     public void exito(Oferta[] ofertaArray) {

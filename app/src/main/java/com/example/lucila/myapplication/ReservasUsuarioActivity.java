@@ -37,7 +37,7 @@ public class ReservasUsuarioActivity extends AppCompatActivity implements Servic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
        /* super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reservas);
+        setContentView(R.layout.fragment_reservas);
         setToolbar();
         recyclerView = (RecyclerView) findViewById(R.id.reservasView);
 
@@ -51,7 +51,7 @@ public class ReservasUsuarioActivity extends AppCompatActivity implements Servic
 */
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reservas);
+        setContentView(R.layout.fragment_reservas);
         setToolbar();
         // get the listview
         expListView = (ExpandableListView) findViewById(R.id.lvExp);

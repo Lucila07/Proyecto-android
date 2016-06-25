@@ -33,6 +33,7 @@ public class menuActivity  extends AppCompatActivity {
             case 1: {
                 //----   i = new Intent(context, PerfilActivity.class);
                 //----  context.startActivity(i);
+                getSupportActionBar().setTitle("Mi perfil");
                 PerfilFragment perfilFragment = new PerfilFragment();
                 fragmentTransaction.replace(R.id.containerView_Menu, perfilFragment);
                 fragmentTransaction.commit();
@@ -49,6 +50,7 @@ public class menuActivity  extends AppCompatActivity {
                      i= new Intent(context, ReservasUsuarioActivity.class);
                     context.startActivity(i);
                         */
+                getSupportActionBar().setTitle("Mis reservas");
                 ReservasUsuarioFragment reservasFragment = new ReservasUsuarioFragment();
                 fragmentTransaction.replace(R.id.containerView_Menu, reservasFragment);
                 fragmentTransaction.commit();
@@ -63,7 +65,7 @@ public class menuActivity  extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar_menu); //encontramos la instancia de la toolbar
         setSupportActionBar(toolbar);   //la setamos a la actividad
-        getSupportActionBar().setTitle("menu");
+        //getSupportActionBar().setTitle("menu");
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); //el boton de back
 

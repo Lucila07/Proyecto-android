@@ -10,7 +10,6 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -51,7 +50,7 @@ public class PerfilFragment  extends android.support.v4.app.Fragment {
 
 
         View v=  inflater.inflate(R.layout.perfil_layout,null);
-      //  setToolbar(v, container);
+
         usuario= ServicioUsuariosHttp.getInstance().getUsuarioLogueado();
 
 
@@ -69,10 +68,6 @@ public class PerfilFragment  extends android.support.v4.app.Fragment {
             mail.setText(usuario.getEmail());
         }
 
-
-        //---------------------------------------------------
-
-        //------------------------------------------------
         new Thread(
                 new Runnable() {
 
@@ -114,30 +109,6 @@ public class PerfilFragment  extends android.support.v4.app.Fragment {
         return v;
     }
 
-    private void setToolbar(View v,  ViewGroup c ) {
-
-        //toolbar-------------
-       // toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar_perfil);
-         toolbar = (Toolbar)c.findViewById(R.id.toolbar_menu); //encontramos la instancia de la toolbar
-        // setSupportActionBar(toolbar);   //la setamos a la actividad
-
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-//        if (getSupportActionBar() != null) { // Habilitar up button para volcver atras
-
-   //-----------     ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true); //este muestra el boton de volver
-        // getSupportActionBar().setDisplayShowHomeEnabled(true);//para volver atras
-        //}
-
-
-   //     ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Mi perfil");
-        //     ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
-
-       // toolbar.setVisibility(View.VISIBLE);
-
-        //--------------------
-
-
-    }
 
 
     private  class DescargarBitMap extends AsyncTask<String,Integer, Bitmap> {
