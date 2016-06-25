@@ -18,7 +18,8 @@
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/MaterialTheme">
+            android:theme="@style/MaterialTheme"
+            >
 
 
             <android.support.v7.widget.Toolbar
@@ -35,12 +36,14 @@
 
                 />
 
-            <android.support.design.widget.TabLayout
+   <!--        <android.support.design.widget.TabLayout
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:tabMode="fixed"
                 app:tabGravity="fill"/>
+
+-->
         </android.support.design.widget.AppBarLayout>
 
 
@@ -49,7 +52,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
-
 
 
 

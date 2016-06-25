@@ -20,6 +20,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.os.ResultReceiver;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -29,16 +30,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.lucila.myapplication.Datos.ServicioOfertasUsuario;
 import com.example.lucila.myapplication.Datos.ServicioUsuariosHttp;
 import com.example.lucila.myapplication.Entidades.Usuario;
 import com.example.lucila.myapplication.Fragmentos.OfertasFragment;
-import com.example.lucila.myapplication.http.VerificaConexion;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -98,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         //--------------------
 
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        //----------viewPager = (ViewPager) findViewById(R.id.viewpager);
 
 
         CheckEnableGPS();
@@ -231,6 +233,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         toolbar = (Toolbar) findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setVisibility(View.VISIBLE);
+
     }
 
     void setupDrawerToggle() {
@@ -242,7 +246,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     private void MostrarOfertas() {
 
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        OfertasFragment fragmentoOfertas = new OfertasFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.containerView,fragmentoOfertas,null);
+        fragmentTransaction.commit();
+
+        /*
+
+          ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
            OfertasFragment fragmentoOfertas = new OfertasFragment();
 
@@ -251,6 +262,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+    */
+
     }
 
 
@@ -287,6 +300,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             alertDialog.setCanceledOnTouchOutside(false);
             alertDialog.show();
         }
+
+    }
+
+    public void setInvisibleToolbar(){
+        toolbar.setVisibility(View.INVISIBLE);
 
     }
 

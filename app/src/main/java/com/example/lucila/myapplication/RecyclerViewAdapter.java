@@ -3,14 +3,13 @@ package com.example.lucila.myapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.example.lucila.myapplication.Fragmentos.*;
 
 
 
@@ -58,24 +57,25 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public void onClick(View v) {
 
 
+           //----- MainActivity mainActivity = (MainActivity)context;
             MainActivity mainActivity = (MainActivity)context;
-          //  mainActivity.getDrawerLayout().closeDrawers();//------ esto es lo q no me andaba!!
+            mainActivity.drawerLayout.closeDrawers();//------ esto es lo q no me andaba!!
+            mainActivity.setInvisibleToolbar();
 
            // i= new Intent(context, PerfilActivity.class);
            // context.startActivity(i)
 
-         //   FragmentTransaction fragmentTransaction = mainActivity.getSupportFragmentManager().beginTransaction();
+            FragmentTransaction fragmentTransaction = mainActivity.getSupportFragmentManager().beginTransaction();
             Intent i;
             switch (getPosition()){
-                case 1:
-                     i= new Intent(context, PerfilActivity.class);
-                    context.startActivity(i);
-                   /*
+                case 1: {
+                 //----   i = new Intent(context, PerfilActivity.class);
+                    //----  context.startActivity(i);
+                    PerfilFragment perfilFragment = new PerfilFragment();
                     fragmentTransaction.replace(R.id.containerView, perfilFragment);
                     fragmentTransaction.commit();
-                    */
-
                     break;
+                }
                 case 2:
                    // Fragment fixtureFragment = new FixtureFragment();
                     //fragmentTransaction.replace(R.id.containerView,fixtureFragment);
