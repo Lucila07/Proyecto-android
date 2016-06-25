@@ -3,6 +3,7 @@ package com.example.lucila.myapplication;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -40,6 +41,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -113,8 +116,16 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         //Finally setup ActionBarDrawerToggle
         setupDrawerToggle();
 
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/Roboto-Thin.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
     }
-
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
     // borrar ultima ubic conocida
 
     public void onConnected(Bundle bundle) {

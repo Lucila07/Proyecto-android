@@ -1,5 +1,6 @@
 package com.example.lucila.myapplication;
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Parcelable;
@@ -18,6 +19,9 @@ import com.example.lucila.myapplication.Entidades.Oferta;
 import com.example.lucila.myapplication.Entidades.Usuario;
 import com.example.lucila.myapplication.Estado.EstadoApp;
 import com.example.lucila.myapplication.http.VerificaConexion;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
 public class ReservaOfertaActivity extends AppCompatActivity  implements ServicioOfertasHttp.CallBack,ServicioUsuariosHttp.AccesoUsuarios {
@@ -39,6 +43,12 @@ public class ReservaOfertaActivity extends AppCompatActivity  implements Servici
         setToolbar();
         Intent intent=getIntent();
 
+
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/Roboto-Thin.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
         usuario = servicioUsuario.getUsuarioLogueado();
         servicioOfertas= ServicioOfertasHttp.getInstanciaServicio(this,this);
 
@@ -108,6 +118,10 @@ public class ReservaOfertaActivity extends AppCompatActivity  implements Servici
 
     }
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     public void setToolbar(){
         //toolbar-------------

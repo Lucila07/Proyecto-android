@@ -1,5 +1,6 @@
 package com.example.lucila.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -8,6 +9,9 @@ import android.support.v7.widget.Toolbar;
 import com.example.lucila.myapplication.Fragmentos.PerfilFragment;
 import com.example.lucila.myapplication.Fragmentos.ReservasUsuarioFragment;
 import com.example.lucila.myapplication.R;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by Lucila on 25/6/2016.
@@ -21,7 +25,11 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         setupToolbar();
-
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/Roboto-Thin.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
         Intent i = getIntent();
         int elegido = i.getExtras().getInt("opcion");
 
@@ -53,7 +61,10 @@ public class MenuActivity extends AppCompatActivity {
 
         }
     }
-
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
     void setupToolbar() {
 
 

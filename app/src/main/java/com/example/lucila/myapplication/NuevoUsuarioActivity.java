@@ -1,6 +1,7 @@
 package com.example.lucila.myapplication;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -14,6 +15,9 @@ import android.widget.Toast;
 import com.example.lucila.myapplication.Datos.ServicioUsuarios;
 import com.example.lucila.myapplication.Datos.ServicioUsuariosHttp;
 import com.example.lucila.myapplication.http.VerificaConexion;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class NuevoUsuarioActivity extends AppCompatActivity implements ServicioUsuariosHttp.AccesoUsuarios{
 
@@ -73,9 +77,17 @@ public class NuevoUsuarioActivity extends AppCompatActivity implements ServicioU
 
             }
         });
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/Roboto-Thin.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
     }
 
-
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     public void cargarMain() {

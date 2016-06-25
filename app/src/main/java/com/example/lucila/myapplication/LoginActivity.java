@@ -1,6 +1,7 @@
 package com.example.lucila.myapplication;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +20,9 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * A login screen that offers login via email/password.
@@ -80,10 +84,17 @@ public class LoginActivity extends AppCompatActivity implements ServicioUsuarios
                 signIn();
             }
         });
-
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/Roboto-Thin.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
 
     }
-
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
     @Override
     public void onStart() {
         super.onStart();
