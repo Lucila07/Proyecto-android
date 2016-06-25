@@ -3,8 +3,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="5dp"
-    android:layout_marginRight="7dp"
-
 
     >
 
@@ -15,185 +13,185 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         card_view:cardCornerRadius="4dp"
-       card_view:cardElevation="5dp"
+        card_view:cardElevation="5dp"
         card_view:contentPadding="5dp"
 
         card_view:cardUseCompatPadding="false"
         android:background="@color/cardview_light_background"
 
         >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingRight="16dp"
+            android:paddingLeft="16dp"
+            >
+
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:paddingRight="16dp"
                 android:paddingLeft="16dp"
+                android:paddingTop="24dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Juga al "
+                    android:textSize="24dp"
+                    android:textColor="@color/abc_input_method_navigation_guard"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/deporte"
+                    android:textSize="24dp"
+                    android:paddingBottom="10dp"
+                    android:textAlignment="center"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/abc_input_method_navigation_guard" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" en "
+                    android:textSize="24dp"
+                    android:textColor="@color/abc_input_method_navigation_guard"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/nombre_establecimiento"
+                    android:textSize="24dp"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/abc_input_method_navigation_guard"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="! "
+                    android:textSize="24dp"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/abc_input_method_navigation_guard"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingRight="16dp"
+                android:paddingLeft="16dp"
+                android:paddingBottom="16dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_ahorro_oferta"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="24dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="% de ahorro!"
+                    android:textSize="24dp"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/abc_input_method_navigation_guard"
+                    />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3"
                 >
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingRight="16dp"
-                            android:paddingLeft="16dp"
-                            android:paddingTop="24dp"
-                            >
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Juga al "
-                                android:textSize="24sp"
-                                android:textColor="@color/abc_input_method_navigation_guard"
-                                />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/deporte"
-                                android:textSize="24sp"
-                                android:paddingBottom="10dp"
-                                android:textAlignment="center"
-                                android:layout_gravity="center_horizontal"
-                                android:textColor="@color/abc_input_method_navigation_guard" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=" en "
-                                android:textSize="24sp"
-                                android:textColor="@color/abc_input_method_navigation_guard"
-                                />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/nombre_establecimiento"
-                                android:textSize="24sp"
-                                android:paddingBottom="10dp"
-                                android:textColor="@color/abc_input_method_navigation_guard"
-                                />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="! "
-                                android:textSize="24sp"
-                                android:paddingBottom="10dp"
-                                android:textColor="@color/abc_input_method_navigation_guard"
-                                />
-                        </LinearLayout>
-
-                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingRight="16dp"
-                            android:paddingLeft="16dp"
-                            android:paddingBottom="16dp"
-                            >
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/tv_ahorro_oferta"
-                                android:textColor="@color/colorPrimaryDark"
-                                android:textSize="24sp"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="% de ahorro!"
-                                android:textSize="24sp"
-                                android:paddingBottom="10dp"
-                                android:textColor="@color/abc_input_method_navigation_guard"
-                                />
-
-                        </LinearLayout>
                 <LinearLayout
+                    android:layout_width="125dp"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="3"
-                    >
+                    android:orientation="vertical"
+                    android:id="@+id/li1">
 
-                    <LinearLayout
-                        android:layout_width="125dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:id="@+id/li1">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="20dp"
-                            android:textColor="@color/abc_input_method_navigation_guard"
-                            android:text="Fecha"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/fecha"
-                            android:textSize="20dp"
-                            android:paddingBottom="10dp"
-                            />
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="20dp"
-                            android:textColor="@color/abc_input_method_navigation_guard"
-                            android:text="Hora"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/hora"
-                            android:textSize="20dp"
-                            android:paddingBottom="10dp"
-                            />
-
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="20dp"
-                            android:textColor="@color/abc_input_method_navigation_guard"
-                            android:text="Ubicacion"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/ubicacion"
-                            android:textSize="20dp"
-
-                            />
-
-                    </LinearLayout>
-                    <LinearLayout
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:textSize="20dp"
+                        android:textColor="@color/abc_input_method_navigation_guard"
+                        android:text="Fecha"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/fecha"
+                        android:textSize="20dp"
+                        android:paddingBottom="10dp"
+                        />
 
-                        android:layout_marginLeft="40dp"
-                        >
-                        <ImageView
-                            android:layout_width="130dp"
-                            android:layout_height="130dp"
-                            android:id="@+id/imagen_oferta"
-                            android:orientation="vertical"
-                            android:layout_marginRight="20dp"
-                            android:layout_marginLeft="0dp"
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20dp"
+                        android:textColor="@color/abc_input_method_navigation_guard"
+                        android:text="Hora"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/hora"
+                        android:textSize="20dp"
+                        android:paddingBottom="10dp"
+                        />
 
 
-                            />
 
-                        <EditText
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:inputType="number"
-                            android:ems="10"
-                            android:id="@+id/oferta_id"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20dp"
+                        android:textColor="@color/abc_input_method_navigation_guard"
+                        android:text="Ubicacion"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ubicacion"
+                        android:textSize="20dp"
 
-                            android:visibility="gone"
-                            />
-                    </LinearLayout>
+                        />
 
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+
+                    android:layout_marginLeft="40dp"
+                    >
+                    <ImageView
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:id="@+id/imagen_oferta"
+                        android:orientation="vertical"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="0dp"
+
+
+                        />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:ems="10"
+                        android:id="@+id/oferta_id"
+
+                        android:visibility="gone"
+                        />
+                </LinearLayout>
+
             </LinearLayout>
+        </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

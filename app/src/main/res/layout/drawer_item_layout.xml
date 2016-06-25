@@ -21,7 +21,7 @@
         android:id="@+id/tv_NavTitle"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#000000"
-        android:textSize="18sp"
+        android:textSize="18dp"
         android:textStyle="bold"
         />
 

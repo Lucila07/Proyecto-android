@@ -19,28 +19,28 @@
         android:textSize="60dp"
         android:typeface="serif"
         android:paddingBottom="50dp" />
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-
-    >
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ingrese su telefono:"
-        android:textSize="30dp"
-        android:textColor="@color/abc_input_method_navigation_guard" />
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="telefono"
-        android:id="@+id/ed_telefono"
-        android:inputType="number"
-        android:textColor="#121212"
-        android:textSize="20dp"
-        android:textColorHint="#f8112c" />
-</LinearLayout>
+        android:orientation="vertical"
+
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ingrese su telefono:"
+            android:textSize="30dp"
+            android:textColor="@color/abc_input_method_navigation_guard" />
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="telefono"
+            android:id="@+id/ed_telefono"
+            android:inputType="number"
+            android:textColor="#121212"
+            android:textSize="20dp"
+            android:textColorHint="#f8112c" />
+    </LinearLayout>
 
     <Button
         android:layout_width="wrap_content"

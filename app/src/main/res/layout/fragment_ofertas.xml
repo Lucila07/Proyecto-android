@@ -16,7 +16,7 @@
 
     <!-- A RecyclerView with some commonly used attributes -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingTop="10dp"
@@ -33,7 +33,7 @@
             android:layout_gravity="bottom|left"
             android:paddingTop="10dp"
             android:paddingRight="20dp"
-          />
+            />
 
         <TextView
             android:layout_width="wrap_content"

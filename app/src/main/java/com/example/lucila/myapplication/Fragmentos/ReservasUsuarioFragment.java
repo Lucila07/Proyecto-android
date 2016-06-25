@@ -37,7 +37,7 @@ public class ReservasUsuarioFragment extends android.support.v4.app.Fragment imp
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)  {
 
-        View v=  inflater.inflate(R.layout.fragment_reservas,null);
+        View v=  inflater.inflate(R.layout.fragment_reservas_usuario,null);
 
         // get the listview
         expListView = (ExpandableListView) v.findViewById(R.id.lvExp);

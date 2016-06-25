@@ -27,188 +27,188 @@
     </android.support.design.widget.AppBarLayout>
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="50dp"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingRight="16dp"
+            android:paddingLeft="30dp"
+            android:paddingTop="31dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Juga al "
+                android:textSize="24dp"
+                android:textColor="@color/abc_input_method_navigation_guard"
+                />
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/reserva_deporte"
+                android:textSize="24dp"
+                android:textColor="@color/abc_input_method_navigation_guard"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" en "
+                android:textSize="24dp"
+                android:textColor="@color/abc_input_method_navigation_guard"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/reserva_nombre_establecimiento"
+                android:textSize="24dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/abc_input_method_navigation_guard"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="! "
+                android:textSize="24dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/abc_input_method_navigation_guard"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="30dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="31dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/reserva_ahorro_oferta"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="24dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="% de ahorro!"
+                android:textSize="24dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/abc_input_method_navigation_guard"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Precio Habitual:$ "
+                android:paddingLeft="20dp"
+                android:textColor="@color/abc_input_method_navigation_guard"
+                android:textSize="20dp"
+                android:layout_marginBottom="50dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_reserva_precio_h"
+                android:textSize="20dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Oferta:$ "
+                android:textColor="@color/abc_input_method_navigation_guard"
+                android:paddingLeft="20dp"
+                android:textSize="20dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_reserva_precio_oferta"
+                android:textSize="20dp"
+                android:textColor="@color/colorPrimaryDark"/>
+
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="50dp"
+            android:orientation="horizontal"
+            android:layout_gravity="top"
             >
-            <LinearLayout
+
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingRight="16dp"
-                android:paddingLeft="30dp"
-                android:paddingTop="31dp"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Juga al "
-                    android:textSize="24dp"
-                    android:textColor="@color/abc_input_method_navigation_guard"
-                    />
-                <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/reserva_deporte"
-                    android:textSize="24dp"
-                    android:textColor="@color/abc_input_method_navigation_guard"
-                    android:paddingBottom="20dp"
-                    android:paddingTop="20dp"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" en "
-                    android:textSize="24dp"
-                    android:textColor="@color/abc_input_method_navigation_guard"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/reserva_nombre_establecimiento"
-                    android:textSize="24dp"
-                    android:paddingBottom="10dp"
-                    android:textColor="@color/abc_input_method_navigation_guard"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="! "
-                    android:textSize="24dp"
-                    android:paddingBottom="10dp"
-                    android:textColor="@color/abc_input_method_navigation_guard"
-                    />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="16dp"
-                    android:paddingBottom="31dp"
-                    >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/reserva_ahorro_oferta"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="24dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="% de ahorro!"
-                        android:textSize="24dp"
-                        android:paddingBottom="10dp"
-                        android:textColor="@color/abc_input_method_navigation_guard"
-                        />
-                    </LinearLayout>
-            <LinearLayout
+                android:text="Fecha: "
+                android:textSize="20dp"
+                android:paddingLeft="20dp"
+                android:textColor="@color/abc_input_method_navigation_guard"
+                android:paddingBottom="50dp"
+                />
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Precio Habitual:$ "
-                    android:paddingLeft="20dp"
-                    android:textColor="@color/abc_input_method_navigation_guard"
-                    android:textSize="20dp"
-                    android:layout_marginBottom="50dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_reserva_precio_h"
-                    android:textSize="20dp"/>
-                   <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:text="Oferta:$ "
-                       android:textColor="@color/abc_input_method_navigation_guard"
-                       android:paddingLeft="20dp"
-                       android:textSize="20dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_reserva_precio_oferta"
-                    android:textSize="20dp"
-                    android:textColor="@color/colorPrimaryDark"/>
+                android:id="@+id/reserva_fecha"
+                android:textSize="20dp"
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="top"
-                >
+                />
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Fecha: "
-                    android:textSize="20dp"
-                    android:paddingLeft="20dp"
-                    android:textColor="@color/abc_input_method_navigation_guard"
-                    android:paddingBottom="50dp"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/reserva_fecha"
-                    android:textSize="20dp"
-
-                    />
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hora: "
-                    android:textSize="20dp"
-                    android:textColor="@color/abc_input_method_navigation_guard"
-                    android:paddingLeft="20dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/reserva_hora"
-                    android:textSize="20dp"
-                    />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="bottom">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20dp"
-                    android:textColor="@color/abc_input_method_navigation_guard"
-                    android:text="Ubicacion: "
-                    android:layout_alignBottom="@+id/reserva_fecha"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:paddingLeft="20dp"
-                    android:paddingBottom="50dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/reserva_ubicacion"
-                    android:textSize="20dp"
-                    />
-
-            </LinearLayout>
-            <LinearLayout
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:text="Hora: "
+                android:textSize="20dp"
+                android:textColor="@color/abc_input_method_navigation_guard"
+                android:paddingLeft="20dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/reserva_hora"
+                android:textSize="20dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="bottom">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textColor="@color/abc_input_method_navigation_guard"
+                android:text="Ubicacion: "
+                android:layout_alignBottom="@+id/reserva_fecha"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:paddingLeft="20dp"
+                android:paddingBottom="50dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/reserva_ubicacion"
+                android:textSize="20dp"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
             <TextView
                 android:textColor="@color/abc_input_method_navigation_guard"
                 android:layout_width="wrap_content"
@@ -222,19 +222,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/reserva_direccion"/>
-            </LinearLayout>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Reservar"
-                android:background="@color/colorPrimaryDark"
-                android:id="@+id/boton_reservar"
-                android:textSize="25dp"
-                android:textColor="#FFFFFF"
-                android:layout_gravity="center|bottom"
-                />
-
         </LinearLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reservar"
+            android:background="@color/colorPrimaryDark"
+            android:id="@+id/boton_reservar"
+            android:textSize="25dp"
+            android:textColor="#FFFFFF"
+            android:layout_gravity="center|bottom"
+            />
+
+    </LinearLayout>
 
 
 
