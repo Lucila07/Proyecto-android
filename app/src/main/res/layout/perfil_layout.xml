@@ -47,7 +47,7 @@
         <TextView
             android:layout_width="109dp"
             android:layout_height="wrap_content"
-            android:text="Localidad:"
+            android:text="@string/perfil_localidad"
             android:textColor="#000000"
             android:textSize="22dp"
             android:layout_weight="0.02"
@@ -75,7 +75,7 @@
         <TextView
             android:layout_width="109dp"
             android:layout_height="wrap_content"
-            android:text="Teléfono:"
+            android:text="@string/perfil_telefono"
             android:textColor="#000000"
             android:textSize="22dp"
             android:layout_weight="0.02"
@@ -114,7 +114,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mail:"
+            android:text="@string/perfil_mail"
             android:layout_marginLeft="30dp"
             android:textColor="#000000"
             android:textSize="22dp"
@@ -141,7 +141,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Editar perfil"
+        android:text="@string/perfil_bt_editar"
         android:textSize="25dp"
         android:textColor="#FFFFFF"
         android:id="@+id/bt_editar_perfil"

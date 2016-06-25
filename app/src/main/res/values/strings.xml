@@ -3,8 +3,47 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <!--Agregue -->
-    <string name="app_name">Deportes</string>
+    <string name="app_name">Juga y ahorra</string>
     <string name="google_app_id">855861162770</string>
+    <!--editar usuario-->
+    <string name="editar_usuario">Usuario</string>
+    <string name="editar_telefono">Telefono</string>
+    <string name="editar_bt_aceptar"> Aceptar cambios</string>
+    <string name="editar_advertencia"> *Esta información sera enviada a los establecimientos cuando hagas reservas</string>
+    <!--login -->
+    <string name="login_titulo1">JUGÁ</string>
+    <string name="login_titulo2">Y</string>
+    <string name="login_titulo3">AHORRÁ</string>
+    <!--Nuevo usuario-->
+    <string name="nuevo_usuario_bienvenido">Bienvenido</string>
+    <string name="nuevo_usuario_ingrese_telefono"> Ingrese su telefono:</string>
+    <string name="nuevo_usuario_bt_ingresar">Ingresar</string>
+    <string name="nuevo_usuario_bt_omitir">Omitir</string>
+    <!--Fragment ofertas-->
+    <string name="ofertas_bt_actualizar">Actualizar</string>
+    <string name="ofertas_deporte">Deporte: </string>
+    <string name="ofertas_nohay"> No hay ofertas disponibles</string>
+    <!--Fragment reservas usuario-->
+    <string name="reserva_norealizadas"> Todavia no has realizado ninguna oferta</string>
+    <!--Fragment perfil -->
+    <string name="perfil_localidad">Localidad:</string>
+    <string name="perfil_telefono">Telefono:</string>
+    <string name="perfil_mail">Mail:</string>
+    <string name="perfil_bt_editar">Editar perfil</string>
+    <!-- presentacion oferta -->
+    <string name="presentacion_titulo_1">Juga al &#160;</string>
+    <string name="presentacion_titulo_2"> &#160;en &#160; </string>
+    <string name="presentacion_titulo_3">!</string>
+    <string name="presentacion_subtitulo">% de ahorro!</string>
+    <string name="presentacion_ph">Precio Habitual:$</string>
+    <string name="presentacion_po"> Oferta:$</string>
+    <string name="presentacion_fecha">Fecha: </string>
+    <string name="presentacion_hora">Hora: </string>
+    <string name="presentacion_ubicacion">Ubicacion: </string>
+    <string name="presentacion_direccion">Direccion: </string>
+    <!-- reserva oferta -->
+    <string name="reserva_bt_reservar">Reservar</string>
+
     <string-array name="navDrawerItems">
         <item>Mi perfil</item>
         <item>Fin de partido </item>

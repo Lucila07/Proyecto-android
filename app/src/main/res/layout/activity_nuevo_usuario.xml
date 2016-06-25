@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.lucila.myapplication.NuevoUsuario"
+    tools:context="com.example.lucila.myapplication.NuevoUsuarioActivity"
     android:layout_gravity="center_vertical"
     android:gravity="center"
     android:background="@color/colorPrimary"
@@ -13,7 +13,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bienvenido"
+        android:text="@string/nuevo_usuario_bienvenido"
         android:textAlignment="center"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:textSize="60dp"
@@ -28,13 +28,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ingrese su telefono:"
+            android:text="@string/nuevo_usuario_ingrese_telefono"
             android:textSize="30dp"
             android:textColor="@color/abc_input_method_navigation_guard" />
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="telefono"
+            android:hint="@string/editar_telefono"
             android:id="@+id/ed_telefono"
             android:inputType="number"
             android:textColor="#121212"
@@ -46,14 +46,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/boton_crear_usuario"
-        android:text="Ingresar"
+        android:text="@string/nuevo_usuario_bt_ingresar"
         android:backgroundTint="@color/colorAccent"
         android:textSize="25dp"
         android:textColor="#FFFFFF"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Esta informaacion sera enviada a los establecimientos cuando hagas reservas "
+        android:text="@string/editar_advertencia"
         android:layout_gravity="bottom"
         android:textColor="@color/abc_input_method_navigation_guard" />
 
@@ -61,7 +61,7 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Omitir"
+        android:text="@string/nuevo_usuario_bt_omitir"
         android:id="@+id/bt_omitir"
         android:layout_gravity="center_horizontal"
         android:background="#00000000"

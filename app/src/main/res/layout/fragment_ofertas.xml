@@ -25,7 +25,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Actualizar"
+            android:text="@string/ofertas_bt_actualizar"
             android:id="@+id/bt_actualizar"
             android:backgroundTint="@color/colorAccent"
             android:textSize="15dp"
@@ -38,7 +38,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Deporte: "
+            android:text="@string/ofertas_deporte"
             android:textSize="25dp"
             android:layout_marginTop="100dp"
             android:paddingLeft="20dp"
@@ -58,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        android:text="No hay ofertas disponibles"
+        android:text="@string/ofertas_nohay"
         android:id="@+id/tv_no_hay_ofertas"
         android:layout_gravity="center"
         android:paddingTop="50dp"

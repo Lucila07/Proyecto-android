@@ -44,7 +44,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Juga al "
+                android:text="@string/presentacion_titulo_1"
                 android:textSize="24dp"
                 android:textColor="@color/abc_input_method_navigation_guard"
                 />
@@ -60,7 +60,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" en "
+                android:text="@string/presentacion_titulo_2"
                 android:textSize="24dp"
                 android:textColor="@color/abc_input_method_navigation_guard"
                 />
@@ -76,7 +76,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="! "
+                android:text="@string/presentacion_titulo_3"
                 android:textSize="24dp"
                 android:paddingBottom="10dp"
                 android:textColor="@color/abc_input_method_navigation_guard"
@@ -101,7 +101,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="% de ahorro!"
+                android:text="@string/presentacion_subtitulo"
                 android:textSize="24dp"
                 android:paddingBottom="10dp"
                 android:textColor="@color/abc_input_method_navigation_guard"
@@ -114,7 +114,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Precio Habitual:$ "
+                android:text="@string/presentacion_ph"
                 android:paddingLeft="20dp"
                 android:textColor="@color/abc_input_method_navigation_guard"
                 android:textSize="20dp"
@@ -127,7 +127,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Oferta:$ "
+                android:text="@string/presentacion_po"
                 android:textColor="@color/abc_input_method_navigation_guard"
                 android:paddingLeft="20dp"
                 android:textSize="20dp"/>
@@ -151,7 +151,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Fecha: "
+                android:text="@string/presentacion_fecha"
                 android:textSize="20dp"
                 android:paddingLeft="20dp"
                 android:textColor="@color/abc_input_method_navigation_guard"
@@ -169,7 +169,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hora: "
+                android:text="@string/presentacion_hora"
                 android:textSize="20dp"
                 android:textColor="@color/abc_input_method_navigation_guard"
                 android:paddingLeft="20dp"/>
@@ -191,7 +191,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:textColor="@color/abc_input_method_navigation_guard"
-                android:text="Ubicacion: "
+                android:text="@string/presentacion_ubicacion"
                 android:layout_alignBottom="@+id/reserva_fecha"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
@@ -213,7 +213,7 @@
                 android:textColor="@color/abc_input_method_navigation_guard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Direccion: "
+                android:text="@string/presentacion_direccion"
                 android:paddingLeft="20dp"
                 android:textSize="20dp"
                 />
@@ -226,7 +226,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reservar"
+            android:text="@string/reserva_bt_reservar"
             android:background="@color/colorPrimaryDark"
             android:id="@+id/boton_reservar"
             android:textSize="25dp"

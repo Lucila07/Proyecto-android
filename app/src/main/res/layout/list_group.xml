@@ -7,17 +7,7 @@
     >
 
 
-    <!--   <TextView
-        android:id="@+id/lblListHeader"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
-        android:textSize="17dp"
-        android:textColor="#f9f93d" />
-    -->
-    <!-- title -->
 
-    <!-- icon -->
     <ImageView
         android:id="@+id/item_icon"
         android:layout_width="64dp"

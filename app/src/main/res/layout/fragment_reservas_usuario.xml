@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Todavia no has realizado ninguna oferta"
+        android:text="@string/reserva_norealizadas"
         android:visibility="gone"
         android:id="@+id/ofertas_usuario_ninguna"
         />

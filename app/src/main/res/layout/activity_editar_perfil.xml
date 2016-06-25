@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/editar_nombre"
             android:ems="10"
-            android:hint="Usuario"
+            android:hint="@string/editar_usuario"
             android:gravity="center"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
@@ -39,7 +39,7 @@
             android:inputType="number"
             android:ems="10"
             android:id="@+id/editar_telefono"
-            android:hint="Teléfono"
+            android:hint="@string/editar_telefono"
             android:gravity="center"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
@@ -48,7 +48,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Aceptar cambios"
+            android:text="@string/editar_bt_aceptar"
             android:textSize="25dp"
             android:textColor="#FFFFFF"
             android:layout_gravity="center|bottom"
@@ -64,6 +64,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="*Esta información sera enviada a los establecimientos cuando hagas reservas "
+        android:text="@string/editar_advertencia"
         android:layout_marginTop="10dp" />
 </LinearLayout>
