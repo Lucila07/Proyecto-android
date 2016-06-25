@@ -1,41 +1,11 @@
 package com.example.lucila.myapplication;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.LocationManager;
-import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
-import android.content.ContentResolver;
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build.VERSION;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lucila.myapplication.Datos.ServicioUsuarios;
@@ -49,11 +19,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
-import java.util.ArrayList;
-import java.util.List;
-
-import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via email/password.
@@ -173,8 +138,7 @@ public class LoginActivity extends AppCompatActivity implements ServicioUsuarios
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
-            // Toast.makeText(LoginActivity.this," "+acct.getEmail()+" "+acct.getId()+" "+ acct.getDisplayName()+" " , Toast.LENGTH_LONG).show();
-           // Toast.makeText(LoginActivity.this, " Bienvenido " + acct.getEmail(), Toast.LENGTH_LONG).show();
+
 
             usuario = new Usuario(acct.getEmail());
             usuario.setIdUsuario(acct.getId());
@@ -214,7 +178,7 @@ public class LoginActivity extends AppCompatActivity implements ServicioUsuarios
     public void cargarTelefono() {
 
         Intent intent = new Intent();
-        intent.setClass(LoginActivity.this, NuevoUsuario.class);
+        intent.setClass(LoginActivity.this, NuevoUsuarioActivity.class);
         intent.putExtra("id", usuario.getIdUsuario());
         intent.putExtra("mail", usuario.getEmail());
         intent.putExtra("nombre", usuario.getNombreApellido());

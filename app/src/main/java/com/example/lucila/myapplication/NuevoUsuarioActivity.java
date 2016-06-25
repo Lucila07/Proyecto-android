@@ -3,7 +3,6 @@ package com.example.lucila.myapplication;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,14 +11,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.example.lucila.myapplication.Datos.ServicioOfertasHttp;
 import com.example.lucila.myapplication.Datos.ServicioUsuarios;
 import com.example.lucila.myapplication.Datos.ServicioUsuariosHttp;
-import com.example.lucila.myapplication.Entidades.Usuario;
 import com.example.lucila.myapplication.http.VerificaConexion;
 
-public class NuevoUsuario extends AppCompatActivity implements ServicioUsuariosHttp.AccesoUsuarios{
+public class NuevoUsuarioActivity extends AppCompatActivity implements ServicioUsuariosHttp.AccesoUsuarios{
 
     private ServicioUsuarios servicioUsuarios;
     private EditText editText;
@@ -47,12 +43,12 @@ public class NuevoUsuario extends AppCompatActivity implements ServicioUsuariosH
 
 
                 if(!VerificaConexion.hayConexionInternet(activity)) {
-                    Toast.makeText(NuevoUsuario.this, "No hay conexion a internet", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NuevoUsuarioActivity.this, "No hay conexion a internet", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     telefono=editText.getText().toString();
                     if(telefono==null||telefono.isEmpty()||telefono.equals("")||telefono.equals(" ")||telefono.length()<4)
-                         generarDialogoTelefono();
+                        generarDialogoTelefono();
                     else{
                         servicioUsuarios.crearUsuario(nombreUsuario,mail,id,telefono);
                     }
@@ -68,10 +64,10 @@ public class NuevoUsuario extends AppCompatActivity implements ServicioUsuariosH
             public void onClick(View v) {
 
                 if(!VerificaConexion.hayConexionInternet(activity)) {
-                    Toast.makeText(NuevoUsuario.this, "No hay conexion a internet", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NuevoUsuarioActivity.this, "No hay conexion a internet", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                  generarDialogoTelefono();
+                    generarDialogoTelefono();
                 }
 
 
@@ -84,22 +80,22 @@ public class NuevoUsuario extends AppCompatActivity implements ServicioUsuariosH
     @Override
     public void cargarMain() {
 
-            Toast.makeText(NuevoUsuario.this, "Gracias por registrarse! ", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent();
-            intent.setClass(NuevoUsuario.this, MainActivity.class);
-            startActivity(intent);
+        Toast.makeText(NuevoUsuarioActivity.this, "Gracias por registrarse! ", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent();
+        intent.setClass(NuevoUsuarioActivity.this, MainActivity.class);
+        startActivity(intent);
 
     }
 
     @Override
     public void cargarTelefono() {
 
-        Toast.makeText(NuevoUsuario.this,"Ha ocurrido un error al registrase, intentelo nuevamente ", Toast.LENGTH_SHORT).show();
+        Toast.makeText(NuevoUsuarioActivity.this,"Ha ocurrido un error al registrase, intentelo nuevamente ", Toast.LENGTH_SHORT).show();
     }
 
 
     private void generarDialogoTelefono(){
-        AlertDialog dialogo= new AlertDialog.Builder(NuevoUsuario.this)
+        AlertDialog dialogo= new AlertDialog.Builder(NuevoUsuarioActivity.this)
                 .setTitle("Ingresar")
                 .setMessage("Para poder reservar debera ingresar su telefono \n Lo podra hacer luego en: 'Mi perfil->editar' ")
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {

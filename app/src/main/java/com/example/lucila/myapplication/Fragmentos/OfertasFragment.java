@@ -4,10 +4,7 @@ package com.example.lucila.myapplication.Fragmentos;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,7 +26,7 @@ import com.example.lucila.myapplication.Entidades.Deporte;
 import com.example.lucila.myapplication.Entidades.Oferta;
 import com.example.lucila.myapplication.Entidades.Usuario;
 import com.example.lucila.myapplication.Estado.EstadoApp;
-import com.example.lucila.myapplication.MyAdapter;
+import com.example.lucila.myapplication.AdapterOfertasPrincipales;
 import com.example.lucila.myapplication.R;
 import com.example.lucila.myapplication.ReservaOfertaActivity;
 import com.example.lucila.myapplication.http.VerificaConexion;
@@ -45,7 +42,7 @@ public class OfertasFragment extends Fragment implements ServicioOfertasHttp.Cal
     private  ListView lista;
     private  Context contexto;
     private  RecyclerView mRecyclerView;
-    private   MyAdapter mAdapter;
+    private AdapterOfertasPrincipales mAdapter;
     private   RecyclerView.LayoutManager mLayoutManager;
     private   List<Oferta>ofertas;
     private  Spinner spinner;
@@ -171,7 +168,7 @@ public class OfertasFragment extends Fragment implements ServicioOfertasHttp.Cal
           // specify an adapter (see also next example)
 
 
-          mAdapter = new MyAdapter(ofertas, contexto);
+          mAdapter = new AdapterOfertasPrincipales(ofertas, contexto);
           mAdapter.ClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {

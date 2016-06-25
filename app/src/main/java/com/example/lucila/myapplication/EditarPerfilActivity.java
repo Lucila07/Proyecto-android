@@ -98,7 +98,10 @@ public class EditarPerfilActivity extends AppCompatActivity implements ServicioU
         usuario.setNombreApellido(nuevoNom);
         Toast.makeText(EditarPerfilActivity.this, "Sus datos fueron editados con exito", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent();
-        intent.setClass(EditarPerfilActivity.this, PerfilActivity.class);
+        intent.setClass(EditarPerfilActivity.this, MenuActivity.class);
+        intent.putExtra("opcion",1);
+
+
         startActivity(intent);
     }
 

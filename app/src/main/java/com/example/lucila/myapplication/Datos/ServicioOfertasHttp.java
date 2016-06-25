@@ -1,7 +1,6 @@
 package com.example.lucila.myapplication.Datos;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
@@ -16,15 +15,13 @@ import com.example.lucila.myapplication.Entidades.Oferta;
 import com.example.lucila.myapplication.Entidades.Usuario;
 import com.example.lucila.myapplication.http.ConstantesAcceso;
 import com.example.lucila.myapplication.http.VolleySingleton;
-import com.example.lucila.myapplication.http.deporteDeserializer;
-import com.example.lucila.myapplication.http.establecimientosDeserializer;
-import com.example.lucila.myapplication.http.ofertaDeserializer;
+import com.example.lucila.myapplication.http.DeporteDeserializer;
+import com.example.lucila.myapplication.http.EstablecimientosDeserializer;
+import com.example.lucila.myapplication.http.OfertaDeserializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 //jason  para las consultas al web service
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -103,8 +100,8 @@ public class ServicioOfertasHttp implements Parcelable{
     }
     //----------PARSELEABLE-----------------
 
-    public static final Parcelable.Creator<ServicioOfertasHttp> CREATOR
-            = new Parcelable.Creator<ServicioOfertasHttp>() {
+    public static final Creator<ServicioOfertasHttp> CREATOR
+            = new Creator<ServicioOfertasHttp>() {
         public ServicioOfertasHttp createFromParcel(Parcel in) {
             return new ServicioOfertasHttp(in);
         }
@@ -298,7 +295,7 @@ public class ServicioOfertasHttp implements Parcelable{
                     String cadenaRecibida=mensaje.toString();
                     Log.d("ofertas ",cadenaRecibida);
                     GsonBuilder gBuilder = new GsonBuilder();
-                    gBuilder.registerTypeAdapter(Oferta.class,new ofertaDeserializer(mapeo));
+                    gBuilder.registerTypeAdapter(Oferta.class,new OfertaDeserializer(mapeo));
                     gson = gBuilder.create();
                      ofertaArray= gson.fromJson(cadenaRecibida, Oferta[].class);
                     ofertas=new ArrayList<Oferta>();
@@ -379,7 +376,7 @@ private static void  procesarRespuestaDeportes(JSONObject response) {
                // Log.d(activity.getClass().getSimpleName(), "Deportes " + cadenaRecibida);
 
                 GsonBuilder gBuilder = new GsonBuilder();
-                gBuilder.registerTypeAdapter(Deporte.class,new deporteDeserializer());
+                gBuilder.registerTypeAdapter(Deporte.class,new DeporteDeserializer());
                 gson = gBuilder.create();
                 deportesArray= gson.fromJson(cadenaRecibida, Deporte[].class);
 
@@ -520,7 +517,7 @@ private static void  procesarRespuestaDeportes(JSONObject response) {
 
                     GsonBuilder gBuilder = new GsonBuilder();
                     //registra el deserializer de las ofertas con el mapeo de id deporte a deporte
-                    gBuilder.registerTypeAdapter(Oferta.class,new ofertaDeserializer(mapeo));
+                    gBuilder.registerTypeAdapter(Oferta.class,new OfertaDeserializer(mapeo));
                     gson = gBuilder.create();
                     ofertaArray= gson.fromJson(cadenaRecibida, Oferta[].class);
                     Log.d("reservas hechas","array de ofertas "+ofertaArray[0].getDeporte().getNombre());
@@ -591,7 +588,7 @@ private static void  procesarRespuestaDeportes(JSONObject response) {
                     Log.d("esablecimientos","jason recibido "+cadenaRecibida);
 
                     GsonBuilder gBuilder = new GsonBuilder();
-                    gBuilder.registerTypeAdapter(Establecimiento.class,new establecimientosDeserializer());
+                    gBuilder.registerTypeAdapter(Establecimiento.class,new EstablecimientosDeserializer());
                     //registra el deserializer de las ofertas con el mapeo de id deporte a deporte
                     gson = gBuilder.create();
 

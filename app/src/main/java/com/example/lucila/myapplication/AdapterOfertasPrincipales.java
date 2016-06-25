@@ -3,10 +3,7 @@ package com.example.lucila.myapplication;
  * Created by Agustin on 30/04/2016.
  * adaptador para la lista de ofertas
  * */
-
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 
@@ -14,12 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-
 import com.example.lucila.myapplication.Datos.MapeoIdEstablecimiento;
 import com.example.lucila.myapplication.Entidades.Deporte;
 import com.example.lucila.myapplication.Entidades.Establecimiento;
@@ -28,14 +21,12 @@ import com.example.lucila.myapplication.Entidades.Oferta;
 
 import java.util.List;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>   implements View.OnClickListener{
-   // private String[] mDataset;
+public class AdapterOfertasPrincipales extends RecyclerView.Adapter<AdapterOfertasPrincipales.ViewHolder>   implements View.OnClickListener{
+
     private List<Oferta>lista_ofertas;
     public Context contexto;
     private View.OnClickListener listener;
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public TextView text_deporte;
@@ -63,18 +54,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>   impl
         }
     }
 
-    // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter( List<Oferta>mis_datos, Context context) {
+
+    public AdapterOfertasPrincipales(List<Oferta>mis_datos, Context context) {
         contexto=context;
         lista_ofertas=mis_datos;
     }
 
-    // Create new views (invoked by the layout manager)
+
     @Override
-    public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // create a new view
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
-        // set the view's size, margins, paddings and layout parameters
+
         v.setOnClickListener(this);//le seteo el clink listener
 
         ViewHolder vh = new ViewHolder(v);
@@ -82,7 +73,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>   impl
         return vh;
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
+
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Oferta oferta= lista_ofertas.get(position);
@@ -96,7 +87,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>   impl
             holder.text_ubicacion.setText(oferta.getUbicacion());
             holder.text_hora.setText(oferta.getHora().toString());
             holder.text_fecha.setText(oferta.getFecha().toString());
-         //  holder.porcentaje_ahorro.setText((oferta.getPrecioOferta()*100)/oferta.getPrecioHabitual());
             Integer int_ahorro =new Integer((oferta.getPrecioOferta()*100)/oferta.getPrecioHabitual());
             String s_ahorro=int_ahorro.toString();
             holder.text_ahorro.setText(s_ahorro);
@@ -110,24 +100,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>   impl
         }
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
+
     @Override
     public int getItemCount() {
         return lista_ofertas.size();
     }
-    /*
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-        //Toast.makeText(parent.getContext(),"item seleccionado"+lista_ofertas.get(position), Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(" com.example.lucila.myapplication.ReservaOfertaActivity");
-        contexto.startActivity(intent);
-    }
-
-    public  void onNothingSelected(AdapterView<?>vista){
-
-
-    }
-    */
     /**
      * establemcemos el clink listener
      *@param: listener. se asigna  desde fuera del adaptador
@@ -151,7 +129,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>   impl
         Log.d("dibujar ofertas","el nombre del deporte "+deporte.getNombre());
         switch (deporte.getNombre()){
             case "futbol":
-              recurso= R.drawable.football;
+                recurso= R.drawable.football;
                 break;
             case "Futbol":
                 recurso= R.drawable.football;
@@ -188,4 +166,4 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>   impl
         holder.imagenOferta.setImageResource(recurso);
 
     }
-   }
+}

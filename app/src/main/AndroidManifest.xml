@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.lucila.myapplication">
 
@@ -21,7 +20,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDmIME_-KCbPA8iNBUDjMzWNg92VgrVOZc" />
 
-        <activity android:name=".NuevoUsuario" />
+        <activity android:name=".NuevoUsuarioActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
 
@@ -37,37 +36,17 @@
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.lucila.myapplication.MainActivity" />
+                android:value=".MainActivity" />
             >
         </activity>
         <activity
-            android:name=".PerfilActivity"
+            android:name=".MenuActivity"
             android:parentActivityName=".MainActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.lucila.myapplication.MainActivity" />
-            >
-        </activity>
-        <activity
-            android:name=".ReservasUsuarioActivity"
-            android:parentActivityName=".MainActivity">
-
-            <!-- Parent activity meta-data to support 4.0 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.lucila.myapplication.MainActivity" />
-            >
-        </activity>
-        <activity
-            android:name=".menuActivity"
-            android:parentActivityName=".MainActivity">
-
-            <!-- Parent activity meta-data to support 4.0 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.lucila.myapplication.MainActivity" />
+                android:value=".MainActivity" />
             >
         </activity>
         <!-- Permiso usado para obtener la ubicación del usuario -->
@@ -81,12 +60,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".EditarPerfilActivity"
-            android:parentActivityName=".PerfilActivity">
+            android:parentActivityName=".MenuActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.lucila.myapplication.PerfilActivity" />
+                android:value=".MenuActivity" />
         </activity>
     </application>
 

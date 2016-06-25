@@ -42,14 +42,11 @@ public class ReservaOfertaActivity extends AppCompatActivity  implements Servici
         usuario = servicioUsuario.getUsuarioLogueado();
         servicioOfertas= ServicioOfertasHttp.getInstanciaServicio(this,this);
 
-      // oferta= (Oferta)intent.getExtras().getParcelable("oferta");
 
-       // oferta=(Oferta)intent.getExtras().getParcelable("oferta");
         oferta= EstadoApp.getInstance().getOfertaActual();
         Log.d("oferta recibida "," ubicacion de of"+oferta.getUbicacion()+" precio "+oferta.getPrecioHabitual());
 
-       // String ubicacion=(String)intent.getExtras().getString("ubicacion");
-        //int precioH=(int)intent.getExtras().getInt("precioH");
+
         if(oferta!=null){
             establecerTextos(oferta);
 
@@ -85,17 +82,17 @@ public class ReservaOfertaActivity extends AppCompatActivity  implements Servici
                                 generarDialogoFallo("Para poder reservar debera ingresar su telefono \n Lo podra hacer  en: 'Mi perfil->editar' ");
                             }
                             else
-                                if (!cheaquerDato(usuario.getNombreApellido())) {
-                                    generarDialogoFallo("Para poder reservar debera ingresar nombre de usuario \n" +
-                                            " Lo podra hacer  en: 'Mi perfil->editar' ");
-                                }
-                              else
-                                    if (!oferta.getEstado().equals("reservada")) {
-                                        generarDialogoReserva();
-                                    } else {
+                            if (!cheaquerDato(usuario.getNombreApellido())) {
+                                generarDialogoFallo("Para poder reservar debera ingresar nombre de usuario \n" +
+                                        " Lo podra hacer  en: 'Mi perfil->editar' ");
+                            }
+                            else
+                            if (!oferta.getEstado().equals("reservada")) {
+                                generarDialogoReserva();
+                            } else {
 
-                                        generarDialogoFallo("Esta oferta ya esta reservada :( ");
-                                    }
+                                generarDialogoFallo("Esta oferta ya esta reservada :( ");
+                            }
 
                         }
                     }
@@ -146,44 +143,44 @@ public class ReservaOfertaActivity extends AppCompatActivity  implements Servici
 
     }
 
-private void establecerTextos(Oferta oferta){
+    private void establecerTextos(Oferta oferta){
 
-    TextView fecha= (TextView)findViewById(R.id.reserva_fecha);
-    TextView ubicacion= (TextView)findViewById(R.id.reserva_ubicacion);
-    TextView hora= (TextView)findViewById(R.id.reserva_hora);
-    TextView deporte= (TextView)findViewById(R.id.reserva_deporte);
-    TextView establecimiento_nombre= (TextView)findViewById(R.id.reserva_nombre_establecimiento);
-    TextView ahorro=(TextView)findViewById(R.id.reserva_ahorro_oferta);
-    TextView tv_precioHabitual=(TextView)findViewById(R.id.tv_reserva_precio_h);
-    TextView tv_precioO=(TextView)findViewById(R.id.tv_reserva_precio_oferta);
-    TextView tv_direccion=(TextView)findViewById(R.id.reserva_direccion);
+        TextView fecha= (TextView)findViewById(R.id.reserva_fecha);
+        TextView ubicacion= (TextView)findViewById(R.id.reserva_ubicacion);
+        TextView hora= (TextView)findViewById(R.id.reserva_hora);
+        TextView deporte= (TextView)findViewById(R.id.reserva_deporte);
+        TextView establecimiento_nombre= (TextView)findViewById(R.id.reserva_nombre_establecimiento);
+        TextView ahorro=(TextView)findViewById(R.id.reserva_ahorro_oferta);
+        TextView tv_precioHabitual=(TextView)findViewById(R.id.tv_reserva_precio_h);
+        TextView tv_precioO=(TextView)findViewById(R.id.tv_reserva_precio_oferta);
+        TextView tv_direccion=(TextView)findViewById(R.id.reserva_direccion);
 
-    Establecimiento establecimiento= MapeoIdEstablecimiento.getInstance().getById(oferta.getIdUserCreador());
-    establecimiento_nombre.setText(establecimiento.getNombre());
-    String direccion=establecimiento.getDireccion();
-    if(direccion!=null)
-        tv_direccion.setText(establecimiento.getDireccion().toString());
-    else tv_direccion.setText("No disponible");
+        Establecimiento establecimiento= MapeoIdEstablecimiento.getInstance().getById(oferta.getIdUserCreador());
+        establecimiento_nombre.setText(establecimiento.getNombre());
+        String direccion=establecimiento.getDireccion();
+        if(direccion!=null)
+            tv_direccion.setText(establecimiento.getDireccion().toString());
+        else tv_direccion.setText("No disponible");
 
-    Integer precioH=oferta.getPrecioHabitual();
-    Integer int_ahorro=0;
-    Integer precioOfertado=oferta.getPrecioOferta();
-    if( precioH>0)
-     int_ahorro =new Integer((precioOfertado*100)/precioH);
+        Integer precioH=oferta.getPrecioHabitual();
+        Integer int_ahorro=0;
+        Integer precioOfertado=oferta.getPrecioOferta();
+        if( precioH>0)
+            int_ahorro =new Integer((precioOfertado*100)/precioH);
 
 
-    tv_precioHabitual.setText(precioH.toString());
-    tv_precioO.setText(precioOfertado.toString());
+        tv_precioHabitual.setText(precioH.toString());
+        tv_precioO.setText(precioOfertado.toString());
 
-    String s_ahorro=int_ahorro.toString();
-    ahorro.setText(s_ahorro);
+        String s_ahorro=int_ahorro.toString();
+        ahorro.setText(s_ahorro);
 
-    fecha.setText(oferta.getFecha().toString());
-    ubicacion.setText(oferta.getUbicacion());
-    hora.setText(oferta.getHora().toString());
-    deporte.setText(oferta.getDeporte().getNombre());
+        fecha.setText(oferta.getFecha().toString());
+        ubicacion.setText(oferta.getUbicacion());
+        hora.setText(oferta.getHora().toString());
+        deporte.setText(oferta.getDeporte().getNombre());
 
-}
+    }
 
     private void generarDialogoOk(final Activity activity){
         AlertDialog dialogo= new AlertDialog.Builder(ReservaOfertaActivity.this)

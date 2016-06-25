@@ -2,9 +2,6 @@
 <resources>
     <color name="colorPrimary"> #8BC34A</color>
     <color name="colorPrimaryDark">#7eac4c</color>
-    <color name="textColorPrimary">#FFFFFF</color>
-    <color name="windowBackground">#e9ffffff</color>
-    <color name="navigationBarColor">#000000</color>
     <color name="colorAccent">#03A9F4</color>
 	<color name="statusBarColor">#4169E1</color>
     <color name="toolBarColor">#8BC34A</color>

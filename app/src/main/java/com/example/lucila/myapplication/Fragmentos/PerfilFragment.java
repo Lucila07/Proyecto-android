@@ -10,7 +10,6 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +36,7 @@ import static com.google.android.gms.internal.zzir.runOnUiThread;
 public class PerfilFragment  extends android.support.v4.app.Fragment {
 
 
-    private  Toolbar toolbar;
+
     private Usuario usuario;
     private  TextView nombre, telefono, localidad,mail;
     private ImageView fotoPerfil;
@@ -84,10 +83,6 @@ public class PerfilFragment  extends android.support.v4.app.Fragment {
                             }
                         });
 
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                        }
 
                     }
                 }).start();

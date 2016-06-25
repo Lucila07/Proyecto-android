@@ -9,11 +9,9 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.lucila.myapplication.Datos.MapeoIdEstablecimiento;
 import com.example.lucila.myapplication.Entidades.Establecimiento;
 import com.example.lucila.myapplication.Entidades.Oferta;
-
 import static com.example.lucila.myapplication.R.id.item_Dirección;
 import static com.example.lucila.myapplication.R.id.item_Télefono;
 import static com.example.lucila.myapplication.R.id.item_fecha;
@@ -31,21 +29,20 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     ImageView imgViewIcon;
 
-    // child data in format of header title, child title
-   // private HashMap<Long, String> _listDataChild;
+
 
     public ExpandableListAdapter(Context context, Oferta[] listDataHeader ) {
 
-        //HashMap<Long, String> listChildData--> paraametro
+
         this._context = context;
         this._listDataHeader = listDataHeader;
-     //   this._listDataChild = listChildData;
+
     }
 
-   @Override
+    @Override
     public Object getChild(int groupPosition, int childPosititon) {
         return null;
-       //this._listDataChild.get(this._listDataHeader[groupPosition].getCodigo());
+
 
     }
 
@@ -65,9 +62,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         Log.d("", "childPosition");
         Log.d("", String.valueOf(childPosition));
         final String childText = (String) getGroup(groupPosition).getUbicacion();
-     // final String childText = (String) getChild(groupPosition, 0);
 
-      //  final String childText="Detalle";
         Log.d("","childText");
         Log.d("",childText);
 
@@ -93,13 +88,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-       // return this._listDataChild.get(_listDataHeader[groupPosition]).size();
-            return 1;
+
+        return 1;
     }
 
     @Override
     public Oferta getGroup(int groupPosition) {
-    return this._listDataHeader[groupPosition];
+        return this._listDataHeader[groupPosition];
     }
 
     @Override
@@ -114,23 +109,23 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-       // String headerTitle = (String) getGroup(groupPosition);
+
 
         Oferta oferta= getGroup(groupPosition);
         String deporte=oferta.getDeporte().getNombre();
         String headerTitle = deporte;
         String  Nombrecancha;
-     //   String headerTitle="titulo";
+
         if (convertView == null) {
-                    LayoutInflater infalInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                     convertView = infalInflater.inflate(R.layout.list_group, null);
+            LayoutInflater infalInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = infalInflater.inflate(R.layout.list_group, null);
         }
 
-        // Acomodar q todas esten declaradas aca abajo
+
         imgViewIcon=(ImageView) convertView.findViewById(R.id.item_icon);
         //seteo el deporte
         TextView lblListHeader = (TextView) convertView.findViewById(R.id.lblListHeader);
-       // TextView cancha = (TextView) convertView.findViewById(R.id.cancha);
+
 
         lblListHeader.setTypeface(null, Typeface.BOLD);
 
@@ -190,7 +185,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
 
         }
-       imgViewIcon.setImageResource(recurso);
+        imgViewIcon.setImageResource(recurso);
 
     }
 }

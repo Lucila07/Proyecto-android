@@ -15,14 +15,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.os.ResultReceiver;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -31,15 +29,12 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.Toast;
-
-import com.example.lucila.myapplication.Datos.ServicioOfertasUsuario;
 import com.example.lucila.myapplication.Datos.ServicioUsuariosHttp;
 import com.example.lucila.myapplication.Entidades.Usuario;
 import com.example.lucila.myapplication.Fragmentos.OfertasFragment;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,9 +46,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
 
     private Toolbar toolbar;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private ServicioOfertasUsuario servicioOfertasUsuario;
+
 
     DrawerLayout drawerLayout;
     RecyclerView recyclerView;
@@ -97,14 +90,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         //toolbar-------------
         setupToolbar();
 
-        //--------------------
-
-        //----------viewPager = (ViewPager) findViewById(R.id.viewpager);
 
 
         CheckEnableGPS();
 
-        //setupViewPager(viewPager);
+
 
         //Initialize Views
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
@@ -128,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     // borrar ultima ubic conocida
 
     public void onConnected(Bundle bundle) {
-         Log.d("","on connected");
+        Log.d("","on connected");
         if (clienteGoogle.isConnected()) {
             Log.d("","is connected");
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -138,15 +128,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
             }
             else
-             ultimaLocacionConocida = LocationServices.FusedLocationApi.getLastLocation(clienteGoogle);
+                ultimaLocacionConocida = LocationServices.FusedLocationApi.getLastLocation(clienteGoogle);
 
             if (ultimaLocacionConocida == null) { // fallo , le seteo una loc por default
                 //Si por alguna razón se almaceno mal
-           /*     ultimaLocacionConocida = new Location("Bahia Blanca");
-                ultimaLocacionConocida.setLongitude(-38.7167);
-                ultimaLocacionConocida.setLatitude(-62.2833);
-         */
-            Log.d("","Error al obtener la localizacion");
+
+                Log.d("","Error al obtener la localizacion");
             }
 
             LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -162,49 +149,49 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     private void obtenerLocacizacion() {
         try {   // String strAddress="Bahía Blanca";  // seteo ubicacion por default
-                 String strAddress="";
-                 Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-                 // acomodar permisos
-                 if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                         && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            String strAddress="";
+            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+            // acomodar permisos
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-                     ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISO_UBICACION);
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISO_UBICACION);
 
-                 }
+            }
             else {
-                     List<Address> addresses = geocoder.getFromLocation(ultimaLocacionConocida.getLatitude(), ultimaLocacionConocida.getLongitude(), 1);
-                     Log.d("", "addresses");
-                     Log.d("", String.valueOf(addresses.size()));
-                     Address fetchedAddress;
+                List<Address> addresses = geocoder.getFromLocation(ultimaLocacionConocida.getLatitude(), ultimaLocacionConocida.getLongitude(), 1);
+                Log.d("", "addresses");
+                Log.d("", String.valueOf(addresses.size()));
+                Address fetchedAddress;
 
-                     if (addresses != null) {
-                         if (addresses.size() == 0) {
-                             //ACOMODAR NI ENTRARIA NUNCA
-                             strAddress = "CORONEL SUAREZ";
-                             Log.d("", "No se ha podido establecer la ubicacion");
+                if (addresses != null) {
+                    if (addresses.size() == 0) {
+                        //ACOMODAR NI ENTRARIA NUNCA
+                        strAddress = "CORONEL SUAREZ";
+                        Log.d("", "No se ha podido establecer la ubicacion");
 
-                         } else {
-                             fetchedAddress = addresses.get(0);
-                             strAddress = fetchedAddress.getLocality();
-                         }
-                     } else {
-                         Log.d("", "No se ha podido establecer la ubicacion");
-                         Toast.makeText(MainActivity.this, "No se ha podido establecer la ubicacion", Toast.LENGTH_SHORT).show();
-                     }
+                    } else {
+                        fetchedAddress = addresses.get(0);
+                        strAddress = fetchedAddress.getLocality();
+                    }
+                } else {
+                    Log.d("", "No se ha podido establecer la ubicacion");
+                    Toast.makeText(MainActivity.this, "No se ha podido establecer la ubicacion", Toast.LENGTH_SHORT).show();
+                }
 
-                     Log.d("ubicacion: ", strAddress);
-                 }
+                Log.d("ubicacion: ", strAddress);
+            }
             LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
             if ((lm.isProviderEnabled(LocationManager.GPS_PROVIDER) && lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)))
-                     Toast.makeText(MainActivity.this, "Se buscaran ofertas en: " + strAddress, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Se buscaran ofertas en: " + strAddress, Toast.LENGTH_SHORT).show();
 
-                     //establecemos la ubicacion en el usuario logueado
-                     Usuario logueado = ServicioUsuariosHttp.getInstance().getUsuarioLogueado();
-                     if (logueado != null) {
-                         logueado.setUbicacion(strAddress);
-                     }
+            //establecemos la ubicacion en el usuario logueado
+            Usuario logueado = ServicioUsuariosHttp.getInstance().getUsuarioLogueado();
+            if (logueado != null) {
+                logueado.setUbicacion(strAddress);
+            }
 
-                 MostrarOfertas();
+            MostrarOfertas();
 
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -246,18 +233,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         fragmentTransaction.replace(R.id.containerView,fragmentoOfertas,null);
         fragmentTransaction.commit();
 
-        /*
-
-          ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-
-           OfertasFragment fragmentoOfertas = new OfertasFragment();
-
-           adapter.addFragment(fragmentoOfertas, "Ofertas");
-           viewPager.setAdapter(adapter);
-
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
-    */
 
     }
 
@@ -287,7 +262,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                         logueado.setUbicacion("Bahía Blanca");
                         MostrarOfertas();
                     }
-                 Toast.makeText(MainActivity.this, "Se utilizará la ubicación default: Bahía Blanca", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Se utilizará la ubicación default: Bahía Blanca", Toast.LENGTH_SHORT).show();
 
                 }
             });
