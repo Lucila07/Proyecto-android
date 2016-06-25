@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
  * Created by tino on 22/05/2016.
  */
 
-public class deporteDeserializer implements JsonDeserializer<Deporte> {
+public class DeporteDeserializer implements JsonDeserializer<Deporte> {
 
     @Override
     public Deporte deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
