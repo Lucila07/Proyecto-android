@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
 import com.example.lucila.myapplication.Fragmentos.PerfilFragment;
 import com.example.lucila.myapplication.Fragmentos.ReservasUsuarioFragment;
-import com.example.lucila.myapplication.R;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -19,7 +19,6 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class MenuActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,17 +38,15 @@ public class MenuActivity extends AppCompatActivity {
 
         {
             case 1: {
-
-
                 getSupportActionBar().setTitle("Mi perfil");
                 PerfilFragment perfilFragment = new PerfilFragment();
                 fragmentTransaction.replace(R.id.containerView_Menu, perfilFragment);
                 fragmentTransaction.commit();
                 break;
             }
-            case 2:
-                break;
             case 3:
+                break;
+            case 2:
 
             {
                 getSupportActionBar().setTitle("Mis reservas");

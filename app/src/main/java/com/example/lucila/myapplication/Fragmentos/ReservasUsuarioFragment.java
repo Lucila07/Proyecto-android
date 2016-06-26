@@ -16,8 +16,6 @@ import com.example.lucila.myapplication.Entidades.Usuario;
 import com.example.lucila.myapplication.ExpandableListAdapter;
 import com.example.lucila.myapplication.R;
 
-import java.util.HashMap;
-
 /**
  * Created by Lucila on 25/6/2016.
  */
@@ -32,7 +30,7 @@ public class ReservasUsuarioFragment extends android.support.v4.app.Fragment imp
     private TextView ninguna_oferta;
     private ExpandableListAdapter listAdapter;
     private ExpandableListView expListView;
-    private HashMap<Long, String> listDataChild;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)  {
@@ -53,19 +51,11 @@ public class ReservasUsuarioFragment extends android.support.v4.app.Fragment imp
 
     @Override
     public void exito(Oferta[] ofertaArray) {
-        Log.d("", "exito");
         if(ofertaArray.length>0) {
-            Log.d("", "hay ofertas si");
-            Log.d("","size " +ofertaArray.length);
-            Log.d("","ejemplo" +ofertaArray[0].getDeporte().getNombre());
-            listDataChild = new HashMap<Long, String>();
-            listDataChild.put(ofertaArray[0].getCodigo(), "detalle");
-            listDataChild.put(ofertaArray[1].getCodigo(), "detalle2");
             listAdapter = new ExpandableListAdapter(getContext(), ofertaArray);
             expListView.setAdapter(listAdapter);
         }
         else {
-            Log.d("", "hay ofertas no");
             ninguna_oferta.setVisibility(View.VISIBLE);
         }
     }

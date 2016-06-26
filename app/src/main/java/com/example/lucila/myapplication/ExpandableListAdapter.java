@@ -2,16 +2,17 @@ package com.example.lucila.myapplication;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.example.lucila.myapplication.Datos.MapeoIdEstablecimiento;
 import com.example.lucila.myapplication.Entidades.Establecimiento;
 import com.example.lucila.myapplication.Entidades.Oferta;
+
 import static com.example.lucila.myapplication.R.id.item_Dirección;
 import static com.example.lucila.myapplication.R.id.item_Télefono;
 import static com.example.lucila.myapplication.R.id.item_fecha;
@@ -26,25 +27,14 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context _context;
     private Oferta[] _listDataHeader; // header titles
-
-    ImageView imgViewIcon;
-
+    private ImageView imgViewIcon;
 
 
     public ExpandableListAdapter(Context context, Oferta[] listDataHeader ) {
-
-
         this._context = context;
         this._listDataHeader = listDataHeader;
-
     }
 
-    @Override
-    public Object getChild(int groupPosition, int childPosititon) {
-        return null;
-
-
-    }
 
     @Override
     public long getChildId(int groupPosition, int childPosition) {
@@ -52,24 +42,14 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, final int childPosition,
-                             boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+
         Oferta oferta =  getGroup(groupPosition);
         Establecimiento establecimiento= MapeoIdEstablecimiento.getInstance().getById(oferta.getIdUserCreador());
-        Log.d("", "En getChildView");
-        Log.d("","position");
-        Log.d("", String.valueOf(groupPosition));
-        Log.d("", "childPosition");
-        Log.d("", String.valueOf(childPosition));
-        final String childText = (String) getGroup(groupPosition).getUbicacion();
-
-        Log.d("","childText");
-        Log.d("",childText);
 
         if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) this._context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.list_item2, null);
+            LayoutInflater infalInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = infalInflater.inflate(R.layout.list_detalle, null);
         }
 
         TextView fecha = (TextView) convertView.findViewById(item_fecha);
@@ -88,13 +68,18 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-
         return 1;
     }
 
     @Override
     public Oferta getGroup(int groupPosition) {
+
         return this._listDataHeader[groupPosition];
+    }
+
+    @Override
+    public Object getChild(int groupPosition, int childPosition) {
+        return null;
     }
 
     @Override
@@ -109,28 +94,20 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-
-
         Oferta oferta= getGroup(groupPosition);
         String deporte=oferta.getDeporte().getNombre();
-        String headerTitle = deporte;
-        String  Nombrecancha;
 
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.list_group, null);
         }
-
-
         imgViewIcon=(ImageView) convertView.findViewById(R.id.item_icon);
         //seteo el deporte
         TextView lblListHeader = (TextView) convertView.findViewById(R.id.lblListHeader);
-
-
         lblListHeader.setTypeface(null, Typeface.BOLD);
 
         Establecimiento establecimiento= MapeoIdEstablecimiento.getInstance().getById(oferta.getIdUserCreador());
-        lblListHeader.setText(headerTitle+" en "+ establecimiento.getNombre());
+        lblListHeader.setText(deporte+" en "+ establecimiento.getNombre());
         setImagenOferta(convertView, deporte);
         return convertView;
     }
@@ -147,7 +124,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
 
     public void setImagenOferta(View holder,String deporte ){
-
         int recurso=0;
         switch (deporte){
             case "futbol":
@@ -156,14 +132,12 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             case "Futbol":
                 recurso=R.drawable.futbol;
                 break;
-
             case "voley":
                 recurso=R.drawable.voley;
                 break;
             case "Voley":
                 recurso=R.drawable.voley;
                 break;
-
             case "basquet":
                 recurso=R.drawable.basquet;
                 break;
@@ -182,10 +156,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             case "Paddle":
                 recurso=R.drawable.paddle;
                 break;
-
-
         }
         imgViewIcon.setImageResource(recurso);
-
     }
 }

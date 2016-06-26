@@ -25,8 +25,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
 
-
-
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
 
         TextView  navTitle;
@@ -44,44 +42,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
 
 
-
         @Override
         public void onClick(View v) {
-
-
             Intent i= new Intent(context, MenuActivity.class);
             i.putExtra("opcion",getPosition());
             context.startActivity(i);
-
-
-
-
-
         }
     }
-
-
-
-
-
-
-
-
-    //  } // cierra clas view holder
-
-
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View itemLayout =   layoutInflater.inflate(R.layout.drawer_item_layout,null);
-
         return new ViewHolder(itemLayout,viewType,context);
-
-
     }
-
-
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
@@ -89,10 +63,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             holder.navTitle.setText(titles[position - 1]);
             holder.navIcon.setImageResource(icons.getResourceId(position-1,-1));
         }
-
     }
-
-
 
     @Override
     public int getItemCount() {
@@ -100,13 +71,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return titles.length+1;
     }
 
-
-
     @Override
     public int getItemViewType(int position) {
         if(position==0)return 0;
         else return 1;
     }
-
 
 }

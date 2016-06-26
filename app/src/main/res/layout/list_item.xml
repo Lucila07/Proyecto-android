@@ -28,12 +28,14 @@
             android:paddingLeft="16dp"
             >
 
+
+
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingRight="16dp"
-                android:paddingLeft="16dp"
+
                 android:paddingTop="24dp"
                 >
                 <TextView
@@ -44,6 +46,7 @@
                     android:textColor="@color/abc_input_method_navigation_guard"
                     />
                 <TextView
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/deporte"
@@ -60,7 +63,18 @@
                     android:textColor="@color/abc_input_method_navigation_guard"
                     />
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="16dp"
+                >
+
+
                 <TextView
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/nombre_establecimiento"
@@ -70,22 +84,8 @@
                     />
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/presentacion_titulo_3"
-                    android:textSize="24dp"
-                    android:paddingBottom="10dp"
-                    android:textColor="@color/abc_input_method_navigation_guard"
-                    />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingRight="16dp"
-                android:paddingLeft="16dp"
-                android:paddingBottom="16dp"
-                >
+                    android:layout_height="match_parent"
+                    android:text=" "/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

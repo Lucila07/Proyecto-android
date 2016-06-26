@@ -49,15 +49,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
 
     private Toolbar toolbar;
-
-
-    DrawerLayout drawerLayout;
-    RecyclerView recyclerView;
-    RecyclerView.Adapter recyclerViewAdapter;
-    String navTitles[];
-    TypedArray navIcons;
-    ActionBarDrawerToggle drawerToggle;
-
+    private DrawerLayout drawerLayout;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter recyclerViewAdapter;
+    private String navTitles[];
+    private TypedArray navIcons;
+    private ActionBarDrawerToggle drawerToggle;
     private GoogleApiClient clienteGoogle;
     private Location ultimaLocacionConocida;
     public static final int PERMISO_UBICACION = 1;
@@ -77,8 +74,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             permiso = true;
         }
 
-
-        //Servicio--------------------------------------------
+        //Servicio
         if (clienteGoogle == null) {
             clienteGoogle = new GoogleApiClient.Builder(this)
                     .addConnectionCallbacks(this)
@@ -89,21 +85,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         if (permiso) {
             clienteGoogle.connect();
         }
-        //------------------------------------------
-        //toolbar-------------
+
         setupToolbar();
-
-
-
         CheckEnableGPS();
-
-
 
         //Initialize Views
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerMainActivity);
 
-        //Setup Titles and Icons of Navigation Drawer
+        //Setup titulos e iconos del  Navigation Drawer
         navTitles = getResources().getStringArray(R.array.navDrawerItems);
         navIcons = getResources().obtainTypedArray(R.array.navDrawerIcons);
 
@@ -113,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        //Finally setup ActionBarDrawerToggle
+        // setup ActionBarDrawerToggle
         setupDrawerToggle();
 
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
@@ -126,12 +116,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
-    // borrar ultima ubic conocida
+
 
     public void onConnected(Bundle bundle) {
-        Log.d("","on connected");
         if (clienteGoogle.isConnected()) {
-            Log.d("","is connected");
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                     && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
@@ -141,44 +129,38 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             else
                 ultimaLocacionConocida = LocationServices.FusedLocationApi.getLastLocation(clienteGoogle);
 
-            if (ultimaLocacionConocida == null) { // fallo , le seteo una loc por default
+            if (ultimaLocacionConocida == null) {
                 //Si por alguna razón se almaceno mal
-
                 Log.d("","Error al obtener la localizacion");
             }
 
             LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
             if ((lm.isProviderEnabled(LocationManager.GPS_PROVIDER) && lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER))){
 
-                obtenerLocacizacion(); // solo esta activado el gps
+                obtenerLocacizacion(); // solo si  esta activado el gps
 
             }
 
-        } else Log.d("", "no connected");
+        }
 
     }
 
     private void obtenerLocacizacion() {
-        try {   // String strAddress="Bahía Blanca";  // seteo ubicacion por default
+        try {
             String strAddress="";
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-            // acomodar permisos
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                     && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISO_UBICACION);
-
             }
             else {
                 List<Address> addresses = geocoder.getFromLocation(ultimaLocacionConocida.getLatitude(), ultimaLocacionConocida.getLongitude(), 1);
-                Log.d("", "addresses");
-                Log.d("", String.valueOf(addresses.size()));
                 Address fetchedAddress;
 
                 if (addresses != null) {
                     if (addresses.size() == 0) {
-                        //ACOMODAR NI ENTRARIA NUNCA
-                        strAddress = "CORONEL SUAREZ";
+
                         Log.d("", "No se ha podido establecer la ubicacion");
 
                     } else {
@@ -270,6 +252,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
                     Usuario logueado = ServicioUsuariosHttp.getInstance().getUsuarioLogueado();
                     if (logueado != null) {
+                        //Se setea la ubicacion por default
                         logueado.setUbicacion("Bahía Blanca");
                         MostrarOfertas();
                     }

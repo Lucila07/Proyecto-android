@@ -46,23 +46,23 @@
 
     <string-array name="navDrawerItems">
         <item>Mi perfil</item>
-        <item>Fin de partido </item>
+        <!--      <item>Fin de partido </item> -->
         <item>Reservas hechas </item>
-        <item>Preferencias</item>
+        <!--   <item>Preferencias</item> -->
         <!--  <item>Gallery</item>
-           <item>Connect</item> -->
+        <item>Connect</item> -->
     </string-array>
 
     <string-array name="navDrawerIcons">
 
         <item>@drawable/perfil</item>
-        <item>@drawable/partido</item>
-        <item>@drawable/reservas</item>
-        <item>@drawable/preferencias</item>
+    <!--  <item>@drawable/partido</item> -->
+         <item>@drawable/reservas</item>
+       <!--  <item>@drawable/preferencias</item> -->
 
-    </string-array>
-    <string name="title_activity_login">Entrar</string>
+     </string-array>
+     <string name="title_activity_login">JyA</string>
 
-    <!-- Strings related to login -->
+     <!-- Strings related to login -->
 
 </resources>

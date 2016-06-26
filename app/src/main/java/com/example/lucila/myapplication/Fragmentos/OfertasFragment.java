@@ -1,6 +1,5 @@
 package com.example.lucila.myapplication.Fragmentos;
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -30,21 +29,17 @@ import com.example.lucila.myapplication.AdapterOfertasPrincipales;
 import com.example.lucila.myapplication.R;
 import com.example.lucila.myapplication.ReservaOfertaActivity;
 import com.example.lucila.myapplication.http.VerificaConexion;
-
 import java.util.ArrayList;
 import java.util.List;
-
-
-
 
 public class OfertasFragment extends Fragment implements ServicioOfertasHttp.CallBack {
 
     private  ListView lista;
     private  Context contexto;
     private  RecyclerView mRecyclerView;
-    private AdapterOfertasPrincipales mAdapter;
-    private   RecyclerView.LayoutManager mLayoutManager;
-    private   List<Oferta>ofertas;
+    private  AdapterOfertasPrincipales mAdapter;
+    private  RecyclerView.LayoutManager mLayoutManager;
+    private  List<Oferta>ofertas;
     private  Spinner spinner;
     private  ServicioOfertasHttp servicioOfertasUsuario;
     private  Activity activity;
@@ -52,18 +47,17 @@ public class OfertasFragment extends Fragment implements ServicioOfertasHttp.Cal
     private  TextView tv_no_hay_ofertas;
     private Usuario usuarioLog;
     private Button bt_actualizar;
+
+
+
     public   OfertasFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
     }
-
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,8 +65,6 @@ public class OfertasFragment extends Fragment implements ServicioOfertasHttp.Cal
         servicioOfertasUsuario= ServicioOfertasHttp.getInstanciaServicio(this,activity);
         usuarioLog= ServicioUsuariosHttp.getInstance().getUsuarioLogueado();
 
-        //if (savedInstanceState==null) {
-            Log.d(contexto.getClass().getSimpleName(), "hago requerimiento ");
          if(VerificaConexion.hayConexionInternet(getActivity())) {
              servicioOfertasUsuario.realizarPeticion();
          }
@@ -80,19 +72,7 @@ public class OfertasFragment extends Fragment implements ServicioOfertasHttp.Cal
 
              Toast.makeText(getActivity(), "No hay conexion a internet", Toast.LENGTH_SHORT).show();
          }
-        //}
-      /*  else{
-            Log.d(contexto.getClass().getSimpleName(), " ya habia ofertas");
-
-            ofertas= savedInstanceState.getParcelableArrayList("ofertas");
-
-            deportesLista=savedInstanceState.getParcelableArrayList("deportes");
-            crearRecycler(ofertas);
-            crearSpinner();
-
-        }*/
     }
-
 
     @Override
     public void dibujarListaOfertas(){
@@ -144,13 +124,6 @@ public class OfertasFragment extends Fragment implements ServicioOfertasHttp.Cal
         return rootView;
     }
 
-  /*  @Override
-    public void onPause(){
-       super.onPause();
-       Log.d(contexto.getClass().getSimpleName(), " en pausa ");
-
-    }
-*/
     private void crearRecycler( List<Oferta>ofertas){
 
   // use this setting to improve performance if you know that changes
@@ -173,24 +146,11 @@ public class OfertasFragment extends Fragment implements ServicioOfertasHttp.Cal
               @Override
               public void onClick(View v) {
                   Intent intent = new Intent(getActivity(), ReservaOfertaActivity.class);
-
-                  //Intent intent = new Intent( ReservaOfertaActivity.class);
                   TextView textCodigo = (TextView) v.findViewById(R.id.oferta_id);
                   Long codigoOferta = Long.parseLong(textCodigo.getText().toString());
                   Oferta oferta = servicioOfertasUsuario.getOfertaCodigo(codigoOferta);
                   intent.putExtra("oferta",(Parcelable)oferta);
                   EstadoApp.getInstance().setOfertaActual(oferta);
-
-                  //bolsa.putParcelable("oferta",(Parcelable) oferta);
-                  //intent.putExtra("ubicacion",(String)oferta.getUbicacion());
-                 // intent.putExtra("precioH",(int)oferta.getPrecioHabitual());
-
-
-
-
-
-                  Log.d("oferta enviada","ubicacion "+oferta.getUbicacion()+" precioh "+oferta.getPrecioHabitual());
-
                   getActivity().startActivity(intent);
               }
           });
@@ -202,7 +162,6 @@ public class OfertasFragment extends Fragment implements ServicioOfertasHttp.Cal
       }
     }
 
-
     public void onSaveInstanceState(Bundle outState) {
        super.onSaveInstanceState(outState);
 
@@ -210,19 +169,6 @@ public class OfertasFragment extends Fragment implements ServicioOfertasHttp.Cal
         outState.putParcelableArrayList("deportes",(ArrayList<Deporte>)deportesLista);
         Log.d(contexto.getClass().getSimpleName(), " onsaveinstance ");
     }
-
-
-  /*   public  void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // Check which request we're responding to
-        if (requestCode ==123 ) {
-            // Make sure the request was successful
-            if (resultCode == 1) {
-
-                // Do something with the contact here (bigger example below)
-            }
-        }
-    }
-*/
 
     /**
      * crear el desplegable con los distintos deportes para que el usuario pueda filtrar por deporte

@@ -19,7 +19,6 @@ import com.example.lucila.myapplication.Entidades.Oferta;
 import com.example.lucila.myapplication.Entidades.Usuario;
 import com.example.lucila.myapplication.Estado.EstadoApp;
 import com.example.lucila.myapplication.http.VerificaConexion;
-
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -124,14 +123,11 @@ public class ReservaOfertaActivity extends AppCompatActivity  implements Servici
     }
 
     public void setToolbar(){
-        //toolbar-------------
         toolbar = (Toolbar) findViewById(R.id.toolbar_reserva); //encontramos la instancia de la toolbar
         setSupportActionBar(toolbar);   //la setamos a la actividad
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); //este muestra el boton de volver
         getSupportActionBar().setTitle("Hace tu reserva");
         getSupportActionBar().setDisplayShowTitleEnabled(true);
-
-        //--------------------
 
     }
 
@@ -139,7 +135,7 @@ public class ReservaOfertaActivity extends AppCompatActivity  implements Servici
 
         AlertDialog dialogo= new AlertDialog.Builder(ReservaOfertaActivity.this)
                 .setTitle("Reservar oferta")
-                .setMessage("Seguro que deseas rervar esta oferta?")
+                .setMessage("Seguro que deseas reservar esta oferta?")
                 .setPositiveButton("SI", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         servicioOfertas.reservarOferta(oferta,usuario);
