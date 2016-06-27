@@ -37,7 +37,7 @@ public class OfertaDeserializer implements JsonDeserializer<Oferta> {
         long idUserCreador =jsonObject.get("idUserCreador").getAsLong();
         int precioHabitual =jsonObject.get("precioHabitual").getAsInt();
         int precioOferta =jsonObject.get("precioOferta").getAsInt();
-        String ubicacion=jsonObject.get("ubicacion").getAsString();
+        String ubicacion=jsonObject.get("ubicacion").toString();
 
         Oferta oferta= new Oferta();
         oferta.setCodigo(codigo);

@@ -1,6 +1,7 @@
 package com.example.lucila.myapplication.Datos;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
@@ -20,6 +21,8 @@ import com.example.lucila.myapplication.http.EstablecimientosDeserializer;
 import com.example.lucila.myapplication.http.OfertaDeserializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 //jason  para las consultas al web service
@@ -245,13 +248,32 @@ public class ServicioOfertasHttp implements Parcelable{
      param representa el parametro especifico para la funcion, en caso que se quieran todas las ofertas estara null.
      */
     private static void realizarPeticionOfertas(String get, String param){
-
-
         // Petición GET
+      Usuario usuario=  ServicioUsuariosHttp.getInstance().getUsuarioLogueado();
+        String ubicacion= usuario.getUbicacion();
+        String url;
+        if(!ubicacion.equals("nula")&&!ubicacion.equals("")&&!ubicacion.equals(" "))
+        {    Charset.forName("UTF-8").encode(ubicacion);
+
+            Uri.Builder builder = new Uri.Builder();
+            builder.scheme("http")
+                    .authority("hosting.cs.uns.edu.ar")
+                    .appendPath("~com109")
+                    .appendPath("webServiceAndroid2")
+                    .appendPath("respuestasUsuario.php")
+                    .appendQueryParameter("funcion", "getOfertasUbicacion")
+                    .appendQueryParameter("ubicacion", ubicacion);
+
+            url = new String(builder.build().toString());
+
+
+        }
+        else url= ConstantesAcceso.getURL(get,null);
+        Log.d("ofertas",url);
         VolleySingleton.getInstance(activity).addToRequestQueue(
                         new JsonObjectRequest(
                                 Request.Method.GET,
-                                ConstantesAcceso.getURL(get,param),
+                                url,
                                 null,
                                 new Response.Listener<JSONObject>() {
 
@@ -259,7 +281,7 @@ public class ServicioOfertasHttp implements Parcelable{
                                     public void onResponse(JSONObject response) {
                                         // Procesar la respuesta Json
                                         String respuesta=response.toString();
-
+                                        Log.d("ofertas",respuesta);
                                         procesarRespuestaOfertas(response);
                                     }
                                 },

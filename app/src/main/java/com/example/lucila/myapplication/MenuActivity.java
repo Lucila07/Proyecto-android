@@ -25,12 +25,16 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
         setupToolbar();
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/Roboto-Thin.ttf")
+                .setDefaultFontPath("/fonts/Roboto-Thin.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
         Intent i = getIntent();
-        int elegido = i.getExtras().getInt("opcion");
+
+        int elegido=1;
+        Bundle bolsa=i.getExtras();
+        if(i!=null&&bolsa!=null)
+         elegido=bolsa.getInt("opcion");
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 

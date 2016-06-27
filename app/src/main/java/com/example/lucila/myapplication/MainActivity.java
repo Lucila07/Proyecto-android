@@ -1,8 +1,10 @@
 package com.example.lucila.myapplication;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -35,7 +37,11 @@ import com.example.lucila.myapplication.Entidades.Usuario;
 import com.example.lucila.myapplication.Fragmentos.OfertasFragment;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             permiso = true;
         }
 
+
         //Servicio
         if (clienteGoogle == null) {
             clienteGoogle = new GoogleApiClient.Builder(this)
@@ -82,12 +89,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     .addApi(LocationServices.API)
                     .build();
         }
-        if (permiso) {
-            clienteGoogle.connect();
-        }
+            if (permiso) {
+                clienteGoogle.connect();
+            }
 
         setupToolbar();
         CheckEnableGPS();
+
+
+
 
         //Initialize Views
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
@@ -107,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         setupDrawerToggle();
 
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/Roboto-Thin.ttf")
+                .setDefaultFontPath("app/app/build/src/fonts/Roboto-Thin.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
@@ -131,7 +141,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
             if (ultimaLocacionConocida == null) {
                 //Si por alguna razón se almaceno mal
-                Log.d("","Error al obtener la localizacion");
+
+                Log.d("locaclizacion","Error al obtener la localizacion");
             }
 
             LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -155,14 +166,23 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISO_UBICACION);
             }
             else {
-                List<Address> addresses = geocoder.getFromLocation(ultimaLocacionConocida.getLatitude(), ultimaLocacionConocida.getLongitude(), 1);
-                Address fetchedAddress;
+                List<Address> addresses=null;
+                if(ultimaLocacionConocida==null) {
+
+                    Log.d("locacion", "es null");
+
+
+                }
+                else
+                     addresses = geocoder.getFromLocation(ultimaLocacionConocida.getLatitude(), ultimaLocacionConocida.getLongitude(), 1);
+
+                    Address fetchedAddress;
 
                 if (addresses != null) {
                     if (addresses.size() == 0) {
 
                         Log.d("", "No se ha podido establecer la ubicacion");
-
+                        Toast.makeText(MainActivity.this, "No se ha podido establecer la ubicacion", Toast.LENGTH_SHORT).show();
                     } else {
                         fetchedAddress = addresses.get(0);
                         strAddress = fetchedAddress.getLocality();
@@ -172,10 +192,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     Toast.makeText(MainActivity.this, "No se ha podido establecer la ubicacion", Toast.LENGTH_SHORT).show();
                 }
 
-                Log.d("ubicacion: ", strAddress);
+              //  Log.d("ubicacion: ", strAddress);
             }
             LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
-            if ((lm.isProviderEnabled(LocationManager.GPS_PROVIDER) && lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)))
+            if ((lm.isProviderEnabled(LocationManager.GPS_PROVIDER) && lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER))&&ultimaLocacionConocida!=null)
                 Toast.makeText(MainActivity.this, "Se buscaran ofertas en: " + strAddress, Toast.LENGTH_SHORT).show();
 
             //establecemos la ubicacion en el usuario logueado
@@ -205,7 +225,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     void setupToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolBar); //encontramos la instancia de la toolbar
         setSupportActionBar(toolbar);   //la setamos a la actividad
-        getSupportActionBar().setTitle("Deportes");
+        getSupportActionBar().setTitle("Juga y ahorra");
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false); //el boton de back
 
@@ -231,7 +251,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
 
     private void CheckEnableGPS() {
-
+        final Activity actividad=this;
         LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (!lm.isProviderEnabled(LocationManager.GPS_PROVIDER) ||  !lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
             // Build the alert dialog
@@ -243,7 +263,19 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 public void onClick(DialogInterface dialogInterface, int i) {
                     // Show location settings when the user acknowledges the alert dialog
                     Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                    startActivity(intent);
+                    startActivityForResult(intent,123);
+                    /*PendingIntent pIntent = PendingIntent.getActivity(actividad, 0, intent,PendingIntent.FLAG_UPDATE_CURRENT);
+                   // startActivity(intent);
+
+                    try {
+
+                        pIntent.send(getApplicationContext(), 0, intent);
+
+                    }
+                    catch(PendingIntent.CanceledException e){
+
+                    }
+*/
                 }
             });
             builder.setNegativeButton("CONTINUAR", new DialogInterface.OnClickListener() {
@@ -253,10 +285,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     Usuario logueado = ServicioUsuariosHttp.getInstance().getUsuarioLogueado();
                     if (logueado != null) {
                         //Se setea la ubicacion por default
-                        logueado.setUbicacion("Bahía Blanca");
+                        logueado.setUbicacion("nula");
                         MostrarOfertas();
                     }
-                    Toast.makeText(MainActivity.this, "Se utilizará la ubicación default: Bahía Blanca", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Se buscaran ofertas en Argentina", Toast.LENGTH_SHORT).show();
 
                 }
             });
@@ -267,9 +299,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     }
 
-    public void setInvisibleToolbar(){
-        getSupportActionBar().hide();
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 123) {
+            switch (requestCode) {
+                case 1:
+                   Log.d("set gps","recibi el okkkkk");
+            }
+        }
     }
 
     @Override

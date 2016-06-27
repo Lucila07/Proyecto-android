@@ -99,6 +99,7 @@ public class ServicioUsuariosHttp implements  ServicioUsuarios{
         JSONObject json= new JSONObject(mapa);
         Log.d("nuevo usuario","json a mandar "+json.toString());
         usuarioLogueado.setTelefono(telefono);
+        EstadoApp.getInstance().setUsuarioLogueado(usuarioLogueado);
         peticionCrearUsuario(json);
 
     }
@@ -189,7 +190,12 @@ public class ServicioUsuariosHttp implements  ServicioUsuarios{
             switch (existe) {
                 case "true": // EXITO
                     String telefono= response.getString("telefono");
+                    String nombre=response.getString("nombre_apellido");
+                    String mail=response.getString("mail");
                     usuarioLogueado.setTelefono(telefono);
+                    usuarioLogueado.setEmail(mail);
+                    usuarioLogueado.setNombreApellido(nombre);
+                    EstadoApp.getInstance().setUsuarioLogueado(usuarioLogueado);
                     accesoUsuarios.cargarMain();
                     break;
                 case "false": // FALLIDO

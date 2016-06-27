@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.lucila.myapplication.Datos.ServicioUsuarios;
 import com.example.lucila.myapplication.Datos.ServicioUsuariosHttp;
 import com.example.lucila.myapplication.Entidades.Usuario;
+import com.example.lucila.myapplication.Estado.EstadoApp;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -156,6 +157,7 @@ public class LoginActivity extends AppCompatActivity implements ServicioUsuarios
             usuario.setNombreApellido(acct.getDisplayName());
             usuario.setUrlFoto(acct.getPhotoUrl());
             usuario.setTelefono(" ");
+            EstadoApp.getInstance().setUsuarioLogueado(usuario);
             servicioUsuarios.verificarExistencia(usuario);
 
 

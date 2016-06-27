@@ -41,7 +41,7 @@ public class ConstantesAcceso {
                 return GET_OFERTAS;
 
             case "get_oferta_codigo":
-                return GET_OFERTA_CODIGO+param1;
+                return (GET_OFERTA_CODIGO+param1).toString();
             case "get_oferta_ubicacion":
                 return GET_OFERTA_UBICACION+param1;
             case "get_oferta_deporte":

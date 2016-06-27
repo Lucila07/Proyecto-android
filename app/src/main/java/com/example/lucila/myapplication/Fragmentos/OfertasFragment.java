@@ -81,18 +81,8 @@ public class OfertasFragment extends Fragment implements ServicioOfertasHttp.Cal
         servicioOfertasUsuario = ServicioOfertasHttp.getInstanciaServicio(this, getActivity());
     }
 
-      if(usuarioLog!=null) {
-          if (usuarioLog.getUbicacion() == null) {
-              ofertas = servicioOfertasUsuario.getOfertas();
 
-          } else {
-              ofertas = servicioOfertasUsuario.getOfertasUbicacion(usuarioLog.getUbicacion());
-          }
-      }
-      else{
-
-          ofertas = servicioOfertasUsuario.getOfertas();
-      }
+        ofertas = servicioOfertasUsuario.getOfertas();
         deportesLista =servicioOfertasUsuario.getDeportes();
         crearRecycler(ofertas);
         crearSpinner();
