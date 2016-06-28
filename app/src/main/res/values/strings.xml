@@ -1,10 +1,12 @@
 <resources>
-    <string name="app_name">Empresa</string>
+    <string name="app_name">JyA - Establecimiento</string>
     <string name="title_activity_registrarse">Registrarse</string>
     <string name="title_activity_menuppal">Menu Principal</string>
     <string name="title.crear.oferta">Crear Oferta</string>
     <string name="title.establecer.ubicacion">Establecer Ubicación</string>
     <string name="title.lista.ofertas">Ofertas Creadas</string>
+    <string name="title.editar.oferta">Editar Oferta</string>
+    <string name="title.editar.perfil">Perfil</string>
 
     <!-- Menu xml-->
     <string name="menu_settings">Opciones</string>
@@ -37,7 +39,7 @@
 
     <!-- Pantalla menú principal -->
     <string name="textview_recordatorio">Para crear ofertas debe actualizar sus datos.</string>
-    <string name="textview_restantes">Ofertas Restantes:</string>
+    <string name="textview_restantes">Ofertas Restantes: %1$d</string>
     <string name="boton_crear_oferta">Crear Oferta</string>
     <string name="boton_ver_ofertas">Ver Creadas</string>
     <string name="boton_comprar_ofertas">Comprar Ofertas</string>
@@ -79,5 +81,9 @@
     <string name="TextView.TipoPack">Tipo: %1$s</string>
     <string name="TextView.PrecioPack">Precio: $ %1$.2f</string>
     <string name="TextView.CantOfertasDisponibles">Cantidad Ofertas</string>
+    <string name="mensaje_dialogo_comprarPack">¿Desea comprar el pack seleccionado?</string>
+    <string name="titulo_dialogo_comprarPack">Confirmar compra</string>
+    <string name="confirmar_dialogo_comprarPack">Comprar</string>
+
 
 </resources>

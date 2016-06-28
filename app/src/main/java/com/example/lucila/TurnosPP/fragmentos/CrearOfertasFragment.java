@@ -65,20 +65,16 @@ public class CrearOfertasFragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(savedInstanceState != null) {
-            deportes = (String[]) savedInstanceState.get("listaDeportes");
-            if(getArguments().containsKey("ofertaEditar"))
-                aEditar= (Oferta) getArguments().getSerializable("ofertaEditar");
-        }
-        else {
-            deportes = getArguments().getStringArray("listaDeportes");
-            aEditar= (Oferta) getArguments().getSerializable("ofertaEditar");
-        }
+
+        deportes = getArguments().getStringArray("listaDeportes");
+        aEditar= (Oferta) getArguments().getSerializable("ofertaEditar");
         patronFloat= Pattern.compile("[0-9]*\\.?[0-9]+");
         fechaCalendario= Calendar.getInstance();
         anioLeido = -1;
         horaLeida = -1;
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -102,6 +98,17 @@ public class CrearOfertasFragment
         ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(getActivity(), R.layout.support_simple_spinner_dropdown_item, deportes);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+
+        boolean encontre = false;
+        int i = 0;
+        if(aEditar != null) {
+            while (!encontre)
+                if (aEditar.getNombreDeporte().equals(deportes[i]))
+                    encontre = true;
+                else i++;
+        }
+        final int j= i;
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -110,8 +117,9 @@ public class CrearOfertasFragment
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                if(aEditar != null)
-                    setIdDeporteSeleccionado(aEditar.getIdDeporte());
+                if(aEditar != null) {
+                    setIdDeporteSeleccionado(j);
+                }
                 else
                     setIdDeporteSeleccionado(0);
             }
@@ -128,7 +136,7 @@ public class CrearOfertasFragment
         if(aEditar != null) {
             anioLeido= aEditar.getFecha().get(Calendar.YEAR);
             horaLeida= aEditar.getFecha().get(Calendar.HOUR);
-            spinner.setSelection(aEditar.getIdDeporte()-1);
+            spinner.setSelection(j);
             SimpleDateFormat formatoFecha= new SimpleDateFormat("dd/MM/yyyy");
             SimpleDateFormat formatoHora= new SimpleDateFormat("hh:mm");
             editTextFecha.setText(formatoFecha.format(aEditar.getFecha().getTime()));
@@ -180,10 +188,12 @@ public class CrearOfertasFragment
                         oferta.setPrecioHabitual(precioHabLeido);
                         oferta.setNombreDeporte(deportes[idDeporteElegido]);
                         //El spinner usa numeros del 0 a n
-                        oferta.setIdDeporte(idDeporteElegido + 1);
+                        //oferta.setIdDeporte(idDeporteElegido + 1);
                         oferta.setFecha(fechaCalendario);
                         resetErrores();
-                        mListener.onCrearOferta(oferta);
+                        if(aEditar != null)
+                            mListener.onCrearOferta(oferta, true);
+                        else mListener.onCrearOferta(oferta, false);
                     }
                     break;
                 }
@@ -317,7 +327,7 @@ public class CrearOfertasFragment
     }
 
     public interface OnCrearOfertaListener {
-        void onCrearOferta(Oferta oferta);
+        void onCrearOferta(Oferta oferta, boolean editar);
         void mostrarDialogoHora();
         void mostrarDialogoFecha();
         void eliminarOferta(int codigo);

@@ -10,9 +10,6 @@ import android.os.Bundle;
 import android.support.v4.os.ResultReceiver;
 import android.text.TextUtils;
 
-import com.example.lucila.turnosPP.beans.Establecimiento;
-import com.example.lucila.turnosPP.fragmentos.EstablecerUbicacionFragment;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +19,6 @@ import java.util.Locale;
  * Obtiene unsa direccion física a traves de una direccion geográfica.
  */
 public class ObtenerDireccionService extends IntentService {
-
-    private String mensajeError = "";
 
     protected ResultReceiver mReceiver;
 

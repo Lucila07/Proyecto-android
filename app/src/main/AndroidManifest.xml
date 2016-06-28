@@ -72,13 +72,24 @@
                 android:value="com.example.lucila.turnosPP.actividades.MenuPrincipalActivity" />
         </activity>
 
+        <activity
+            android:name="com.example.lucila.turnosPP.actividades.EditarOfertaActivity"
+            android:label="@string/title.editar.oferta"
+            android:parentActivityName="com.example.lucila.turnosPP.actividades.OfertasActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.lucila.turnosPP.actividades.OfertasActivity" />
+        </activity>
+
         <service
             android:name="com.example.lucila.turnosPP.servicios.ObtenerDireccionService"
             android:exported="false" />
 
         <activity android:name="com.example.lucila.turnosPP.actividades.DeportesCheckerActivity" />
-        <activity android:name="com.example.lucila.turnosPP.actividades.PerfilActivity" />
-        <activity android:name="com.example.lucila.turnosPP.actividades.ComprarPackActivity"></activity>
-    </application>
+        <activity android:name="com.example.lucila.turnosPP.actividades.ComprarPackActivity" />
 
+        <service
+            android:name="com.example.lucila.turnosPP.servicios.VolleyRequestService"
+            android:exported="false" />
+    </application>
 </manifest>

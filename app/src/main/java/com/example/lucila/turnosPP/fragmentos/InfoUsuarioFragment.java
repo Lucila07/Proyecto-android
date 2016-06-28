@@ -198,7 +198,7 @@ public class InfoUsuarioFragment extends Fragment {
 
         usuario.setText(establecimiento.getNombre());
 
-        if(!establecimiento.getToken().isEmpty()) {
+        if(establecimiento.getToken() != null) {
             //Usuario de google no necesita los campos de contraseña
             panelContra.setVisibility(View.GONE);
             panelRepetirContra.setVisibility(View.GONE);
@@ -206,8 +206,8 @@ public class InfoUsuarioFragment extends Fragment {
 
         String deportes= new String();
         for(String deporte : establecimiento.getDeportes()) {
-            deportes.concat(deporte);
-            deportes.concat(" - ");
+            deportes= deportes.concat(deporte);
+            deportes= deportes.concat(" - ");
         }
         this.deportes.setText(deportes);
 
@@ -245,7 +245,6 @@ public class InfoUsuarioFragment extends Fragment {
             errorCampoEMail.setVisibility(View.VISIBLE);
             pasa=false;
         }
-
 
         return pasa;
     }

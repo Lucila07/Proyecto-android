@@ -22,8 +22,6 @@ public class OfertasFragment extends Fragment {
 
     private ArrayList<Oferta> ofertas;
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
     public static OfertasFragment newInstance(Oferta[] ofertas) {
         OfertasFragment fragment = new OfertasFragment();
         Bundle args = new Bundle();
@@ -40,7 +38,9 @@ public class OfertasFragment extends Fragment {
 
         if(getArguments() != null) {
             Oferta[] aux= (Oferta[]) getArguments().get("ofertas");
-            ofertas= new ArrayList<Oferta>(Arrays.asList(aux));
+            if(aux != null)
+                ofertas= new ArrayList<>(Arrays.asList(aux));
+            else ofertas= new ArrayList<>();
         }
     }
 

@@ -103,9 +103,6 @@ public class LoginActivity
                     .addApi(Auth.GOOGLE_SIGN_IN_API, opcionesSignIn)
                     .addApi(AppIndex.API).build();
 
-            Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(clienteAPI);
-            startActivityForResult(signInIntent, RC_SIGN_IN);
-
             findViewById(R.id.sign_in_button).setOnClickListener(this);
 
             traerDeportes();
@@ -252,7 +249,7 @@ public class LoginActivity
                 user.setDeportes(new ArrayList<String>(Arrays.asList(deportes)));
                 Type collectionType = new TypeToken<Collection<Oferta>>(){}.getType();
                 Collection<Oferta> enums = gson.fromJson(jsonUser.getJSONArray("ofertas").toString(), collectionType);
-                Oferta[] ofertas = enums.toArray(new Oferta[0]);
+                Oferta[] ofertas = enums.toArray(new Oferta[enums.size()]);
                 for(Oferta o : ofertas) {
                     o.setNombreDeporte(Tdeportes[o.getIdDeporte()-1]);
                 }

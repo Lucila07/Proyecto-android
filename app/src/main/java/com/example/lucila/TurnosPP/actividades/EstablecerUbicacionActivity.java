@@ -43,6 +43,7 @@ public class EstablecerUbicacionActivity
 
     //Locacion
     private Location ultimaLocacionConocida;
+    private String direccion;
 
     //Fragmentos
     private EstablecerUbicacionFragment fragmentoUbicacion;
@@ -76,10 +77,11 @@ public class EstablecerUbicacionActivity
             ultimaLocacionConocida= savedInstanceState.getParcelable("locacion");
             if(ultimaLocacionConocida == null) {
                 //Si por alguna razón se almaceno mal
-                ultimaLocacionConocida= new Location("Bahñia Blanca");
+                ultimaLocacionConocida= new Location("Bahía Blanca");
                 ultimaLocacionConocida.setLongitude(-39);
                 ultimaLocacionConocida.setLatitude(-62);
             }
+            direccion= savedInstanceState.getString("direccion");
         }
         if (clienteGoogle == null) {
             clienteGoogle = new GoogleApiClient.Builder(this)
@@ -95,6 +97,7 @@ public class EstablecerUbicacionActivity
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putParcelable("locacion", ultimaLocacionConocida);
+        outState.putString("direccion", direccion);
         super.onSaveInstanceState(outState);
     }
 
@@ -169,7 +172,7 @@ public class EstablecerUbicacionActivity
 
         @Override
         protected void onReceiveResult(int resultCode, Bundle resultData) {
-            String direccion = resultData.getString("resultado");
+            direccion = resultData.getString("resultado");
             setearDireccion(direccion);
             double longitud= ultimaLocacionConocida.getLongitude();
             double latitud= ultimaLocacionConocida.getLatitude();
@@ -181,17 +184,15 @@ public class EstablecerUbicacionActivity
                             .position(new LatLng(latitud, longitud))
                             .title("Ubicación"));
                     }
-
-            if(registro) {
-                crearIntentResultado(direccion);
-            }
         }
     }
 
-    private void crearIntentResultado(String direccion) {
+    @Override
+    public void onBackPressed() {
         Intent resultado= new Intent();
         resultado.putExtra("ubicacion", direccion);
         setResult(RESULT_OK, resultado);
-        finish();
+
+        super.onBackPressed();
     }
 }

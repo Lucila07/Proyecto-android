@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class Establecimiento implements Serializable {
 
     private int id;
+    private int idPack;
     private int telefono;
     private int cantMaxOfertas;
     private String nombre;
@@ -77,6 +78,14 @@ public class Establecimiento implements Serializable {
 
     public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
+    }
+
+    public int getIdPack() {
+        return idPack;
+    }
+
+    public void setIdPack(int idPack) {
+        this.idPack = idPack;
     }
 
     public Establecimiento() {

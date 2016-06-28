@@ -25,5 +25,13 @@ public class Constantes {
 
     public static final String LOGIN= IP + PUERTO_HOST + "/ConsultasEstablecimiento.php";
 
-
+    //Usados por la actividad ComprarPackActivity
+    public static final String PACKS_DISPONIBLES = "packs_disponibles";
+    public static final String ID_PACK_COMPRADO = "id_pack_comprado";
+    public static final String PACK_ELEGIDO = "pack_elegido";
+    public static final String JSON_RESPUESTA = "JSONRespuesta";
+    public static final String SERVICIO_VOLLEY = "servicio_volley";
+    public static final String ARREGLO_DEPORTES_ESTABLECIMIENTO = "arreglo_deportes_establecimiento";
+    public static final String OFERTA_EDITAR = "oferta_editar";
+    public static final String CREAR_OFERTA_FRAG = "crear_oferta_frag";
 }

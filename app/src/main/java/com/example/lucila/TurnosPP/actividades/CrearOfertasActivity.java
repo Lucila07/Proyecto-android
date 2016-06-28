@@ -34,7 +34,8 @@ public class CrearOfertasActivity
         extends AppCompatActivity
         implements CrearOfertasFragment.OnCrearOfertaListener,
         TimePickerFragment.OnHoraElegidaListener,
-                   DatePickerFragment.OnFechaElegidaListener {
+        DatePickerFragment.OnFechaElegidaListener {
+
     private static String TAG= "FRAGMENT_CREAR_OFERTA";
 
     private Oferta ofertaACrear;
@@ -48,7 +49,7 @@ public class CrearOfertasActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_ofertas);
 
-        idEst= getIntent().getIntExtra("id",0);
+        idEst= getIntent().getIntExtra("id", 0);
         if(savedInstanceState != null) {
             deportes= savedInstanceState.getStringArray("deportes");
             ofertaACrear= (Oferta) savedInstanceState.getSerializable("oferta");
@@ -64,11 +65,13 @@ public class CrearOfertasActivity
             ofertaACrear= new Oferta();
         crearOferta= false;
         eliminar= false;
-        getSupportFragmentManager().beginTransaction().add(
-                R.id.panel_fragment_crearOfertas,
-                CrearOfertasFragment.newInstance(deportes, editar, ofertaACrear),
-                TAG
-        ).commit();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(
+                    R.id.panel_fragment_crearOfertas,
+                    CrearOfertasFragment.newInstance(deportes, editar, ofertaACrear),
+                    TAG)
+                .commit();
     }
 
     @Override
@@ -98,7 +101,7 @@ public class CrearOfertasActivity
     }
 
     @Override
-    public void onCrearOferta(Oferta oferta) {
+    public void onCrearOferta(Oferta oferta, boolean editar) {
         ofertaACrear= oferta;
         crearRequestAlServer(oferta);
     }
@@ -119,7 +122,6 @@ public class CrearOfertasActivity
     public void onHoraElegida(int hora, int min) {
         CrearOfertasFragment fragmentCO= (CrearOfertasFragment) getSupportFragmentManager().findFragmentByTag(TAG);
         fragmentCO.setHora(hora, min);
-
     }
 
     @Override
@@ -129,21 +131,12 @@ public class CrearOfertasActivity
     }
 
     public void eliminarOferta(int codigo) {
-        Map<String,String> mapeoJSON= new HashMap<>();
-        mapeoJSON.put("funcion", "eliminarOferta");
-        mapeoJSON.put("codigo", Integer.toString(codigo));
-        eliminar= true;
-        crearPOSTJson(mapeoJSON);
+        //No se usa
     }
 
     private void crearRequestAlServer(Oferta oferta) {
         Map<String,String> mapeoJSON= new HashMap<>();
-        if(editar) {
-            mapeoJSON.put("funcion", "actualizarOferta");
-            mapeoJSON.put("idOferta", Integer.toString(oferta.getCodigo()));
-        }
-        else
-            mapeoJSON.put("funcion","crearOferta");
+        mapeoJSON.put("funcion","crearOferta");
         Calendar fechaElegida= oferta.getFecha();
         fechaElegida.set(Calendar.SECOND,0);
         SimpleDateFormat formatoFecha= new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");

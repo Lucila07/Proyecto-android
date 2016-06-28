@@ -2,43 +2,47 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Panel botones -->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        />
+
     <LinearLayout
-        android:id="@+id/panel_botones_menu_principal"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.25"
-        android:orientation="vertical"
-        android:paddingTop="50dp"
-        android:background="@color/colorPrimaryLight">
+        android:orientation="horizontal">
 
-        <fragment
-            android:layout_width="match_parent"
+        <!-- Panel botones -->
+        <LinearLayout
+            android:id="@+id/panel_botones_menu_principal"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:name="com.example.lucila.turnosPP.fragmentos.MenuPrincipalFragment"
-            tools:layout="@layout/fragment_menu_principal"
-            />
-    </LinearLayout>
+            android:layout_weight="0.25"
+            android:orientation="vertical"
+            android:paddingTop="50dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:background="@color/colorPrimaryLight">
 
-    <!-- Panel info -->
-    <LinearLayout
-        android:id="@+id/panel_info_menu_principal"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="0.75"
-        android:orientation="vertical"
-        android:padding="16dp">
+        </LinearLayout>
 
-        <fragment
-            android:layout_width="match_parent"
+        <!-- Panel info -->
+        <LinearLayout
+            android:id="@+id/panel_info_menu_principal"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:name="com.example.lucila.turnosPP.fragmentos.OfertasFragment"
-            tools:layout="@layout/fragment_oferta_list"
-            />
+            android:layout_weight="0.75"
+            android:orientation="vertical"
+            android:padding="16dp"/>
     </LinearLayout>
-
 </LinearLayout>

@@ -23,21 +23,26 @@ import com.example.lucila.turnosPP.constantes.Constantes;
 import com.example.lucila.turnosPP.fragmentos.DeportesCheckerFragment;
 import com.example.lucila.turnosPP.fragmentos.EstablecerUbicacionFragment;
 import com.example.lucila.turnosPP.fragmentos.InfoUsuarioFragment;
+import com.example.lucila.turnosPP.servicios.VolleyRequestService;
 import com.google.android.gms.ads.identifier.AdvertisingIdClient;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
 public class RegistrarseActivity
-        extends AppCompatActivity
+        extends ToolbarActivity
         implements InfoUsuarioFragment.OnFragmentInteractionListener {
 
     private static final String TAG= RegistrarseActivity.class.getSimpleName();
@@ -46,12 +51,14 @@ public class RegistrarseActivity
     private final static int COD_UBICACION= 2;
 
     private Establecimiento establecimiento;
+    private boolean editar;
 
     //Usado por la actividad DeportesChecker
     private Map<String, Boolean> mapeoDeportes;
 
     //Deportes ingresados por el usuario
     private List<String> deportesNuevos;
+    private List<String> deportesQuitados;
 
     private InfoUsuarioFragment fragmentoInfoUsuario;
 
@@ -60,29 +67,59 @@ public class RegistrarseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registrarse_activity);
 
-        fragmentoInfoUsuario= (InfoUsuarioFragment) getSupportFragmentManager().findFragmentById(R.id.fragmento_infousuario);
-
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
-
         establecimiento= new Establecimiento();
         if(savedInstanceState != null) {
             mapeoDeportes= (Map<String, Boolean>) savedInstanceState.getSerializable("mapeo");
-            deportesNuevos= (List<String>) savedInstanceState.getSerializable("lista");
+            deportesNuevos= (List<String>) savedInstanceState.getSerializable("depNuevos");
+            deportesQuitados= (List<String>) savedInstanceState.getSerializable("depEliminados");
+            establecimiento= (Establecimiento) savedInstanceState.getSerializable("establecimiento");
+            editar= savedInstanceState.getBoolean("editar");
         } else {
             //Creo el mapeo para las actividades que lo usan
             mapeoDeportes= new HashMap<>();
             String[] dep= (String[]) getIntent().getSerializableExtra("Tdeportes");
+            editar= getIntent().getBooleanExtra("editar", false);
+            if(editar)
+                establecimiento = (Establecimiento) getIntent().getSerializableExtra("establecimiento");
             if(dep != null)
                 for(String d : dep)
                     mapeoDeportes.put(d, false);
         }
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        if(myToolbar != null) {
+            myToolbar.getMenu().clear();
+            if(editar)
+                myToolbar.setTitle(R.string.title_editar_perfil);
+        }
+        setSupportActionBar(myToolbar);
+
+
+        fragmentoInfoUsuario= InfoUsuarioFragment.newInstance(establecimiento);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.panel_fragment_registrarAct,
+                        fragmentoInfoUsuario)
+                .commit();
     }
+
+    @Override
+    protected void logout() {}
+
+    @Override
+    protected void perfil() {}
+
+    @Override
+    protected void opciones() {}
 
     @Override
     public void onSaveInstanceState(Bundle savedInstaceState) {
         savedInstaceState.putSerializable("mapeo",(Serializable) mapeoDeportes);
-
+        savedInstaceState.putBoolean("editar", editar);
+        savedInstaceState.putSerializable("depNuevos", (Serializable) deportesNuevos);
+        savedInstaceState.putSerializable("depEliminados", (Serializable) deportesQuitados);
+        savedInstaceState.putSerializable("establecimiento", (Serializable) establecimiento);
+        super.onSaveInstanceState(savedInstaceState);
     }
 
     @Override
@@ -113,12 +150,19 @@ public class RegistrarseActivity
                 case COD_DEP_CHECKER: {
                     //Mapeo de los deportes elegidos
                     mapeoDeportes= (Map<String, Boolean>) data.getSerializableExtra("mapeo");
-                    deportesNuevos= new ArrayList<>();
-                    for(String dep : mapeoDeportes.keySet())
-                        if(mapeoDeportes.get(dep).booleanValue())
-                            deportesNuevos.add(dep);
-                    establecimiento.setDeportes((ArrayList<String>) deportesNuevos);
-                    fragmentoInfoUsuario.actualizarDeportesUsuario(deportesNuevos);
+
+                    //Lista de las diferencias actualizadas
+                    deportesNuevos = (List<String>) data.getSerializableExtra("deportesNuevos");
+                    if(editar)
+                            deportesQuitados= (List<String>) data.getSerializableExtra("deportesEliminar");
+
+                    //Lista auxiliar para actualizar la UI
+                    List<String> aux= new ArrayList<>(mapeoDeportes.keySet().size());
+                    for (String dep : mapeoDeportes.keySet())
+                        if (mapeoDeportes.get(dep))
+                            aux.add(dep);
+                    establecimiento.setDeportes((ArrayList<String>) aux);
+                    fragmentoInfoUsuario.actualizarDeportesUsuario(aux);
                     break;
                 }
                 case COD_UBICACION: {
@@ -131,8 +175,64 @@ public class RegistrarseActivity
     }
 
     private void crearUser(String pass) {
+        //Creo el mapeo para el web service
+        Map<String, String> mapa= crearMapa(pass);
+        JSONObject postJSON= new JSONObject(mapa);
+        try {
+            postJSON.put("deportesEliminar", new JSONArray(deportesQuitados));
+            postJSON.put("deportesNuevos", new JSONArray(deportesNuevos));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        VolleySingleton.getInstance(this).addToRequestQueue(
+                new JsonObjectRequest(
+                        Request.Method.POST,
+                        Constantes.UPDATE,
+                        postJSON,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                // Procesar la respuesta del servidor
+                                procesarRespuestaExitosa(response);
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.d("Volley", "Error Volley: " + error.getMessage());
+                            }
+                        }
+
+                ) {
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        Map<String, String> headers = new HashMap<String, String>();
+                        headers.put("Content-Type", "application/json; charset=utf-8");
+                        headers.put("Accept", "application/json");
+                        return headers;
+                    }
+
+                    @Override
+                    public String getBodyContentType() {
+                        return "application/json; charset=utf-8" + getParamsEncoding();
+                    }
+                }
+        );
+    }
+
+    @Override
+    protected void procesarRespuestaExitosa(JSONObject respuesta) {
+        finish();
+    }
+
+    private Map<String, String> crearMapa(String pass) {
         Map<String, String> mapa= new HashMap<>();
-        mapa.put("funcion","crearUsuario");
+        if(editar) {
+            mapa.put("funcion", "actualizarUsuario");
+            mapa.put("idUser",String.valueOf(establecimiento.getId()));
+        }
+        else
+            mapa.put("funcion","crearUsuario");
         mapa.put("user", establecimiento.getNombre());
         mapa.put("email", establecimiento.getEmail());
         mapa.put("pass", pass);
@@ -146,48 +246,6 @@ public class RegistrarseActivity
         }
         if(establecimiento.getTelefono() != 0)
             mapa.put("telefono", String.valueOf(establecimiento.getTelefono()));
-        JSONObject jsonObject= new JSONObject(mapa);
-        JSONArray array = new JSONArray(deportesNuevos);
-        try {
-            jsonObject= jsonObject.put("deportesNuevos", array);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        Log.d(TAG, jsonObject.toString());
-        VolleySingleton.getInstance(this).addToRequestQueue(
-                new JsonObjectRequest(
-                        Request.Method.POST,
-                        Constantes.UPDATE,
-                        jsonObject,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                procesarRespuesta(response);
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                mensajeError("Error de conección");
-                                Log.d(TAG,error.getMessage());
-                            }
-                        }
-                ));
-    }
-
-    private void procesarRespuesta(JSONObject response) {
-        try {
-            int resultado= response.getInt("estado");
-            if(resultado == 1)
-                finish();
-            else
-                mensajeError("Hubo un error al procesar los datos");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void mensajeError(String mensaje) {
-        Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
+        return mapa;
     }
 }

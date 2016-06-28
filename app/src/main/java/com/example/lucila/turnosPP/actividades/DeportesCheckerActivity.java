@@ -5,22 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.ServerError;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.lucila.myapplication.R;
-import com.example.lucila.turnosPP.beans.VolleySingleton;
-import com.example.lucila.turnosPP.constantes.Constantes;
 import com.example.lucila.turnosPP.fragmentos.DeportesCheckerFragment;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -50,7 +36,7 @@ public class DeportesCheckerActivity
             else
                 deportes= (Map<String,Boolean>) getIntent().getSerializableExtra("mapeoDeportes");
         } else
-            //O fue llamada desde un intent
+            //Fue llamada desde un intent
             deportes= (Map<String,Boolean>) getIntent().getSerializableExtra("mapeoDeportes");
 
         //Creao el fragmento de los checkers
@@ -84,7 +70,7 @@ public class DeportesCheckerActivity
     //Analiza los cambios realizados por el usuario y crea 2 listas para saber que deportes
     //hay que actualizar en la base y cuales hay que eliminar
     private List<List<String>> analizarCambios(Map<String, Boolean> deportesAct) {
-        List<List<String>> toR= new ArrayList<List<String>>();
+        List<List<String>> toR= new ArrayList<>();
         toR.add(new ArrayList<String>());//Lista de deportes nuevos
         toR.add(new ArrayList<String>());//Lista de deportes a eliminar
 
@@ -93,11 +79,11 @@ public class DeportesCheckerActivity
             Boolean b1, b2;
             b1= deportes.get(deporte);
             b2= deportesAct.get(deporte);
-            if(!b1.booleanValue() && b2.booleanValue()) {
+            if(!b1 && b2) {
                 //Antes no lo tenia, pero ahora lo agregó
                 toR.get(0).add(deporte);
             }
-            else if(b1.booleanValue() && !b2.booleanValue()) {
+            else if(b1 && !b2) {
                 //Antes lo tenia pero lo sacó
                 toR.get(1).add(deporte);
             }

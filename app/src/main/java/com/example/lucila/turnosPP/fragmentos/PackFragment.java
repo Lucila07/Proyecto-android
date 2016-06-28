@@ -8,13 +8,10 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.lucila.myapplication.R;
 import com.example.lucila.turnosPP.beans.Pack;
-
-import java.util.Locale;
 
 public class PackFragment
         extends Fragment
@@ -65,13 +62,13 @@ public class PackFragment
         ((TextView)toR.findViewById(R.id.textview_descripcionPack)).setText(mPack.getDescripcion());
         ((TextView)toR.findViewById(R.id.textview_cantidadOfertasPack)).setText(textCantidadOfertas);
 
-        //Seteo un click listener a el fragmento
-        toR.setOnClickListener(this);
-
         //Si es un pack ya comprado, cambio el color de fondo para crear el efecto de un marco
         if(adquirido) {
             int color= ContextCompat.getColor(getContext(),R.color.colorAccentLight);
             toR.findViewById(R.id.FragmentPack_Marco).setBackgroundColor(color);
+        } else {
+            //Sino seteo un click listener a el fragmento
+            toR.setOnClickListener(this);
         }
         return toR;
     }
