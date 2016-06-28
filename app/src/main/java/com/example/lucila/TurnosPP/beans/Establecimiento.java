@@ -93,7 +93,7 @@ public class Establecimiento implements Serializable {
         telefono= 0;
         cantMaxOfertas= 0;
         nombre= "";
-        token= "";
+        token= null;
         ubicacion= "";
         email= "";
     }
