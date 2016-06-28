@@ -26,6 +26,13 @@ public class EstablecimientosDeserializer implements JsonDeserializer<Establecim
         if(jsonObject.get("telefono")!=null)
             telefono =jsonObject.get("telefono").toString();
 
+        if(direccion.length()>2)
+            direccion=direccion.substring(1,direccion.length()-1);
+        if(ubicacion.length()>2)
+            ubicacion=ubicacion.substring(1,ubicacion.length()-1);
+        if(telefono.length()>2)
+            telefono=telefono.substring(1,telefono.length()-1);
+
         Establecimiento establecimiento= new Establecimiento();
         //setters
         establecimiento.setId(id);

@@ -264,18 +264,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     // Show location settings when the user acknowledges the alert dialog
                     Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                     startActivityForResult(intent,123);
-                    /*PendingIntent pIntent = PendingIntent.getActivity(actividad, 0, intent,PendingIntent.FLAG_UPDATE_CURRENT);
-                   // startActivity(intent);
 
-                    try {
-
-                        pIntent.send(getApplicationContext(), 0, intent);
-
-                    }
-                    catch(PendingIntent.CanceledException e){
-
-                    }
-*/
                 }
             });
             builder.setNegativeButton("CONTINUAR", new DialogInterface.OnClickListener() {
@@ -303,10 +292,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == 123) {
-            switch (requestCode) {
-                case 1:
-                   Log.d("set gps","recibi el okkkkk");
+            LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
+            if ((lm.isProviderEnabled(LocationManager.GPS_PROVIDER) && lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER))) {
+                Log.d("vuelta ","lo prendio");
             }
+            else Log.d("vuelta","no lo prendio");
         }
     }
 
