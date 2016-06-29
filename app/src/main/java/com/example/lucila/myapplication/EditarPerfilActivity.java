@@ -38,8 +38,10 @@ public class EditarPerfilActivity extends AppCompatActivity implements ServicioU
 
         telefono=(EditText)findViewById(R.id.editar_telefono);
         nombre=(EditText)findViewById(R.id.editar_nombre);
+        String telefonoUsuario=usuario.getTelefono();
+        if(!telefonoUsuario.equals("")&&!telefonoUsuario.equals(" "))
+        telefono.setText(telefonoUsuario);
 
-        telefono.setText(usuario.getTelefono());
         nombre.setText(usuario.getNombreApellido());
 
         nuevoNom=" ";

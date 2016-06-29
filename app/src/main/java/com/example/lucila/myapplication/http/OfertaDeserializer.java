@@ -35,8 +35,12 @@ public class OfertaDeserializer implements JsonDeserializer<Oferta> {
         String hora =jsonObject.get("hora").getAsString();
         idUserComprador= jsonObject.get("idUserComprador").toString();
         long idUserCreador =jsonObject.get("idUserCreador").getAsLong();
-        int precioHabitual =jsonObject.get("precioHabitual").getAsInt();
-        int precioOferta =jsonObject.get("precioOferta").getAsInt();
+
+        float auxPH=jsonObject.get("precioHabitual").getAsFloat();
+        int precioHabitual =Math.round(auxPH);
+        float auxPO=jsonObject.get("precioOferta").getAsFloat();
+        int precioOferta =Math.round(auxPO);
+
         String ubicacion=jsonObject.get("ubicacion").toString();
        if(ubicacion.length()>2)
       ubicacion=ubicacion.substring(1,ubicacion.length()-1);

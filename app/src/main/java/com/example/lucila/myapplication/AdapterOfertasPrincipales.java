@@ -87,7 +87,7 @@ public class AdapterOfertasPrincipales extends RecyclerView.Adapter<AdapterOfert
             holder.text_ubicacion.setText(oferta.getUbicacion());
             holder.text_hora.setText(oferta.getHora().toString());
             holder.text_fecha.setText(oferta.getFecha().toString());
-            Integer int_ahorro =new Integer((oferta.getPrecioOferta()*100)/oferta.getPrecioHabitual());
+            Integer int_ahorro =new Integer(((oferta.getPrecioHabitual()-oferta.getPrecioOferta())*100)/oferta.getPrecioHabitual());
             String s_ahorro=int_ahorro.toString();
             holder.text_ahorro.setText(s_ahorro);
 
