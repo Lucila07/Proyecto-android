@@ -16,6 +16,8 @@ import com.example.lucila.myapplication.Datos.ServicioUsuariosHttp;
 import com.example.lucila.myapplication.Entidades.Usuario;
 import com.example.lucila.myapplication.http.VerificaConexion;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+
 public class EditarPerfilActivity extends AppCompatActivity implements ServicioUsuariosHttp.AccesoUsuarios {
 
     private  Toolbar toolbar;
@@ -75,6 +77,11 @@ public class EditarPerfilActivity extends AppCompatActivity implements ServicioU
                 }
             }
         });
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/Roboto-Regular.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
     }
 
     public void setToolbar(){

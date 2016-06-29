@@ -42,10 +42,11 @@
             android:textSize="25dp"
             android:layout_marginTop="10dp"
             android:paddingLeft="20dp"
+            android:layout_marginLeft="20dp"
             android:textColor="@color/abc_input_method_navigation_guard" />
         <Spinner
             android:id="@+id/deportes_spinner"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:textColor="#FFFFFF"

@@ -16,6 +16,8 @@ import com.example.lucila.myapplication.Entidades.Usuario;
 import com.example.lucila.myapplication.ExpandableListAdapter;
 import com.example.lucila.myapplication.R;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+
 /**
  * Created by Lucila on 25/6/2016.
  */
@@ -46,6 +48,11 @@ public class ReservasUsuarioFragment extends android.support.v4.app.Fragment imp
         servicioOfertasHttp.establecerOfertasUsuarioLogueado(user);
         ninguna_oferta=(TextView)v.findViewById(R.id.ofertas_usuario_ninguna);
 
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/Roboto-Regular.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
         return v;
     }
 

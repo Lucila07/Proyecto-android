@@ -80,6 +80,7 @@ public class PerfilFragment  extends android.support.v4.app.Fragment {
                                 if(usuario!=null&&usuario.getUrlFoto()!=null)
                                     descarga.execute(usuario.getUrlFoto().toString());
 
+
                             }
                         });
 
@@ -133,6 +134,7 @@ public class PerfilFragment  extends android.support.v4.app.Fragment {
                 fotoPerfil.setImageBitmap(feed);
                 Log.d("foto perfil", "se seteo con exito");
             }
+            else fotoPerfil.setImageResource(R.drawable.perfil);
         }
     }
 

@@ -89,12 +89,16 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     .addApi(LocationServices.API)
                     .build();
         }
-            if (permiso) {
+        CheckEnableGPS();
+
+
+        if (permiso)
+            {
                 clienteGoogle.connect();
             }
 
         setupToolbar();
-        CheckEnableGPS();
+
 
 
 
@@ -117,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         setupDrawerToggle();
 
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("app/app/build/src/fonts/Roboto-Thin.ttf")
+                .setDefaultFontPath("fonts/Roboto-Regular.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
@@ -263,7 +267,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 public void onClick(DialogInterface dialogInterface, int i) {
                     // Show location settings when the user acknowledges the alert dialog
                     Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                    startActivityForResult(intent,123);
+                    startActivity(intent);
 
                 }
             });
@@ -288,17 +292,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == 123) {
-            LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
-            if ((lm.isProviderEnabled(LocationManager.GPS_PROVIDER) && lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER))) {
-                Log.d("vuelta ","lo prendio");
-            }
-            else Log.d("vuelta","no lo prendio");
-        }
-    }
+
 
     @Override
     protected void onStart() {
@@ -307,8 +301,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
     @Override
     protected void onRestart() {
-        clienteGoogle.connect();
         super.onRestart();
+        LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
+        if (lm.isProviderEnabled(LocationManager.GPS_PROVIDER)&&lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)&&permiso)
+        {
+            Log.d("restart","conecte locacion");
+            clienteGoogle.connect();
+
+        }
 
     }
     @Override

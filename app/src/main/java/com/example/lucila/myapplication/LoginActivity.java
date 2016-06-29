@@ -86,7 +86,7 @@ public class LoginActivity extends AppCompatActivity implements ServicioUsuarios
             }
         });
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/Roboto-Thin.ttf")
+                .setDefaultFontPath("fonts/Roboto-Regular.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
