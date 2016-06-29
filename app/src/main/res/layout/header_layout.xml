@@ -8,9 +8,11 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="160dp"
         android:src="@drawable/icono"
-        />
+        android:background="@color/colorPrimary"
+        android:paddingBottom="14dp"
+        android:paddingTop="14dp" />
 
 
 </LinearLayout>
