@@ -43,6 +43,8 @@
     <string name="presentacion_direccion">Direccion: </string>
     <!-- reserva oferta -->
     <string name="reserva_bt_reservar">Reservar</string>
+    <!--menu de barra -->
+    <string name="menu_logout">Log out</string>
 
     <string-array name="navDrawerItems">
         <item>Mi perfil</item>
