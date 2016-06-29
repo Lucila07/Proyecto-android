@@ -54,7 +54,7 @@
             android:layout_gravity="center|bottom"
             android:id="@+id/bt_guardar_cambios_perfil"
             android:layout_marginTop="30dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/colorAccent"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
             android:textAlignment="center" />
