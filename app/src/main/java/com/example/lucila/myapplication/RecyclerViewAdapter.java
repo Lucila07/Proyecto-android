@@ -34,10 +34,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public ViewHolder(View drawerItem, int itemType,Context context) {
             super(drawerItem);
             this.context = context;
-            drawerItem.setOnClickListener(this);
+
             if(itemType==1){
                 navTitle = (TextView) itemView.findViewById(R.id.tv_NavTitle);
                 navIcon = (ImageView) itemView.findViewById(R.id.iv_NavIcon);
+                drawerItem.setOnClickListener(this);
             }
         }
 
@@ -53,8 +54,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        if(viewType==1){
         View itemLayout =   layoutInflater.inflate(R.layout.drawer_item_layout,null);
         return new ViewHolder(itemLayout,viewType,context);
+        }
+        else if (viewType==0) {
+            View itemHeader = layoutInflater.inflate(R.layout.header_layout,null);
+            return new ViewHolder(itemHeader,viewType,context);
+
+        }
+
+        return null;
     }
 
     @Override
